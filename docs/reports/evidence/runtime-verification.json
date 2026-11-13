@@ -1,0 +1,23 @@
+﻿[
+    {
+        "Path":  "/health/live",
+        "Status":  200,
+        "ContentType":  "application/json; charset=utf-8",
+        "RequestId":  "phase0-verify-001",
+        "Body":  "{\"status\":\"Healthy\",\"totalDurationMs\":4.56,\"checks\":[]}"
+    },
+    {
+        "Path":  "/health/ready",
+        "Status":  200,
+        "ContentType":  "application/json; charset=utf-8",
+        "RequestId":  "phase0-verify-001",
+        "Body":  "{\"status\":\"Healthy\",\"totalDurationMs\":14.18,\"checks\":[{\"name\":\"log-directory\",\"status\":\"Healthy\",\"description\":\"Log directory is writable.\",\"durationMs\":3.3,\"data\":{\"path\":\"D:\\\\project\\\\Trace Forge\\\\src\\\\backend\\\\TraceForge.Api\\\\logs\"}}]}"
+    },
+    {
+        "Path":  "/api/system/info",
+        "Status":  200,
+        "ContentType":  "application/json; charset=utf-8",
+        "RequestId":  "phase0-verify-001",
+        "Body":  "{\"application\":\"TraceForge AI\",\"instanceName\":\"TraceForge AI\",\"version\":\"0.1.0\",\"environment\":\"Development\",\"serverTimeUtc\":\"2026-11-13T12:26:20.7339871+00:00\",\"startedAtUtc\":\"2026-11-13T12:26:20.733568+00:00\",\"uptimeSeconds\":0}"
+    }
+]

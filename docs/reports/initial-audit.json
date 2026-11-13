@@ -1,0 +1,142 @@
+{
+  "report": "initial-audit",
+  "project": "TraceForge AI",
+  "phase": 0,
+  "generatedAtUtc": "2026-11-13T17:30:00Z",
+  "auditor": {
+    "type": "ai-agent",
+    "harness": "OpenCode",
+    "notes": "Audit executed before any source code was written."
+  },
+  "repository": {
+    "path": "D:/project/Trace Forge",
+    "wasEmpty": true,
+    "preExistingFiles": [],
+    "gitBefore": {
+      "isRepository": false,
+      "branch": null,
+      "head": null,
+      "workingTreeClean": null
+    },
+    "gitAfterInit": {
+      "isRepository": true,
+      "branch": "main",
+      "head": null,
+      "note": "Repository initialised during the audit; no commits existed at that point."
+    },
+    "existingArchitecture": null,
+    "existingDependencies": [],
+    "existingTests": 0,
+    "existingSecurityIssues": [],
+    "documentedFunctionality": []
+  },
+  "environment": {
+    "operatingSystem": "Microsoft Windows 11 Pro",
+    "architecture": "x86_64",
+    "totalPhysicalMemoryGb": 15.37,
+    "dotnetSdk": ["10.0.401"],
+    "node": "24.20.0",
+    "npm": "11.19.0",
+    "python": ["3.12.10"],
+    "git": "2.55.0.windows.5",
+    "docker": {
+      "installed": false,
+      "evidence": "docker: The term 'docker' is not recognized"
+    },
+    "postgresql": {
+      "installed": false,
+      "evidence": "psql not found; no postgres service present"
+    },
+    "nmap": {
+      "installed": false,
+      "evidence": "nmap not found on PATH"
+    },
+    "nugetReachable": true,
+    "npmRegistryReachable": true,
+    "npmPingMs": 1002
+  },
+  "implementationGaps": [
+    "Phase 1: authentication, persistence, workspace model",
+    "Phase 2: authorized scope enforcement",
+    "Phase 3: asset discovery",
+    "Phase 4: deterministic detection engine",
+    "Phase 5: Angular dashboard",
+    "Phase 6: attack graph",
+    "Phase 7: AI investigator",
+    "Phase 8: security digital twin",
+    "Phase 9: remediation and verification",
+    "Phase 10: reporting",
+    "Phase 11: incident investigation and replay",
+    "Phase 12: honeypot integration",
+    "Phase 13: production hardening"
+  ],
+  "constraints": [
+    {
+      "id": "ENV-1",
+      "constraint": "Docker not installed",
+      "impact": "Containerised PostgreSQL, lab targets and compose files cannot be executed on this machine",
+      "mitigation": "SQLite development profile planned for Phase 1; compose documented as unverified"
+    },
+    {
+      "id": "ENV-2",
+      "constraint": "PostgreSQL not installed",
+      "impact": "PostgreSQL migrations cannot be verified locally",
+      "mitigation": "Verify EF Core migrations on SQLite; mark PostgreSQL coverage BLOCKED until a server exists"
+    },
+    {
+      "id": "ENV-3",
+      "constraint": "Nmap not installed",
+      "impact": "Nmap integration cannot be executed or verified",
+      "mitigation": "Native TCP connect discovery in Phase 3; Nmap remains optional"
+    },
+    {
+      "id": "ENV-4",
+      "constraint": "16 GB RAM budget",
+      "impact": "Concurrent heavy services would degrade the machine",
+      "mitigation": "Lightweight dev profile, controlled scan concurrency, optional services"
+    }
+  ],
+  "risks": [
+    {
+      "id": "R-01",
+      "risk": "No authentication implemented yet",
+      "severity": "high",
+      "status": "mitigated-by-scope",
+      "detail": "Only health and version endpoints exist; must not be network-exposed before Phase 1"
+    },
+    {
+      "id": "R-02",
+      "risk": "Database capability unverified locally",
+      "severity": "medium",
+      "status": "open",
+      "detail": "Resolved by Phase 1 SQLite development profile"
+    },
+    {
+      "id": "R-03",
+      "risk": "Scan safety controls not implemented",
+      "severity": "critical",
+      "status": "open",
+      "detail": "Scope validation, SSRF and DNS-rebinding defences are blockers for Phase 3 completion"
+    },
+    {
+      "id": "R-04",
+      "risk": "AI provider availability and quota unknown",
+      "severity": "low",
+      "status": "accepted",
+      "detail": "Core product must remain functional without any AI provider"
+    },
+    {
+      "id": "R-05",
+      "risk": "CI workflow not executed on GitHub yet",
+      "severity": "low",
+      "status": "open",
+      "detail": "No remote configured at audit time; will execute on first push"
+    }
+  ],
+  "actionsTaken": [
+    "Enumerated the working directory and confirmed it was empty",
+    "Detected toolchain versions and package-registry connectivity",
+    "Initialised a Git repository on branch main",
+    "Created docs/reports and recorded this audit"
+  ]
+}

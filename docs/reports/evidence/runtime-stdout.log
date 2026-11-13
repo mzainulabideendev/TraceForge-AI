@@ -1,0 +1,40 @@
+Using launch settings from src\backend\TraceForge.Api\Properties\launchSettings.json...
+[17:26:14 DBG] TraceForge AI  Hosting starting
+[17:26:14 INF] TraceForge AI  Now listening on: http://localhost:5080
+[17:26:14 INF] TraceForge AI  Application started. Press Ctrl+C to shut down.
+[17:26:14 INF] TraceForge AI  Hosting environment: Development
+[17:26:14 INF] TraceForge AI  Content root path: D:\project\Trace Forge\src\backend\TraceForge.Api
+[17:26:14 DBG] TraceForge AI  Hosting started
+[17:26:20 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost:5080/health/live - null null
+[17:26:20 INF] TraceForge AI phase0-verify-001 Executing endpoint 'Health checks'
+[17:26:20 DBG] TraceForge AI phase0-verify-001 Running health checks
+[17:26:20 DBG] TraceForge AI phase0-verify-001 Health check processing with combined status Healthy completed after 4.5568ms
+[17:26:20 INF] TraceForge AI phase0-verify-001 Executed endpoint 'Health checks'
+[17:26:20 INF] TraceForge AI phase0-verify-001 HTTP GET /health/live responded 200 in 55.9796 ms
+[17:26:20 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost:5080/health/live - 200 null application/json; charset=utf-8 126.0002ms
+[17:26:20 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost:5080/health/ready - null null
+[17:26:20 INF] TraceForge AI phase0-verify-001 Executing endpoint 'Health checks'
+[17:26:20 DBG] TraceForge AI phase0-verify-001 Running health checks
+[17:26:20 DBG] TraceForge AI phase0-verify-001 Running health check log-directory
+[17:26:20 DBG] TraceForge AI phase0-verify-001 Health check log-directory with status Healthy completed after 3.3034ms with message 'Log directory is writable.'
+[17:26:20 DBG] TraceForge AI phase0-verify-001 Health check data for log-directory:
+    path: D:\project\Trace Forge\src\backend\TraceForge.Api\logs
+    HealthCheckName: log-directory
+
+[17:26:20 DBG] TraceForge AI phase0-verify-001 Health check processing with combined status Healthy completed after 14.1756ms
+[17:26:20 INF] TraceForge AI phase0-verify-001 Executed endpoint 'Health checks'
+[17:26:20 INF] TraceForge AI phase0-verify-001 HTTP GET /health/ready responded 200 in 26.2632 ms
+[17:26:20 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost:5080/health/ready - 200 null application/json; charset=utf-8 30.0322ms
+[17:26:20 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost:5080/api/system/info - null null
+[17:26:20 INF] TraceForge AI phase0-verify-001 Executing endpoint 'HTTP: GET /api/system/info'
+[17:26:20 INF] TraceForge AI phase0-verify-001 Setting HTTP status code 200.
+[17:26:20 INF] TraceForge AI phase0-verify-001 Writing value of type 'SystemInfoResponse' as Json.
+[17:26:20 INF] TraceForge AI phase0-verify-001 Executed endpoint 'HTTP: GET /api/system/info'
+[17:26:20 INF] TraceForge AI phase0-verify-001 HTTP GET /api/system/info responded 200 in 27.6043 ms
+[17:26:20 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost:5080/api/system/info - 200 null application/json; charset=utf-8 29.3237ms
+[17:26:20 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost:5080/api/nope - null null
+[17:26:20 INF] TraceForge AI d36182fad4ac4d06ab9b99a2bbfd2e04 Executing endpoint 'Fallback {*path:nonfile}'
+[17:26:20 INF] TraceForge AI d36182fad4ac4d06ab9b99a2bbfd2e04 Setting HTTP status code 404.
+[17:26:20 INF] TraceForge AI d36182fad4ac4d06ab9b99a2bbfd2e04 Executed endpoint 'Fallback {*path:nonfile}'
+[17:26:20 INF] TraceForge AI d36182fad4ac4d06ab9b99a2bbfd2e04 HTTP GET /api/nope responded 404 in 16.7048 ms
+[17:26:20 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost:5080/api/nope - 404 null application/problem+json 17.5119ms

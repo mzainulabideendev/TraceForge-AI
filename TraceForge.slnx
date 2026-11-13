@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/backend/">
+    <Project Path="src/backend/TraceForge.Api/TraceForge.Api.csproj" />
+  </Folder>
+  <Folder Name="/tests/" />
+  <Folder Name="/tests/unit/">
+    <Project Path="tests/unit/TraceForge.Api.Tests/TraceForge.Api.Tests.csproj" />
+  </Folder>
+</Solution>

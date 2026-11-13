@@ -1,0 +1,44 @@
+# Security Policy
+
+## Supported versions
+
+TraceForge AI is pre-1.0. Only the latest commit on `main` receives security fixes.
+
+## Reporting a vulnerability
+
+Do **not** open a public issue for a security defect. Report it privately to the maintainers through
+the repository's private security advisory channel (GitHub → Security → Advisories → "Report a
+vulnerability"). Include:
+
+- Affected component and commit hash.
+- Reproduction steps against an environment you are authorized to test.
+- Impact assessment (what an attacker gains).
+- Evidence (logs, request/response captures) with secrets redacted.
+
+## Scope of testing
+
+You may not test against systems you do not own or lack written authorization to assess. Reports
+produced by scanning third-party infrastructure will be closed without review.
+
+## Non-negotiable product security rules
+
+These rules apply to every contribution:
+
+1. **No fabricated evidence.** Findings, metrics and graph edges must derive from executed checks.
+2. **No unauthorized scanning.** Every scan resolves to a workspace with an approved scope; targets
+   outside that scope are rejected before a connection is opened.
+3. **No SSRF or DNS-rebinding bypass.** Resolved addresses and redirects are validated against the
+   approved scope at connection time.
+4. **No destructive testing.** No denial of service, credential brute force, persistence, evasion, or
+   data exfiltration.
+5. **AI output is untrusted.** AI responses are validated against a schema, never executed, and never
+   permitted to widen scope or trigger offensive actions. Evidence must be referenced explicitly.
+6. **Secrets stay out of storage and prompts.** Credentials, tokens and personal data are never written
+   into findings, logs, or cloud AI requests.
+7. **Every sensitive action is audited.** Authentication, scope changes, scan launches and report
+   exports are recorded with actor, timestamp (UTC) and outcome.
+
+## Disclosure
+
+We aim to acknowledge reports within 5 business days and to ship a fix or mitigation within 30 days
+for confirmed high-severity issues.

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <RootNamespace>TraceForge.Api</RootNamespace>
+    <AssemblyName>TraceForge.Api</AssemblyName>
+    <Version>0.1.0</Version>
+    <Description>TraceForge AI backend API (Phase 0 baseline).</Description>
+    <UserSecretsId>traceforge-ai-api</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Serilog.AspNetCore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="TraceForge.Api.Tests" />
+  </ItemGroup>
+
+</Project>

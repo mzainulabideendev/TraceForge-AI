@@ -1,0 +1,63 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: build, format, test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Restore
+        run: dotnet restore TraceForge.slnx
+
+      - name: Build (Release, warnings are errors)
+        run: dotnet build TraceForge.slnx --configuration Release --no-restore
+
+      - name: Verify formatting
+        run: dotnet format TraceForge.slnx --verify-no-changes --no-restore
+
+      - name: Audit dependencies for known vulnerabilities
+        run: |
+          output=$(dotnet list TraceForge.slnx package --vulnerable --include-transitive)
+          echo "$output"
+          if echo "$output" | grep -qi "has the following vulnerable packages"; then
+            echo "::error::Vulnerable NuGet packages detected."
+            exit 1
+          fi
+
+      - name: Test
+        run: >
+          dotnet test TraceForge.slnx
+          --configuration Release
+          --no-build
+          --logger "trx;LogFileName=ci.trx"
+          --results-directory TestResults
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: TestResults/
+          if-no-files-found: warn
+          retention-days: 14

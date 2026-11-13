@@ -1,0 +1,60 @@
+# Build output
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+artifacts/
+publish/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Test / coverage output
+TestResults/
+coverage/
+*.trx
+!docs/reports/evidence/*.trx
+*.coverage
+*.coveragexml
+coverage.json
+
+# Frontend
+node_modules/
+dist/
+.angular/
+npm-debug.log*
+yarn-error.log*
+
+# Runtime artifacts
+logs/
+*.log
+!docs/reports/evidence/*.log
+*.db
+*.db-shm
+*.db-wal
+
+# Secrets and local configuration
+.env
+.env.local
+.env.*.local
+appsettings.Local.json
+*.pfx
+*.pem
+*.key
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.swp
+
+# OS
+Thumbs.db
+.DS_Store
+Desktop.ini
+
+# Tooling caches
+.artifacts/
+nupkg/
+*.nupkg

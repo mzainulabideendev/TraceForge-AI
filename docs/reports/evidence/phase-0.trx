@@ -1,0 +1,421 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="5bcc8164-c65e-4f1c-a69d-077a8d980b74" name="zu442@ZAIN 2026-11-13 17:29:50" runUser="ZAIN\zu442" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-13T17:29:50.8616628+05:00" queuing="2026-11-13T17:29:50.8616636+05:00" start="2026-11-13T17:29:48.9793761+05:00" finish="2026-11-13T17:29:51.0479903+05:00" />
+  <TestSettings name="default" id="f717cb5e-3caf-4c57-b72a-b8e6ebcd0aa1">
+    <Deployment runDeploymentRoot="zu442_ZAIN_2026-11-13_17_29_50" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="8d0a54ef-7ed9-4e78-ab0a-0a30a691d950" testId="482c3bcd-5352-cec4-c883-475d1d6d9a47" testName="TraceForge.Api.Tests.SecurityHeaderTests.ApiResponses_CarryDefensiveHeaders" computerName="ZAIN" duration="00:00:00.0546211" startTime="2026-11-13T17:29:50.8192813+05:00" endTime="2026-11-13T17:29:50.8744622+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8d0a54ef-7ed9-4e78-ab0a-0a30a691d950" />
+    <UnitTestResult executionId="08786879-bfd7-496a-9c67-54ccd3889296" testId="38ac43c0-3bb1-d688-9943-4e2d255f1721" testName="TraceForge.Api.Tests.RateLimitingTests.ApiSurface_Returns429WithProblemDetails_AfterLimitExceeded" computerName="ZAIN" duration="00:00:00.0688629" startTime="2026-11-13T17:29:50.8123913+05:00" endTime="2026-11-13T17:29:50.8740968+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="08786879-bfd7-496a-9c67-54ccd3889296" />
+    <UnitTestResult executionId="0e918f20-60f5-4444-a41f-bff6d08b440c" testId="b96c9772-814a-4db0-b0c5-5af603f8ae24" testName="TraceForge.Api.Tests.ConfigurationValidationTests.InvalidConfiguration_FailsStartupValidation(key: &quot;TraceForge:RateLimiting:WindowSeconds&quot;, value: &quot;0&quot;, expectedMember: &quot;WindowSeconds&quot;)" computerName="ZAIN" duration="00:00:00.0498321" startTime="2026-11-13T17:29:50.8121207+05:00" endTime="2026-11-13T17:29:50.8369224+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0e918f20-60f5-4444-a41f-bff6d08b440c" />
+    <UnitTestResult executionId="44da22f3-e64e-4757-876c-a6c366485775" testId="9deb80f0-c584-ea6a-791d-5207be2f7b78" testName="TraceForge.Api.Tests.SystemInfoEndpointTests.InstanceName_ReflectsConfiguration" computerName="ZAIN" duration="00:00:00.5591034" startTime="2026-11-13T17:29:50.1529687+05:00" endTime="2026-11-13T17:29:50.7333147+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="44da22f3-e64e-4757-876c-a6c366485775" />
+    <UnitTestResult executionId="7fb2ba93-0a07-4aa4-8f6a-57f431cc80ae" testId="63aaf2ba-9b71-7345-9e7c-12f40b83ca8f" testName="TraceForge.Api.Tests.HealthEndpointTests.Readiness_ReportsExecutedLogDirectoryCheck" computerName="ZAIN" duration="00:00:00.0764010" startTime="2026-11-13T17:29:50.8107918+05:00" endTime="2026-11-13T17:29:50.8183009+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7fb2ba93-0a07-4aa4-8f6a-57f431cc80ae" />
+    <UnitTestResult executionId="a89d4803-6ddc-44aa-a928-7074c1152b2f" testId="bf529137-20a4-5684-04a7-b0d88ebf4651" testName="TraceForge.Api.Tests.SecurityHeaderTests.ServerHeader_IsNotDisclosed" computerName="ZAIN" duration="00:00:00.0415116" startTime="2026-11-13T17:29:50.8119484+05:00" endTime="2026-11-13T17:29:50.8190072+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a89d4803-6ddc-44aa-a928-7074c1152b2f" />
+    <UnitTestResult executionId="56ef50da-bb38-4282-b51d-194bb4b13714" testId="26733f31-2fa5-5ec6-0be8-9990e6561324" testName="TraceForge.Api.Tests.ConfigurationValidationTests.ValidConfiguration_StartsSuccessfully" computerName="ZAIN" duration="00:00:00.0337200" startTime="2026-11-13T17:29:50.9106623+05:00" endTime="2026-11-13T17:29:50.9442375+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="56ef50da-bb38-4282-b51d-194bb4b13714" />
+    <UnitTestResult executionId="78de7a7f-28cf-4181-b3ce-efe53e652d1a" testId="fc673267-c1de-7e9b-b7d9-0ac1d050da35" testName="TraceForge.Api.Tests.RateLimitingTests.HealthProbes_AreNotSubjectToApiRateLimit" computerName="ZAIN" duration="00:00:00.5705443" startTime="2026-11-13T17:29:50.1989931+05:00" endTime="2026-11-13T17:29:50.8122155+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="78de7a7f-28cf-4181-b3ce-efe53e652d1a" />
+    <UnitTestResult executionId="03e87d00-a46f-45c0-bd84-daf512bd5182" testId="3ddbb78a-cef9-586c-34cd-1f1328d71269" testName="TraceForge.Api.Tests.ConfigurationValidationTests.InvalidConfiguration_FailsStartupValidation(key: &quot;TraceForge:InstanceName&quot;, value: &quot;&quot;, expectedMember: &quot;InstanceName&quot;)" computerName="ZAIN" duration="00:00:00.1577911" startTime="2026-11-13T17:29:50.5684515+05:00" endTime="2026-11-13T17:29:50.7108664+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="03e87d00-a46f-45c0-bd84-daf512bd5182" />
+    <UnitTestResult executionId="9a982c7b-ced2-4458-8c12-6f772b1198dc" testId="bab70e95-f55a-9caf-42ed-9647cdfb15d1" testName="TraceForge.Api.Tests.ConfigurationValidationTests.InvalidConfiguration_FailsStartupValidation(key: &quot;TraceForge:RateLimiting:PermitLimit&quot;, value: &quot;100001&quot;, expectedMember: &quot;PermitLimit&quot;)" computerName="ZAIN" duration="00:00:00.0351922" startTime="2026-11-13T17:29:50.7121821+05:00" endTime="2026-11-13T17:29:50.8109581+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9a982c7b-ced2-4458-8c12-6f772b1198dc" />
+    <UnitTestResult executionId="9a619bed-23f9-4ae5-b0a9-6fe7a575408f" testId="22ef8eea-3a4e-cb08-9078-8b13901f6996" testName="TraceForge.Api.Tests.ConfigurationValidationTests.InvalidConfiguration_FailsStartupValidation(key: &quot;TraceForge:RateLimiting:PermitLimit&quot;, value: &quot;0&quot;, expectedMember: &quot;PermitLimit&quot;)" computerName="ZAIN" duration="00:00:00.3471705" startTime="2026-11-13T17:29:50.2021242+05:00" endTime="2026-11-13T17:29:50.5529461+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9a619bed-23f9-4ae5-b0a9-6fe7a575408f" />
+    <UnitTestResult executionId="9a339d06-a0be-4f0b-8851-05169a1c453a" testId="fbde9e6a-b678-8a05-afb4-3ae959cd9bc1" testName="TraceForge.Api.Tests.HealthEndpointTests.Liveness_ReturnsHealthy_WhenProcessIsServing" computerName="ZAIN" duration="00:00:00.5596030" startTime="2026-11-13T17:29:50.1529987+05:00" endTime="2026-11-13T17:29:50.7334733+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9a339d06-a0be-4f0b-8851-05169a1c453a" />
+    <UnitTestResult executionId="6a455d51-241e-4ec2-a1f5-83d9bc36d6b9" testId="18de4df3-ca45-8c7c-378b-cef1daf2e01a" testName="TraceForge.Api.Tests.ConfigurationValidationTests.InvalidConfiguration_FailsStartupValidation(key: &quot;TraceForge:InstanceName&quot;, value: &quot;   &quot;, expectedMember: &quot;InstanceName&quot;)" computerName="ZAIN" duration="00:00:00.0407014" startTime="2026-11-13T17:29:50.8117028+05:00" endTime="2026-11-13T17:29:50.8120064+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6a455d51-241e-4ec2-a1f5-83d9bc36d6b9" />
+    <UnitTestResult executionId="e92db875-8ec2-4238-9447-71e256ea2729" testId="c2ba772f-9f62-416a-9657-d476c8f0e6e9" testName="TraceForge.Api.Tests.ConfigurationValidationTests.InvalidConfiguration_FailsStartupValidation(key: &quot;TraceForge:RateLimiting:QueueLimit&quot;, value: &quot;-1&quot;, expectedMember: &quot;QueueLimit&quot;)" computerName="ZAIN" duration="00:00:00.0292370" startTime="2026-11-13T17:29:50.8812391+05:00" endTime="2026-11-13T17:29:50.9104230+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e92db875-8ec2-4238-9447-71e256ea2729" />
+    <UnitTestResult executionId="3d802efd-4946-4423-b49d-98f9daf844a8" testId="3622b146-cfa8-a85f-5613-7ea67febdcda" testName="TraceForge.Api.Tests.SystemInfoEndpointTests.ReturnsRealIdentityAndUptime" computerName="ZAIN" duration="00:00:00.1280065" startTime="2026-11-13T17:29:50.8107265+05:00" endTime="2026-11-13T17:29:50.8707023+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3d802efd-4946-4423-b49d-98f9daf844a8" />
+    <UnitTestResult executionId="9ad9f713-8eb0-4860-8016-56a12058e453" testId="c0f15bb0-7a79-5ff0-1ce1-ac3b21b36d23" testName="TraceForge.Api.Tests.SecurityHeaderTests.HstsHeader_IsAbsentOnPlainHttp" computerName="ZAIN" duration="00:00:00.6125921" startTime="2026-11-13T17:29:50.1528918+05:00" endTime="2026-11-13T17:29:50.8117776+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9ad9f713-8eb0-4860-8016-56a12058e453" />
+    <UnitTestResult executionId="a6009c83-f798-4245-8085-808fcfdf8158" testId="b2bf66c8-41e2-81cd-a98c-314f0ba2d85a" testName="TraceForge.Api.Tests.CorrelationIdTests.UnknownRoute_ReturnsProblemDetailsReferencingCorrelationId" computerName="ZAIN" duration="00:00:00.5594563" startTime="2026-11-13T17:29:50.1507325+05:00" endTime="2026-11-13T17:29:50.7334349+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a6009c83-f798-4245-8085-808fcfdf8158" />
+    <UnitTestResult executionId="c909d188-ae66-4913-ba7a-46fcb75c04db" testId="1417e211-6255-61b7-cfd6-9c92e5dbf31d" testName="TraceForge.Api.Tests.ConfigurationValidationTests.InvalidConfiguration_FailsStartupValidation(key: &quot;TraceForge:RateLimiting:WindowSeconds&quot;, value: &quot;3601&quot;, expectedMember: &quot;WindowSeconds&quot;)" computerName="ZAIN" duration="00:00:00.0440929" startTime="2026-11-13T17:29:50.8371137+05:00" endTime="2026-11-13T17:29:50.8810727+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c909d188-ae66-4913-ba7a-46fcb75c04db" />
+    <UnitTestResult executionId="f849e096-cb11-4e08-9363-a6c71ddb0aa4" testId="34da7d8c-216b-8ef4-1384-b173aaac09e0" testName="TraceForge.Api.Tests.CorrelationIdTests.GeneratedId_IsUsed_WhenCallerSuppliesMalformedValue" computerName="ZAIN" duration="00:00:00.0773837" startTime="2026-11-13T17:29:50.8107616+05:00" endTime="2026-11-13T17:29:50.8214824+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f849e096-cb11-4e08-9363-a6c71ddb0aa4" />
+    <UnitTestResult executionId="b416ff2b-4550-4fc5-ae5e-9c18a4330418" testId="781a154c-b7ec-8030-2bcb-76776b177ebf" testName="TraceForge.Api.Tests.CorrelationIdTests.ValidCallerSuppliedId_IsEchoedBack" computerName="ZAIN" duration="00:00:00.0519459" startTime="2026-11-13T17:29:50.8244222+05:00" endTime="2026-11-13T17:29:50.8743067+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b416ff2b-4550-4fc5-ae5e-9c18a4330418" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="TraceForge.Api.Tests.CorrelationIdTests.ValidCallerSuppliedId_IsEchoedBack" storage="d:\project\trace forge\tests\unit\traceforge.api.tests\bin\release\net10.0\traceforge.api.tests.dll" id="781a154c-b7ec-8030-2bcb-76776b177ebf">
+      <Execution id="b416ff2b-4550-4fc5-ae5e-9c18a4330418" />
+      <TestMethod codeBase="D:\project\Trace Forge\tests\unit\TraceForge.Api.Tests\bin\Release\net10.0\TraceForge.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TraceForge.Api.Tests.CorrelationIdTests" name="ValidCallerSuppliedId_IsEchoedBack" />
+    </UnitTest>
+    <UnitTest name="TraceForge.Api.Tests.SecurityHeaderTests.ApiResponses_CarryDefensiveHeaders" storage="d:\project\trace forge\tests\unit\traceforge.api.tests\bin\release\net10.0\traceforge.api.tests.dll" id="482c3bcd-5352-cec4-c883-475d1d6d9a47">
+      <Execution id="8d0a54ef-7ed9-4e78-ab0a-0a30a691d950" />
+      <TestMethod codeBase="D:\project\Trace Forge\tests\unit\TraceForge.Api.Tests\bin\Release\net10.0\TraceForge.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TraceForge.Api.Tests.SecurityHeaderTests" name="ApiResponses_CarryDefensiveHeaders" />
+    </UnitTest>
+    <UnitTest name="TraceForge.Api.Tests.SystemInfoEndpointTests.InstanceName_ReflectsConfiguration" storage="d:\project\trace forge\tests\unit\traceforge.api.tests\bin\release\net10.0\traceforge.api.tests.dll" id="9deb80f0-c584-ea6a-791d-5207be2f7b78">
+      <Execution id="44da22f3-e64e-4757-876c-a6c366485775" />
+      <TestMethod codeBase="D:\project\Trace Forge\tests\unit\TraceForge.Api.Tests\bin\Release\net10.0\TraceForge.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TraceForge.Api.Tests.SystemInfoEndpointTests" name="InstanceName_ReflectsConfiguration" />
+    </UnitTest>
+    <UnitTest name="TraceForge.Api.Tests.ConfigurationValidationTests.InvalidConfiguration_FailsStartupValidation(key: &quot;TraceForge:InstanceName&quot;, value: &quot;   &quot;, expectedMember: &quot;InstanceName&quot;)" storage="d:\project\trace forge\tests\unit\traceforge.api.tests\bin\release\net10.0\traceforge.api.tests.dll" id="18de4df3-ca45-8c7c-378b-cef1daf2e01a">
+      <Execution id="6a455d51-241e-4ec2-a1f5-83d9bc36d6b9" />
+      <TestMethod codeBase="D:\project\Trace Forge\tests\unit\TraceForge.Api.Tests\bin\Release\net10.0\TraceForge.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TraceForge.Api.Tests.ConfigurationValidationTests" name="InvalidConfiguration_FailsStartupValidation" />
+    </UnitTest>
+    <UnitTest name="TraceForge.Api.Tests.ConfigurationValidationTests.InvalidConfiguration_FailsStartupValidation(key: &quot;TraceForge:RateLimiting:WindowSeconds&quot;, value: &quot;0&quot;, expectedMember: &quot;WindowSeconds&quot;)" storage="d:\project\trace forge\tests\unit\traceforge.api.tests\bin\release\net10.0\traceforge.api.tests.dll" id="b96c9772-814a-4db0-b0c5-5af603f8ae24">
+      <Execution id="0e918f20-60f5-4444-a41f-bff6d08b440c" />
+      <TestMethod codeBase="D:\project\Trace Forge\tests\unit\TraceForge.Api.Tests\bin\Release\net10.0\TraceForge.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TraceForge.Api.Tests.ConfigurationValidationTests" name="InvalidConfiguration_FailsStartupValidation" />
+    </UnitTest>
+    <UnitTest name="TraceForge.Api.Tests.HealthEndpointTests.Liveness_ReturnsHealthy_WhenProcessIsServing" storage="d:\project\trace forge\tests\unit\traceforge.api.tests\bin\release\net10.0\traceforge.api.tests.dll" id="fbde9e6a-b678-8a05-afb4-3ae959cd9bc1">
+      <Execution id="9a339d06-a0be-4f0b-8851-05169a1c453a" />
+      <TestMethod codeBase="D:\project\Trace Forge\tests\unit\TraceForge.Api.Tests\bin\Release\net10.0\TraceForge.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TraceForge.Api.Tests.HealthEndpointTests" name="Liveness_ReturnsHealthy_WhenProcessIsServing" />
+    </UnitTest>
+    <UnitTest name="TraceForge.Api.Tests.ConfigurationValidationTests.InvalidConfiguration_FailsStartupValidation(key: &quot;TraceForge:RateLimiting:WindowSeconds&quot;, value: &quot;3601&quot;, expectedMember: &quot;WindowSeconds&quot;)" storage="d:\project\trace forge\tests\unit\traceforge.api.tests\bin\release\net10.0\traceforge.api.tests.dll" id="1417e211-6255-61b7-cfd6-9c92e5dbf31d">
+      <Execution id="c909d188-ae66-4913-ba7a-46fcb75c04db" />
+      <TestMethod codeBase="D:\project\Trace Forge\tests\unit\TraceForge.Api.Tests\bin\Release\net10.0\TraceForge.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TraceForge.Api.Tests.ConfigurationValidationTests" name="InvalidConfiguration_FailsStartupValidation" />
+    </UnitTest>
+    <UnitTest name="TraceForge.Api.Tests.SecurityHeaderTests.HstsHeader_IsAbsentOnPlainHttp" storage="d:\project\trace forge\tests\unit\traceforge.api.tests\bin\release\net10.0\traceforge.api.tests.dll" id="c0f15bb0-7a79-5ff0-1ce1-ac3b21b36d23">
+      <Execution id="9ad9f713-8eb0-4860-8016-56a12058e453" />
+      <TestMethod codeBase="D:\project\Trace Forge\tests\unit\TraceForge.Api.Tests\bin\Release\net10.0\TraceForge.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TraceForge.Api.Tests.SecurityHeaderTests" name="HstsHeader_IsAbsentOnPlainHttp" />
+    </UnitTest>
+    <UnitTest name="TraceForge.Api.Tests.ConfigurationValidationTests.InvalidConfiguration_FailsStartupValidation(key: &quot;TraceForge:InstanceName&quot;, value: &quot;&quot;, expectedMember: &quot;InstanceName&quot;)" storage="d:\project\trace forge\tests\unit\traceforge.api.tests\bin\release\net10.0\traceforge.api.tests.dll" id="3ddbb78a-cef9-586c-34cd-1f1328d71269">
+      <Execution id="03e87d00-a46f-45c0-bd84-daf512bd5182" />
+      <TestMethod codeBase="D:\project\Trace Forge\tests\unit\TraceForge.Api.Tests\bin\Release\net10.0\TraceForge.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TraceForge.Api.Tests.ConfigurationValidationTests" name="InvalidConfiguration_FailsStartupValidation" />
+    </UnitTest>
+    <UnitTest name="TraceForge.Api.Tests.ConfigurationValidationTests.ValidConfiguration_StartsSuccessfully" storage="d:\project\trace forge\tests\unit\traceforge.api.tests\bin\release\net10.0\traceforge.api.tests.dll" id="26733f31-2fa5-5ec6-0be8-9990e6561324">
+      <Execution id="56ef50da-bb38-4282-b51d-194bb4b13714" />
+      <TestMethod codeBase="D:\project\Trace Forge\tests\unit\TraceForge.Api.Tests\bin\Release\net10.0\TraceForge.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TraceForge.Api.Tests.ConfigurationValidationTests" name="ValidConfiguration_StartsSuccessfully" />
+    </UnitTest>
+    <UnitTest name="TraceForge.Api.Tests.ConfigurationValidationTests.InvalidConfiguration_FailsStartupValidation(key: &quot;TraceForge:RateLimiting:QueueLimit&quot;, value: &quot;-1&quot;, expectedMember: &quot;QueueLimit&quot;)" storage="d:\project\trace forge\tests\unit\traceforge.api.tests\bin\release\net10.0\traceforge.api.tests.dll" id="c2ba772f-9f62-416a-9657-d476c8f0e6e9">
+      <Execution id="e92db875-8ec2-4238-9447-71e256ea2729" />
+      <TestMethod codeBase="D:\project\Trace Forge\tests\unit\TraceForge.Api.Tests\bin\Release\net10.0\TraceForge.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TraceForge.Api.Tests.ConfigurationValidationTests" name="InvalidConfiguration_FailsStartupValidation" />
+    </UnitTest>
+    <UnitTest name="TraceForge.Api.Tests.HealthEndpointTests.Readiness_ReportsExecutedLogDirectoryCheck" storage="d:\project\trace forge\tests\unit\traceforge.api.tests\bin\release\net10.0\traceforge.api.tests.dll" id="63aaf2ba-9b71-7345-9e7c-12f40b83ca8f">
+      <Execution id="7fb2ba93-0a07-4aa4-8f6a-57f431cc80ae" />
+      <TestMethod codeBase="D:\project\Trace Forge\tests\unit\TraceForge.Api.Tests\bin\Release\net10.0\TraceForge.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TraceForge.Api.Tests.HealthEndpointTests" name="Readiness_ReportsExecutedLogDirectoryCheck" />
+    </UnitTest>
+    <UnitTest name="TraceForge.Api.Tests.CorrelationIdTests.GeneratedId_IsUsed_WhenCallerSuppliesMalformedValue" storage="d:\project\trace forge\tests\unit\traceforge.api.tests\bin\release\net10.0\traceforge.api.tests.dll" id="34da7d8c-216b-8ef4-1384-b173aaac09e0">
+      <Execution id="f849e096-cb11-4e08-9363-a6c71ddb0aa4" />
+      <TestMethod codeBase="D:\project\Trace Forge\tests\unit\TraceForge.Api.Tests\bin\Release\net10.0\TraceForge.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TraceForge.Api.Tests.CorrelationIdTests" name="GeneratedId_IsUsed_WhenCallerSuppliesMalformedValue" />
+    </UnitTest>
+    <UnitTest name="TraceForge.Api.Tests.SecurityHeaderTests.ServerHeader_IsNotDisclosed" storage="d:\project\trace forge\tests\unit\traceforge.api.tests\bin\release\net10.0\traceforge.api.tests.dll" id="bf529137-20a4-5684-04a7-b0d88ebf4651">
+      <Execution id="a89d4803-6ddc-44aa-a928-7074c1152b2f" />
+      <TestMethod codeBase="D:\project\Trace Forge\tests\unit\TraceForge.Api.Tests\bin\Release\net10.0\TraceForge.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TraceForge.Api.Tests.SecurityHeaderTests" name="ServerHeader_IsNotDisclosed" />
+    </UnitTest>
+    <UnitTest name="TraceForge.Api.Tests.RateLimitingTests.HealthProbes_AreNotSubjectToApiRateLimit" storage="d:\project\trace forge\tests\unit\traceforge.api.tests\bin\release\net10.0\traceforge.api.tests.dll" id="fc673267-c1de-7e9b-b7d9-0ac1d050da35">
+      <Execution id="78de7a7f-28cf-4181-b3ce-efe53e652d1a" />
+      <TestMethod codeBase="D:\project\Trace Forge\tests\unit\TraceForge.Api.Tests\bin\Release\net10.0\TraceForge.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TraceForge.Api.Tests.RateLimitingTests" name="HealthProbes_AreNotSubjectToApiRateLimit" />
+    </UnitTest>
+    <UnitTest name="TraceForge.Api.Tests.ConfigurationValidationTests.InvalidConfiguration_FailsStartupValidation(key: &quot;TraceForge:RateLimiting:PermitLimit&quot;, value: &quot;0&quot;, expectedMember: &quot;PermitLimit&quot;)" storage="d:\project\trace forge\tests\unit\traceforge.api.tests\bin\release\net10.0\traceforge.api.tests.dll" id="22ef8eea-3a4e-cb08-9078-8b13901f6996">
+      <Execution id="9a619bed-23f9-4ae5-b0a9-6fe7a575408f" />
+      <TestMethod codeBase="D:\project\Trace Forge\tests\unit\TraceForge.Api.Tests\bin\Release\net10.0\TraceForge.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TraceForge.Api.Tests.ConfigurationValidationTests" name="InvalidConfiguration_FailsStartupValidation" />
+    </UnitTest>
+    <UnitTest name="TraceForge.Api.Tests.ConfigurationValidationTests.InvalidConfiguration_FailsStartupValidation(key: &quot;TraceForge:RateLimiting:PermitLimit&quot;, value: &quot;100001&quot;, expectedMember: &quot;PermitLimit&quot;)" storage="d:\project\trace forge\tests\unit\traceforge.api.tests\bin\release\net10.0\traceforge.api.tests.dll" id="bab70e95-f55a-9caf-42ed-9647cdfb15d1">
+      <Execution id="9a982c7b-ced2-4458-8c12-6f772b1198dc" />
+      <TestMethod codeBase="D:\project\Trace Forge\tests\unit\TraceForge.Api.Tests\bin\Release\net10.0\TraceForge.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TraceForge.Api.Tests.ConfigurationValidationTests" name="InvalidConfiguration_FailsStartupValidation" />
+    </UnitTest>
+    <UnitTest name="TraceForge.Api.Tests.SystemInfoEndpointTests.ReturnsRealIdentityAndUptime" storage="d:\project\trace forge\tests\unit\traceforge.api.tests\bin\release\net10.0\traceforge.api.tests.dll" id="3622b146-cfa8-a85f-5613-7ea67febdcda">
+      <Execution id="3d802efd-4946-4423-b49d-98f9daf844a8" />
+      <TestMethod codeBase="D:\project\Trace Forge\tests\unit\TraceForge.Api.Tests\bin\Release\net10.0\TraceForge.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TraceForge.Api.Tests.SystemInfoEndpointTests" name="ReturnsRealIdentityAndUptime" />
+    </UnitTest>
+    <UnitTest name="TraceForge.Api.Tests.RateLimitingTests.ApiSurface_Returns429WithProblemDetails_AfterLimitExceeded" storage="d:\project\trace forge\tests\unit\traceforge.api.tests\bin\release\net10.0\traceforge.api.tests.dll" id="38ac43c0-3bb1-d688-9943-4e2d255f1721">
+      <Execution id="08786879-bfd7-496a-9c67-54ccd3889296" />
+      <TestMethod codeBase="D:\project\Trace Forge\tests\unit\TraceForge.Api.Tests\bin\Release\net10.0\TraceForge.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TraceForge.Api.Tests.RateLimitingTests" name="ApiSurface_Returns429WithProblemDetails_AfterLimitExceeded" />
+    </UnitTest>
+    <UnitTest name="TraceForge.Api.Tests.CorrelationIdTests.UnknownRoute_ReturnsProblemDetailsReferencingCorrelationId" storage="d:\project\trace forge\tests\unit\traceforge.api.tests\bin\release\net10.0\traceforge.api.tests.dll" id="b2bf66c8-41e2-81cd-a98c-314f0ba2d85a">
+      <Execution id="a6009c83-f798-4245-8085-808fcfdf8158" />
+      <TestMethod codeBase="D:\project\Trace Forge\tests\unit\TraceForge.Api.Tests\bin\Release\net10.0\TraceForge.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TraceForge.Api.Tests.CorrelationIdTests" name="UnknownRoute_ReturnsProblemDetailsReferencingCorrelationId" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="482c3bcd-5352-cec4-c883-475d1d6d9a47" executionId="8d0a54ef-7ed9-4e78-ab0a-0a30a691d950" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="38ac43c0-3bb1-d688-9943-4e2d255f1721" executionId="08786879-bfd7-496a-9c67-54ccd3889296" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b96c9772-814a-4db0-b0c5-5af603f8ae24" executionId="0e918f20-60f5-4444-a41f-bff6d08b440c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9deb80f0-c584-ea6a-791d-5207be2f7b78" executionId="44da22f3-e64e-4757-876c-a6c366485775" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="63aaf2ba-9b71-7345-9e7c-12f40b83ca8f" executionId="7fb2ba93-0a07-4aa4-8f6a-57f431cc80ae" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bf529137-20a4-5684-04a7-b0d88ebf4651" executionId="a89d4803-6ddc-44aa-a928-7074c1152b2f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="26733f31-2fa5-5ec6-0be8-9990e6561324" executionId="56ef50da-bb38-4282-b51d-194bb4b13714" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fc673267-c1de-7e9b-b7d9-0ac1d050da35" executionId="78de7a7f-28cf-4181-b3ce-efe53e652d1a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3ddbb78a-cef9-586c-34cd-1f1328d71269" executionId="03e87d00-a46f-45c0-bd84-daf512bd5182" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bab70e95-f55a-9caf-42ed-9647cdfb15d1" executionId="9a982c7b-ced2-4458-8c12-6f772b1198dc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="22ef8eea-3a4e-cb08-9078-8b13901f6996" executionId="9a619bed-23f9-4ae5-b0a9-6fe7a575408f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fbde9e6a-b678-8a05-afb4-3ae959cd9bc1" executionId="9a339d06-a0be-4f0b-8851-05169a1c453a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="18de4df3-ca45-8c7c-378b-cef1daf2e01a" executionId="6a455d51-241e-4ec2-a1f5-83d9bc36d6b9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c2ba772f-9f62-416a-9657-d476c8f0e6e9" executionId="e92db875-8ec2-4238-9447-71e256ea2729" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3622b146-cfa8-a85f-5613-7ea67febdcda" executionId="3d802efd-4946-4423-b49d-98f9daf844a8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c0f15bb0-7a79-5ff0-1ce1-ac3b21b36d23" executionId="9ad9f713-8eb0-4860-8016-56a12058e453" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b2bf66c8-41e2-81cd-a98c-314f0ba2d85a" executionId="a6009c83-f798-4245-8085-808fcfdf8158" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1417e211-6255-61b7-cfd6-9c92e5dbf31d" executionId="c909d188-ae66-4913-ba7a-46fcb75c04db" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="34da7d8c-216b-8ef4-1384-b173aaac09e0" executionId="f849e096-cb11-4e08-9363-a6c71ddb0aa4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="781a154c-b7ec-8030-2bcb-76776b177ebf" executionId="b416ff2b-4550-4fc5-ae5e-9c18a4330418" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="20" executed="20" passed="20" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.12)&#xD;
+[xUnit.net 00:00:00.31]   Discovering: TraceForge.Api.Tests&#xD;
+[xUnit.net 00:00:00.40]   Discovered:  TraceForge.Api.Tests&#xD;
+[xUnit.net 00:00:00.44]   Starting:    TraceForge.Api.Tests&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting starting&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting starting&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting starting&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting starting&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting starting&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting starting&#xD;
+[17:29:50 ERR] TraceForge AI  Hosting failed to start&#xD;
+Microsoft.Extensions.Options.OptionsValidationException: TraceForge:RateLimiting:PermitLimit must be between 1 and 100000.&#xD;
+   at Microsoft.Extensions.Options.OptionsFactory`1.Create(String name)&#xD;
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)&#xD;
+   at System.Lazy`1.ExecutionAndPublication(LazyHelper executionAndPublication, Boolean useDefaultConstructor)&#xD;
+   at System.Lazy`1.CreateValue()&#xD;
+   at Microsoft.Extensions.Options.OptionsCache`1.GetOrAdd[TArg](String name, Func`3 createOptions, TArg factoryArgument)&#xD;
+   at Microsoft.Extensions.Options.OptionsMonitor`1.Get(String name)&#xD;
+   at Microsoft.Extensions.DependencyInjection.OptionsBuilderExtensions.&lt;&gt;c__DisplayClass0_1`1.&lt;ValidateOnStart&gt;b__1()&#xD;
+   at Microsoft.Extensions.Options.StartupValidator.Validate()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Microsoft.Extensions.Options.StartupValidator.Validate()&#xD;
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)&#xD;
+[17:29:50 INF] TraceForge AI  Application started. Press Ctrl+C to shut down.&#xD;
+[17:29:50 INF] TraceForge AI  Hosting environment: Development&#xD;
+[17:29:50 INF] TraceForge AI  Content root path: D:\project\Trace Forge\src\backend\TraceForge.Api&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting started&#xD;
+[17:29:50 INF] TraceForge AI  Application started. Press Ctrl+C to shut down.&#xD;
+[17:29:50 INF] TraceForge AI  Application started. Press Ctrl+C to shut down.&#xD;
+[17:29:50 INF] TraceForge AI  Application started. Press Ctrl+C to shut down.&#xD;
+[17:29:50 INF] TraceForge AI  Hosting environment: Development&#xD;
+[17:29:50 INF] TraceForge AI  Hosting environment: Development&#xD;
+[17:29:50 INF] TraceForge AI  Content root path: D:\project\Trace Forge\src\backend\TraceForge.Api&#xD;
+[17:29:50 INF] TraceForge AI  Content root path: D:\project\Trace Forge\src\backend\TraceForge.Api&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting started&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting started&#xD;
+[17:29:50 INF] TraceForge AI  Hosting environment: Development&#xD;
+[17:29:50 INF] TraceForge AI  Content root path: D:\project\Trace Forge\src\backend\TraceForge.Api&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting started&#xD;
+[17:29:50 INF] TraceForge AI  Application started. Press Ctrl+C to shut down.&#xD;
+[17:29:50 INF] TraceForge AI  Hosting environment: Development&#xD;
+[17:29:50 INF] TraceForge AI  Content root path: D:\project\Trace Forge\src\backend\TraceForge.Api&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting started&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting starting&#xD;
+[17:29:50 ERR] TraceForge AI  Hosting failed to start&#xD;
+Microsoft.Extensions.Options.OptionsValidationException: TraceForge:InstanceName must be a non-empty value.; TraceForge:InstanceName must be between 1 and 120 characters.&#xD;
+   at Microsoft.Extensions.Options.OptionsFactory`1.Create(String name)&#xD;
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)&#xD;
+   at System.Lazy`1.ExecutionAndPublication(LazyHelper executionAndPublication, Boolean useDefaultConstructor)&#xD;
+   at System.Lazy`1.CreateValue()&#xD;
+   at Microsoft.Extensions.Options.OptionsCache`1.GetOrAdd[TArg](String name, Func`3 createOptions, TArg factoryArgument)&#xD;
+   at Microsoft.Extensions.Options.OptionsMonitor`1.Get(String name)&#xD;
+   at Microsoft.Extensions.DependencyInjection.OptionsBuilderExtensions.&lt;&gt;c__DisplayClass0_1`1.&lt;ValidateOnStart&gt;b__1()&#xD;
+   at Microsoft.Extensions.Options.StartupValidator.Validate()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Microsoft.Extensions.Options.StartupValidator.Validate()&#xD;
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)&#xD;
+[17:29:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost/api/system/info - null null&#xD;
+[17:29:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost/api/system/info - null null&#xD;
+[17:29:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost/health/live - null null&#xD;
+[17:29:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost/api/does-not-exist - null null&#xD;
+[17:29:50 INF] TraceForge AI trace-me-456 Executing endpoint 'Fallback {*path:nonfile}'&#xD;
+[17:29:50 INF] TraceForge AI 7384be51f4c6454a994c2060ff1a628b Executing endpoint 'Health checks'&#xD;
+[17:29:50 INF] TraceForge AI 104d7363bb8b4675be341bb85f9edb0c Executing endpoint 'HTTP: GET /api/system/info'&#xD;
+[17:29:50 INF] TraceForge AI 4e5c05b9881844d8855bfe739fa7f576 Executing endpoint 'HTTP: GET /api/system/info'&#xD;
+[17:29:50 DBG] TraceForge AI 7384be51f4c6454a994c2060ff1a628b Running health checks&#xD;
+[17:29:50 DBG] TraceForge AI 7384be51f4c6454a994c2060ff1a628b Health check processing with combined status Healthy completed after 4.6776ms&#xD;
+[17:29:50 INF] TraceForge AI 7384be51f4c6454a994c2060ff1a628b Executed endpoint 'Health checks'&#xD;
+[17:29:50 INF] TraceForge AI 4e5c05b9881844d8855bfe739fa7f576 Executed endpoint 'HTTP: GET /api/system/info'&#xD;
+[17:29:50 INF] TraceForge AI trace-me-456 Executed endpoint 'Fallback {*path:nonfile}'&#xD;
+[17:29:50 INF] TraceForge AI 104d7363bb8b4675be341bb85f9edb0c Executed endpoint 'HTTP: GET /api/system/info'&#xD;
+[17:29:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost/health/live - 200 null application/json; charset=utf-8 101.7206ms&#xD;
+[17:29:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost/api/does-not-exist - 404 null application/problem+json 102.3063ms&#xD;
+[17:29:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost/api/system/info - 200 null application/json; charset=utf-8 102.6407ms&#xD;
+[17:29:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost/api/system/info - 200 null application/json; charset=utf-8 102.6463ms&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopping&#xD;
+[17:29:50 INF] TraceForge AI  Application is shutting down...&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopped&#xD;
+[17:29:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost/api/system/info - null null&#xD;
+[17:29:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost/api/system/info - null null&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopping&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopped&#xD;
+[17:29:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost/api/system/info - 429 null application/problem+json 4.9196ms&#xD;
+[17:29:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost/health/live - null null&#xD;
+[17:29:50 INF] TraceForge AI 2ca94eea54824a74afc27d454d3be398 Executing endpoint 'Health checks'&#xD;
+[17:29:50 DBG] TraceForge AI 2ca94eea54824a74afc27d454d3be398 Running health checks&#xD;
+[17:29:50 DBG] TraceForge AI 2ca94eea54824a74afc27d454d3be398 Health check processing with combined status Healthy completed after 0.1189ms&#xD;
+[17:29:50 INF] TraceForge AI 2ca94eea54824a74afc27d454d3be398 Executed endpoint 'Health checks'&#xD;
+[17:29:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost/health/live - 200 null application/json; charset=utf-8 0.8962ms&#xD;
+[17:29:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost/health/ready - null null&#xD;
+[17:29:50 INF] TraceForge AI e8a02690074647cfbc985340115d2f66 Executing endpoint 'HTTP: GET /api/system/info'&#xD;
+[17:29:50 INF] TraceForge AI 1d31034a3fd74908a2a16cbe19513b26 Executing endpoint 'Health checks'&#xD;
+[17:29:50 DBG] TraceForge AI 1d31034a3fd74908a2a16cbe19513b26 Running health checks&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting starting&#xD;
+[17:29:50 DBG] TraceForge AI 1d31034a3fd74908a2a16cbe19513b26 Running health check log-directory&#xD;
+[17:29:50 INF] TraceForge AI e8a02690074647cfbc985340115d2f66 Executed endpoint 'HTTP: GET /api/system/info'&#xD;
+[17:29:50 DBG] TraceForge AI 1d31034a3fd74908a2a16cbe19513b26 Health check log-directory with status Healthy completed after 5.5043ms with message 'Log directory is writable.'&#xD;
+[17:29:50 DBG] TraceForge AI 1d31034a3fd74908a2a16cbe19513b26 Health check data for log-directory:&#xD;
+    path: D:\project\Trace Forge\src\backend\TraceForge.Api\logs&#xD;
+    HealthCheckName: log-directory&#xD;
+[17:29:50 INF] TraceForge AI e8a02690074647cfbc985340115d2f66 HTTP GET /api/system/info responded 200 in 14.3374 ms&#xD;
+[17:29:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost/api/system/info - null null&#xD;
+[17:29:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost/health/ready - null null&#xD;
+[17:29:50 DBG] TraceForge AI 1d31034a3fd74908a2a16cbe19513b26 Health check processing with combined status Healthy completed after 18.3277ms&#xD;
+[17:29:50 ERR] TraceForge AI  Hosting failed to start&#xD;
+Microsoft.Extensions.Options.OptionsValidationException: TraceForge:RateLimiting:PermitLimit must be between 1 and 100000.&#xD;
+   at Microsoft.Extensions.Options.OptionsFactory`1.Create(String name)&#xD;
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)&#xD;
+   at System.Lazy`1.ExecutionAndPublication(LazyHelper executionAndPublication, Boolean useDefaultConstructor)&#xD;
+   at System.Lazy`1.CreateValue()&#xD;
+   at Microsoft.Extensions.Options.OptionsCache`1.GetOrAdd[TArg](String name, Func`3 createOptions, TArg factoryArgument)&#xD;
+   at Microsoft.Extensions.Options.OptionsMonitor`1.Get(String name)&#xD;
+   at Microsoft.Extensions.DependencyInjection.OptionsBuilderExtensions.&lt;&gt;c__DisplayClass0_1`1.&lt;ValidateOnStart&gt;b__1()&#xD;
+   at Microsoft.Extensions.Options.StartupValidator.Validate()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Microsoft.Extensions.Options.StartupValidator.Validate()&#xD;
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)&#xD;
+[17:29:50 INF] TraceForge AI bed2b556d4344e8c87a06e6c16897c45 Executing endpoint 'HTTP: GET /api/system/info'&#xD;
+[17:29:50 INF] TraceForge AI fa08baf2e4a04b2abd629d3ce9aaf95e Executing endpoint 'Health checks'&#xD;
+[17:29:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost/api/system/info - 200 null application/json; charset=utf-8 29.2235ms&#xD;
+[17:29:50 DBG] TraceForge AI fa08baf2e4a04b2abd629d3ce9aaf95e Running health checks&#xD;
+[17:29:50 DBG] TraceForge AI fa08baf2e4a04b2abd629d3ce9aaf95e Running health check log-directory&#xD;
+[17:29:50 INF] TraceForge AI 1d31034a3fd74908a2a16cbe19513b26 Executed endpoint 'Health checks'&#xD;
+[17:29:50 DBG] TraceForge AI fa08baf2e4a04b2abd629d3ce9aaf95e Health check log-directory with status Healthy completed after 0.8652ms with message 'Log directory is writable.'&#xD;
+[17:29:50 DBG] TraceForge AI fa08baf2e4a04b2abd629d3ce9aaf95e Health check data for log-directory:&#xD;
+    path: D:\project\Trace Forge\src\backend\TraceForge.Api\logs&#xD;
+    HealthCheckName: log-directory&#xD;
+[17:29:50 DBG] TraceForge AI fa08baf2e4a04b2abd629d3ce9aaf95e Health check processing with combined status Healthy completed after 1.7895ms&#xD;
+[17:29:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost/health/ready - 200 null application/json; charset=utf-8 27.2839ms&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopping&#xD;
+[17:29:50 INF] TraceForge AI  Application is shutting down...&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopped&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopping&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopped&#xD;
+[17:29:50 INF] TraceForge AI fa08baf2e4a04b2abd629d3ce9aaf95e Executed endpoint 'Health checks'&#xD;
+[17:29:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost/health/ready - 200 null application/json; charset=utf-8 12.5629ms&#xD;
+[17:29:50 INF] TraceForge AI bed2b556d4344e8c87a06e6c16897c45 Executed endpoint 'HTTP: GET /api/system/info'&#xD;
+[17:29:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost/api/system/info - 200 null application/json; charset=utf-8 28.8974ms&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting starting&#xD;
+[17:29:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost/api/system/info - null null&#xD;
+[17:29:50 ERR] TraceForge AI  Hosting failed to start&#xD;
+Microsoft.Extensions.Options.OptionsValidationException: TraceForge:InstanceName must be a non-empty value.; TraceForge:InstanceName must be between 1 and 120 characters.&#xD;
+   at Microsoft.Extensions.Options.OptionsFactory`1.Create(String name)&#xD;
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)&#xD;
+   at System.Lazy`1.ExecutionAndPublication(LazyHelper executionAndPublication, Boolean useDefaultConstructor)&#xD;
+   at System.Lazy`1.CreateValue()&#xD;
+   at Microsoft.Extensions.Options.OptionsCache`1.GetOrAdd[TArg](String name, Func`3 createOptions, TArg factoryArgument)&#xD;
+   at Microsoft.Extensions.Options.OptionsMonitor`1.Get(String name)&#xD;
+   at Microsoft.Extensions.DependencyInjection.OptionsBuilderExtensions.&lt;&gt;c__DisplayClass0_1`1.&lt;ValidateOnStart&gt;b__1()&#xD;
+   at Microsoft.Extensions.Options.StartupValidator.Validate()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Microsoft.Extensions.Options.StartupValidator.Validate()&#xD;
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)&#xD;
+[17:29:50 INF] TraceForge AI bc33e71313b6450786314939e8236435 Executing endpoint 'HTTP: GET /api/system/info'&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting starting&#xD;
+[17:29:50 INF] TraceForge AI bc33e71313b6450786314939e8236435 Setting HTTP status code 200.&#xD;
+[17:29:50 INF] TraceForge AI bc33e71313b6450786314939e8236435 Writing value of type 'SystemInfoResponse' as Json.&#xD;
+[17:29:50 INF] TraceForge AI  Application started. Press Ctrl+C to shut down.&#xD;
+[17:29:50 INF] TraceForge AI  Hosting environment: Development&#xD;
+[17:29:50 INF] TraceForge AI  Content root path: D:\project\Trace Forge\src\backend\TraceForge.Api&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting started&#xD;
+[17:29:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost/api/system/info - null null&#xD;
+[17:29:50 INF] TraceForge AI 9c184f3037794d0a9d68dbdcd17ababa Executing endpoint 'HTTP: GET /api/system/info'&#xD;
+[17:29:50 INF] TraceForge AI 9c184f3037794d0a9d68dbdcd17ababa Setting HTTP status code 200.&#xD;
+[17:29:50 INF] TraceForge AI 9c184f3037794d0a9d68dbdcd17ababa Writing value of type 'SystemInfoResponse' as Json.&#xD;
+[17:29:50 INF] TraceForge AI bc33e71313b6450786314939e8236435 Executed endpoint 'HTTP: GET /api/system/info'&#xD;
+[17:29:50 INF] TraceForge AI bc33e71313b6450786314939e8236435 HTTP GET /api/system/info responded 200 in 24.7805 ms&#xD;
+[17:29:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost/api/system/info - 200 null application/json; charset=utf-8 26.2845ms&#xD;
+[17:29:50 INF] TraceForge AI 9c184f3037794d0a9d68dbdcd17ababa Executed endpoint 'HTTP: GET /api/system/info'&#xD;
+[17:29:50 INF] TraceForge AI 9c184f3037794d0a9d68dbdcd17ababa HTTP GET /api/system/info responded 200 in 11.5097 ms&#xD;
+[17:29:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost/api/system/info - 200 null application/json; charset=utf-8 19.7143ms&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting starting&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting starting&#xD;
+[17:29:50 INF] TraceForge AI  Application started. Press Ctrl+C to shut down.&#xD;
+[17:29:50 INF] TraceForge AI  Hosting environment: Development&#xD;
+[17:29:50 INF] TraceForge AI  Content root path: D:\project\Trace Forge\src\backend\TraceForge.Api&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting started&#xD;
+[17:29:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost/api/system/info - null null&#xD;
+[17:29:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost/api/system/info - null null&#xD;
+[17:29:50 INF] TraceForge AI client-correlation-123 Executing endpoint 'HTTP: GET /api/system/info'&#xD;
+[17:29:50 INF] TraceForge AI 294731088a3c452293ec9f5ef009108a Executing endpoint 'HTTP: GET /api/system/info'&#xD;
+[17:29:50 INF] TraceForge AI client-correlation-123 Setting HTTP status code 200.&#xD;
+[17:29:50 INF] TraceForge AI client-correlation-123 Writing value of type 'SystemInfoResponse' as Json.&#xD;
+[17:29:50 INF] TraceForge AI 294731088a3c452293ec9f5ef009108a Setting HTTP status code 200.&#xD;
+[17:29:50 INF] TraceForge AI 294731088a3c452293ec9f5ef009108a Writing value of type 'SystemInfoResponse' as Json.&#xD;
+[17:29:50 ERR] TraceForge AI  Hosting failed to start&#xD;
+Microsoft.Extensions.Options.OptionsValidationException: TraceForge:RateLimiting:WindowSeconds must be between 1 and 3600.&#xD;
+   at Microsoft.Extensions.Options.OptionsFactory`1.Create(String name)&#xD;
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)&#xD;
+   at System.Lazy`1.ExecutionAndPublication(LazyHelper executionAndPublication, Boolean useDefaultConstructor)&#xD;
+   at System.Lazy`1.CreateValue()&#xD;
+   at Microsoft.Extensions.Options.OptionsCache`1.GetOrAdd[TArg](String name, Func`3 createOptions, TArg factoryArgument)&#xD;
+   at Microsoft.Extensions.Options.OptionsMonitor`1.Get(String name)&#xD;
+   at Microsoft.Extensions.DependencyInjection.OptionsBuilderExtensions.&lt;&gt;c__DisplayClass0_1`1.&lt;ValidateOnStart&gt;b__1()&#xD;
+   at Microsoft.Extensions.Options.StartupValidator.Validate()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Microsoft.Extensions.Options.StartupValidator.Validate()&#xD;
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)&#xD;
+[17:29:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost/api/system/info - null null&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopping&#xD;
+[17:29:50 INF] TraceForge AI  Application is shutting down...&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopped&#xD;
+[17:29:50 INF] TraceForge AI 61879620075847cc83b01f37075e4f76 Executing endpoint 'HTTP: GET /api/system/info'&#xD;
+[17:29:50 INF] TraceForge AI 61879620075847cc83b01f37075e4f76 Executed endpoint 'HTTP: GET /api/system/info'&#xD;
+[17:29:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost/api/system/info - 200 null application/json; charset=utf-8 8.2042ms&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopping&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopped&#xD;
+[17:29:50 INF] TraceForge AI client-correlation-123 Executed endpoint 'HTTP: GET /api/system/info'&#xD;
+[17:29:50 INF] TraceForge AI 294731088a3c452293ec9f5ef009108a Executed endpoint 'HTTP: GET /api/system/info'&#xD;
+[17:29:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost/api/system/info - 200 null application/json; charset=utf-8 18.7954ms&#xD;
+[17:29:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost/api/system/info - 200 null application/json; charset=utf-8 38.3734ms&#xD;
+[17:29:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost/api/system/info - null null&#xD;
+[17:29:50 INF] TraceForge AI d224f5a39b944c7a8cc8b3992146d46b Executing endpoint 'HTTP: GET /api/system/info'&#xD;
+[17:29:50 INF] TraceForge AI d224f5a39b944c7a8cc8b3992146d46b Executed endpoint 'HTTP: GET /api/system/info'&#xD;
+[17:29:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost/api/system/info - 200 null application/json; charset=utf-8 1.3027ms&#xD;
+[17:29:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost/api/system/info - null null&#xD;
+[17:29:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost/api/system/info - 429 null application/problem+json 0.969ms&#xD;
+[17:29:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost/api/system/info - null null&#xD;
+[17:29:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost/api/system/info - 429 null application/problem+json 0.1731ms&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopping&#xD;
+[17:29:50 INF] TraceForge AI  Application is shutting down...&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopped&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopping&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopping&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopped&#xD;
+[17:29:50 INF] TraceForge AI  Application is shutting down...&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopped&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopping&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopped&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting starting&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopping&#xD;
+[17:29:50 INF] TraceForge AI  Application is shutting down...&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopping&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopping&#xD;
+[17:29:50 INF] TraceForge AI  Application is shutting down...&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopped&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopped&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopped&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopping&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopped&#xD;
+[17:29:50 ERR] TraceForge AI  Hosting failed to start&#xD;
+Microsoft.Extensions.Options.OptionsValidationException: TraceForge:RateLimiting:WindowSeconds must be between 1 and 3600.&#xD;
+   at Microsoft.Extensions.Options.OptionsFactory`1.Create(String name)&#xD;
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)&#xD;
+   at System.Lazy`1.ExecutionAndPublication(LazyHelper executionAndPublication, Boolean useDefaultConstructor)&#xD;
+   at System.Lazy`1.CreateValue()&#xD;
+   at Microsoft.Extensions.Options.OptionsCache`1.GetOrAdd[TArg](String name, Func`3 createOptions, TArg factoryArgument)&#xD;
+   at Microsoft.Extensions.Options.OptionsMonitor`1.Get(String name)&#xD;
+   at Microsoft.Extensions.DependencyInjection.OptionsBuilderExtensions.&lt;&gt;c__DisplayClass0_1`1.&lt;ValidateOnStart&gt;b__1()&#xD;
+   at Microsoft.Extensions.Options.StartupValidator.Validate()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Microsoft.Extensions.Options.StartupValidator.Validate()&#xD;
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting starting&#xD;
+[17:29:50 ERR] TraceForge AI  Hosting failed to start&#xD;
+Microsoft.Extensions.Options.OptionsValidationException: TraceForge:RateLimiting:QueueLimit must be 0 or greater.&#xD;
+   at Microsoft.Extensions.Options.OptionsFactory`1.Create(String name)&#xD;
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)&#xD;
+   at System.Lazy`1.ExecutionAndPublication(LazyHelper executionAndPublication, Boolean useDefaultConstructor)&#xD;
+   at System.Lazy`1.CreateValue()&#xD;
+   at Microsoft.Extensions.Options.OptionsCache`1.GetOrAdd[TArg](String name, Func`3 createOptions, TArg factoryArgument)&#xD;
+   at Microsoft.Extensions.Options.OptionsMonitor`1.Get(String name)&#xD;
+   at Microsoft.Extensions.DependencyInjection.OptionsBuilderExtensions.&lt;&gt;c__DisplayClass0_1`1.&lt;ValidateOnStart&gt;b__1()&#xD;
+   at Microsoft.Extensions.Options.StartupValidator.Validate()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Microsoft.Extensions.Options.StartupValidator.Validate()&#xD;
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting starting&#xD;
+[17:29:50 INF] TraceForge AI  Application started. Press Ctrl+C to shut down.&#xD;
+[17:29:50 INF] TraceForge AI  Hosting environment: Development&#xD;
+[17:29:50 INF] TraceForge AI  Content root path: D:\project\Trace Forge\src\backend\TraceForge.Api&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting started&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopping&#xD;
+[17:29:50 INF] TraceForge AI  Application is shutting down...&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopped&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopping&#xD;
+[17:29:50 DBG] TraceForge AI  Hosting stopped&#xD;
+[xUnit.net 00:00:01.27]   Finished:    TraceForge.Api.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
