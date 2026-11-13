@@ -1,0 +1,214 @@
+{
+  "report": "phase-0-baseline",
+  "project": "TraceForge AI",
+  "phase": 0,
+  "phaseName": "Repository and baseline",
+  "status": "complete",
+  "generatedAtUtc": "2026-11-13T17:40:00Z",
+  "git": {
+    "branch": "main",
+    "commit": "cf22f3b14c97233b761164ecbf08395602636440",
+    "commitSubject": "chore(baseline): establish TraceForge AI Phase 0 repository baseline",
+    "workingTreeClean": true,
+    "filesAdded": 43
+  },
+  "environment": {
+    "os": "Microsoft Windows 11 Pro",
+    "dotnetSdk": "10.0.401",
+    "node": "24.20.0",
+    "python": "3.12.10",
+    "docker": "not installed",
+    "postgresql": "not installed",
+    "nmap": "not installed"
+  },
+  "implemented": [
+    "Solution with TraceForge.Api and TraceForge.Api.Tests",
+    "Central package management and shared build settings with analyzers",
+    "ASP.NET Core minimal API host and middleware pipeline",
+    "Serilog structured logging (console + rolling file) with correlation id enrichment",
+    "Correlation id validation, echo and problem-details traceId propagation",
+    "Defensive security headers and Kestrel Server header suppression",
+    "Fixed-window rate limiting on /api with RFC 9457 rejection bodies",
+    "Liveness and readiness health probes; readiness runs a real log-directory check",
+    "/api/system/info reporting version, environment and real uptime",
+    "Startup configuration validation for TraceForge options",
+    "OpenAPI document (Development only)",
+    "Apache-2.0 license, gitignore, gitattributes, editorconfig, env template",
+    "README, CONTRIBUTING, SECURITY, architecture, setup, testing and threat model docs",
+    "GitHub Actions CI workflow (restore, build, format, dependency audit, test, artifacts)",
+    "Initial repository audit in markdown and JSON"
+  ],
+  "notImplemented": [
+    "Authentication and authorization (Phase 1)",
+    "Persistence and workspaces (Phase 1)",
+    "Authorized scope enforcement (Phase 2)",
+    "Asset discovery (Phase 3)",
+    "Detection engine (Phase 4)",
+    "Angular dashboard (Phase 5)",
+    "Attack graph (Phase 6)",
+    "AI investigator (Phase 7)",
+    "Digital twin (Phase 8)",
+    "Remediation (Phase 9)",
+    "Reporting (Phase 10)",
+    "Incident investigation (Phase 11)",
+    "Honeypot (Phase 12)",
+    "Production hardening (Phase 13)"
+  ],
+  "commands": [
+    {
+      "command": "dotnet build TraceForge.slnx --configuration Release",
+      "result": "succeeded",
+      "warnings": 0,
+      "errors": 0
+    },
+    {
+      "command": "dotnet format TraceForge.slnx --verify-no-changes",
+      "result": "succeeded",
+      "exitCode": 0
+    },
+    {
+      "command": "dotnet list TraceForge.slnx package --vulnerable --include-transitive",
+      "result": "succeeded",
+      "vulnerablePackages": 0
+    },
+    {
+      "command": "dotnet test TraceForge.slnx --configuration Release",
+      "result": "passed",
+      "total": 20,
+      "executed": 20,
+      "passed": 20,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "dotnet run --project src/backend/TraceForge.Api --urls http://localhost:5080",
+      "result": "started and served requests"
+    }
+  ],
+  "runtimeVerification": [
+    {
+      "path": "/health/live",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "requestIdEchoed": true
+    },
+    {
+      "path": "/health/ready",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "checksExecuted": ["log-directory"]
+    },
+    {
+      "path": "/api/system/info",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8"
+    },
+    {
+      "path": "/api/nope",
+      "status": 404,
+      "contentType": "application/problem+json",
+      "traceIdPresent": true
+    }
+  ],
+  "tests": {
+    "total": 20,
+    "passed": 20,
+    "failed": 0,
+    "skipped": 0,
+    "byClass": {
+      "HealthEndpointTests": 2,
+      "SecurityHeaderTests": 3,
+      "CorrelationIdTests": 3,
+      "SystemInfoEndpointTests": 2,
+      "RateLimitingTests": 2,
+      "ConfigurationValidationTests": 8
+    }
+  },
+  "securityChecks": [
+    { "check": "defensive response headers", "result": "pass" },
+    { "check": "no Server version disclosure", "result": "pass" },
+    { "check": "no HSTS over plain HTTP", "result": "pass" },
+    { "check": "correlation id injection rejected", "result": "pass" },
+    { "check": "rate limiting enforced with problem details", "result": "pass" },
+    { "check": "health probes exempt from API rate limit", "result": "pass" },
+    { "check": "invalid configuration prevents startup (7 cases)", "result": "pass" },
+    { "check": "no secrets committed", "result": "pass" },
+    { "check": "no known vulnerable NuGet packages", "result": "pass" },
+    { "check": "format and analyzer gate", "result": "pass" }
+  ],
+  "evidence": [
+    {
+      "path": "docs/reports/evidence/phase-0.trx",
+      "description": "TRX test results for all 20 tests",
+      "sha256": "BB81877AFE9EB8B844356E8A68E992EC40AAAAFB234E5DEB734FF29C4F3FAE7A"
+    },
+    {
+      "path": "docs/reports/evidence/runtime-verification.json",
+      "description": "Captured HTTP responses from a real running instance"
+    },
+    {
+      "path": "docs/reports/evidence/runtime-stdout.log",
+      "description": "Serilog console output from the verified run"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "src/backend/TraceForge.Api/bin/Release/net10.0/TraceForge.Api.dll",
+      "sha256": "C2ADCA91AC727070C34EF15A55A70AB04694968C3080DCD9F47AD34D42679C83",
+      "note": "Build output; hash is specific to this build"
+    }
+  ],
+  "knownLimitations": [
+    "No authentication; build must not be network-exposed",
+    "No persistence, findings or evidence storage",
+    "No scanning capability",
+    "HSTS path over HTTPS unverified",
+    "Rate limiting is per-process and keyed on peer address",
+    "OpenAPI served in Development only",
+    "CI workflow not yet executed on GitHub (no remote configured)",
+    "Docker, PostgreSQL and Nmap unavailable on the audit machine",
+    "Layer projects deferred until they contain real code (ADR-004)",
+    "No frontend"
+  ],
+  "unresolvedIssues": [
+    {
+      "id": "R-01",
+      "issue": "No authentication",
+      "severity": "high",
+      "targetPhase": 1
+    },
+    {
+      "id": "R-02",
+      "issue": "Database capability unverified locally",
+      "severity": "medium",
+      "targetPhase": 1
+    },
+    {
+      "id": "R-03",
+      "issue": "Scan safety controls not implemented (blocker for Phase 3)",
+      "severity": "critical",
+      "targetPhase": 2
+    },
+    {
+      "id": "R-05",
+      "issue": "CI workflow not executed on GitHub",
+      "severity": "low",
+      "targetPhase": 1
+    }
+  ],
+  "gates": {
+    "requirementsDefined": true,
+    "functionalityImplemented": true,
+    "unitTests": true,
+    "integrationTests": true,
+    "securityTests": true,
+    "executionEvidence": true,
+    "documentationUpdated": true,
+    "completionReport": true,
+    "unresolvedIssuesExplicit": true,
+    "verifiedCommit": true
+  },
+  "nextPhase": 1,
+  "nextPhaseStarted": false,
+  "approvalRequired": true
+}
