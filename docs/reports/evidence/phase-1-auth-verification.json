@@ -2,7 +2,7 @@
     {
         "Step":  "csrf",
         "Status":  200,
-        "Detail":  "tokenIssued"
+        "Detail":  "token issued"
     },
     {
         "Step":  "register-without-csrf",
@@ -12,12 +12,12 @@
     {
         "Step":  "register-first-account",
         "Status":  201,
-        "Detail":  "roles=Administrator"
+        "Detail":  "bootstrap account"
     },
     {
         "Step":  "me",
         "Status":  200,
-        "Detail":  "email=admin@example.test;role=Administrator"
+        "Detail":  "email=admin@example.test;roles=Administrator"
     },
     {
         "Step":  "admin-users-as-admin",
@@ -37,12 +37,12 @@
     {
         "Step":  "me-after-logout",
         "Status":  401,
-        "Detail":  "unauthenticated -\u003e 401"
+        "Detail":  "unauthenticated"
     },
     {
         "Step":  "admin-users-anonymous",
         "Status":  401,
-        "Detail":  "rejected -\u003e 401"
+        "Detail":  "rejected"
     },
     {
         "Step":  "login",
@@ -51,17 +51,17 @@
     },
     {
         "Step":  "login-wrong-password",
-        "Status":  400,
-        "Detail":  "rejected -\u003e 401"
+        "Status":  401,
+        "Detail":  "invalid credentials"
     },
     {
         "Step":  "register-second-account",
         "Status":  201,
-        "Detail":  "role=Analyst"
+        "Detail":  "second account"
     },
     {
         "Step":  "admin-users-as-analyst",
         "Status":  403,
-        "Detail":  "forbidden -\u003e 403"
+        "Detail":  "role=Analyst;forbidden"
     }
 ]

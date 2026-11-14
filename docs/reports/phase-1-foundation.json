@@ -1,0 +1,302 @@
+{
+  "report": "phase-1-foundation",
+  "project": "TraceForge AI",
+  "phase": 1,
+  "phaseName": "Backend foundation",
+  "status": "complete-with-blocked-verification",
+  "statusDetail": "Authentication, persistence, audit logging and API surface are implemented and verified on SQLite. PostgreSQL migrations were generated but never executed because no server is available; that verification is BLOCKED.",
+  "generatedAtUtc": "2026-11-14T10:36:11Z",
+  "git": {
+    "branch": "main",
+    "commit": "c9c88ef5460498bb931dfb9b6b8076d961705db0",
+    "commitSubject": "feat(phase-1): add authentication, persistence and audit foundation",
+    "workingTreeCleanBeforeReport": true
+  },
+  "environment": {
+    "os": "Microsoft Windows 11 Pro",
+    "dotnetSdk": "10.0.401",
+    "databaseRuntimeVerified": "SQLite (Microsoft.EntityFrameworkCore.Sqlite 10.0.15)",
+    "postgresql": "not installed - runtime verification BLOCKED",
+    "docker": "not installed",
+    "nmap": "not installed"
+  },
+  "implemented": [
+    "Domain, Application and Infrastructure projects containing exercised code",
+    "ASP.NET Core Identity accounts with cookie authentication (HttpOnly, SameSite=Strict, configurable Secure)",
+    "Antiforgery double-submit enforcement on every unsafe /api request",
+    "Administrator and Analyst roles with first-account bootstrap rule",
+    "Password policy (12 chars, upper/lower/digit, 4 unique) and lockout (5 attempts / 15 minutes)",
+    "Append-only audit log for auth and administrative actions",
+    "EF Core persistence with provider-specific SQLite and PostgreSQL migration assemblies",
+    "SQLite DateTimeOffset stored as Unix milliseconds; PostgreSQL uses timestamptz",
+    "Real database check in /health/ready",
+    "Validated auth, database and rate-limit options with fail-fast startup",
+    "Separate tighter rate-limit policy on registration and login",
+    "/api/auth/csrf, /register, /login, /logout, /me and /api/admin/users, /api/admin/audit"
+  ],
+  "scopeClarification": "The Phase 0 report listed workspace isolation among Phase 1 prerequisites. Workspaces are not implemented in Phase 1; they are the subject of Phase 2. The README status table was corrected accordingly. No workspace table, query filter or isolation test exists yet.",
+  "notImplemented": [
+    "Workspace model and cross-workspace isolation (Phase 2)",
+    "Authorized scope enforcement (Phase 2)",
+    "Asset discovery (Phase 3)",
+    "Detection engine (Phase 4)",
+    "Angular dashboard (Phase 5)",
+    "Attack graph (Phase 6)",
+    "AI investigator (Phase 7)",
+    "Security digital twin (Phase 8)",
+    "Remediation (Phase 9)",
+    "Reporting (Phase 10)",
+    "Incident investigation (Phase 11)",
+    "Honeypot (Phase 12)",
+    "Production hardening (Phase 13)",
+    "MFA, password reset and e-mail verification"
+  ],
+  "defectsFoundAndFixed": [
+    {
+      "defect": "SQLite cannot ORDER BY DateTimeOffset; audit read failed with SQLite Error 1",
+      "fix": "Provider-conditional value converter storing UTC as Unix milliseconds; both migration sets regenerated"
+    },
+    {
+      "defect": "Authentication setup read RequireSecureCookies eagerly, ignoring configuration added after service registration",
+      "fix": "Cookie hardening and session lifetime now bind through IOptions<AuthOptions> post-configuration"
+    },
+    {
+      "defect": "Class-scoped test database made bootstrap-Administrator assertions order-dependent",
+      "fix": "Fresh factory and database per test via ApiTestBase"
+    },
+    {
+      "defect": "Reusing a pre-authentication antiforgery token after sign-in returned 400",
+      "fix": "Test client refreshes the token after identity changes; live verification uses a fresh anonymous session"
+    },
+    {
+      "defect": "Secure cookie test ran over plain HTTP and hit the framework's SSL-configuration guard",
+      "fix": "Secure-cookie test now runs over https://localhost through the test server"
+    }
+  ],
+  "commands": [
+    {
+      "command": "dotnet build TraceForge.slnx --configuration Release --no-incremental",
+      "result": "succeeded",
+      "warnings": 0,
+      "errors": 0
+    },
+    {
+      "command": "dotnet format TraceForge.slnx --verify-no-changes",
+      "result": "succeeded",
+      "exitCode": 0
+    },
+    {
+      "command": "dotnet list TraceForge.slnx package --vulnerable --include-transitive",
+      "result": "succeeded",
+      "vulnerablePackages": 0
+    },
+    {
+      "command": "dotnet test TraceForge.slnx --configuration Release --logger trx",
+      "result": "passed",
+      "total": 49,
+      "executed": 49,
+      "passed": 49,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "dotnet ef migrations add InitialCreate --project TraceForge.Migrations.Sqlite",
+      "result": "succeeded"
+    },
+    {
+      "command": "dotnet ef migrations add InitialCreate --project TraceForge.Migrations.PostgreSql",
+      "result": "succeeded"
+    },
+    {
+      "command": "dotnet ef migrations script --project TraceForge.Migrations.PostgreSql",
+      "result": "succeeded",
+      "executedAgainstServer": false
+    },
+    {
+      "command": "dotnet run --project src/backend/TraceForge.Api --urls http://localhost:5080",
+      "result": "started and served requests"
+    }
+  ],
+  "tests": {
+    "total": 49,
+    "passed": 49,
+    "failed": 0,
+    "skipped": 0,
+    "byClass": {
+      "HealthEndpointTests": 2,
+      "SecurityHeaderTests": 3,
+      "CorrelationIdTests": 3,
+      "SystemInfoEndpointTests": 2,
+      "RateLimitingTests": 2,
+      "ConfigurationValidationTests": 14,
+      "AuthFlowTests": 13,
+      "AuthorizationTests": 6,
+      "DatabaseTests": 4
+    }
+  },
+  "runtimeVerification": [
+    { "step": "GET /api/auth/csrf", "status": 200, "observed": "antiforgery token issued" },
+    { "step": "POST /api/auth/register without token", "status": 400, "observed": "blocked by antiforgery" },
+    { "step": "POST /api/auth/register first account", "status": 201, "observed": "role Administrator, signed in" },
+    { "step": "GET /api/auth/me", "status": 200, "observed": "email=admin@example.test; roles=Administrator" },
+    { "step": "GET /api/admin/users as Administrator", "status": 200, "observed": "totalCount=1" },
+    { "step": "GET /api/admin/audit as Administrator", "status": 200, "observed": "totalCount=2; newest=admin.users.listed" },
+    { "step": "POST /api/auth/logout", "status": 204, "observed": "session ended" },
+    { "step": "GET /api/auth/me after logout", "status": 401, "observed": "unauthenticated" },
+    { "step": "GET /api/admin/users anonymous", "status": 401, "observed": "rejected" },
+    { "step": "POST /api/auth/login correct password", "status": 200, "observed": "authenticated" },
+    { "step": "POST /api/auth/login wrong password", "status": 401, "observed": "invalid credentials" },
+    { "step": "POST /api/auth/register second account", "status": 201, "observed": "role Analyst" },
+    { "step": "GET /api/admin/users as Analyst", "status": 403, "observed": "forbidden" }
+  ],
+  "readinessVerification": {
+    "path": "/health/ready",
+    "status": 200,
+    "checks": [
+      { "name": "log-directory", "status": "Healthy" },
+      { "name": "database", "status": "Healthy", "provider": "Microsoft.EntityFrameworkCore.Sqlite" }
+    ],
+    "migrationsApplied": 1,
+    "rolesSeeded": ["Administrator", "Analyst"]
+  },
+  "securityChecks": [
+    { "check": "antiforgery required on unsafe anonymous requests", "result": "pass" },
+    { "check": "antiforgery required on unsafe authenticated requests", "result": "pass" },
+    { "check": "session cookie HttpOnly, SameSite=Strict, Path=/", "result": "pass" },
+    { "check": "session cookie Secure when configured (HTTPS)", "result": "pass" },
+    { "check": "logout terminates session", "result": "pass" },
+    { "check": "Analyst receives 403 on admin endpoints", "result": "pass" },
+    { "check": "anonymous receives 401 problem+json", "result": "pass" },
+    { "check": "weak password and invalid e-mail rejected", "result": "pass" },
+    { "check": "duplicate account rejected with 409", "result": "pass" },
+    { "check": "lockout after repeated failures returns 423", "result": "pass" },
+    { "check": "credential endpoints rate limited (429)", "result": "pass" },
+    { "check": "self-registration closed after bootstrap (403)", "result": "pass" },
+    { "check": "failed sign-ins audited", "result": "pass" },
+    { "check": "audit append-only through application path", "result": "pass" },
+    { "check": "invalid configuration prevents startup (13 cases)", "result": "pass" },
+    { "check": "no secrets committed", "result": "pass" },
+    { "check": "no known vulnerable NuGet packages", "result": "pass" },
+    { "check": "format and analyzer gate", "result": "pass" }
+  ],
+  "evidence": [
+    {
+      "path": "docs/reports/evidence/phase-1.trx",
+      "description": "TRX results for all 49 tests",
+      "sha256": "2C35351BC3EFAAAAA06A5C7D417E28747DB8492A1D0AA8B19E579BFF38B0F4AA"
+    },
+    {
+      "path": "docs/reports/evidence/phase-1-auth-verification.json",
+      "description": "Live HTTP verification of the full auth and RBAC flow",
+      "sha256": "D71DE3612EA3C11CB2B8D9EAD2F8D3E226CC1F4A4C5B98B7197007BFE8328C86"
+    },
+    {
+      "path": "docs/reports/evidence/phase-1-auth.log",
+      "description": "Serilog output from the live verification run",
+      "sha256": "DEACE3429B6B324F85AF64F967302B0CF64A7C69BDC0506D85999FB56028EC3B"
+    },
+    {
+      "path": "docs/reports/evidence/phase-1-startup.log",
+      "description": "Startup log showing migration applied and roles seeded",
+      "sha256": "63968E94F1C29FA3E6093289C2BC8EC339016345B83605797AED43EE7EBE7872"
+    },
+    {
+      "path": "docs/reports/evidence/phase-1-postgresql-schema.sql",
+      "description": "Generated PostgreSQL schema script; never executed (BLOCKED)",
+      "sha256": "6732B64F85FC4821B715D678C6D18D39B5DFFDE2BD62E02696AAB151F18A99E8"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "src/backend/TraceForge.Api/bin/Release/net10.0/TraceForge.Api.dll",
+      "sha256": "7F7FBBA8BABE7BFFA7B6712F0D6EC38304A4EB9C09B0FA14A665D6B3929D03AA",
+      "note": "Build output; hash is specific to this build"
+    }
+  ],
+  "knownLimitations": [
+    "PostgreSQL migrations generated but never executed (BLOCKED: no server)",
+    "Bootstrap administrator decision serialized only within one process",
+    "Audit write failures are logged but do not fail the authentication action",
+    "No database-level audit immutability",
+    "No MFA, password reset or e-mail verification",
+    "No workspaces or cross-workspace isolation yet (Phase 2)",
+    "CI workflow not executed on GitHub (no remote configured)",
+    "Docker, PostgreSQL and Nmap unavailable on the audit machine",
+    "Rate limiting is per-process and keyed on peer address",
+    "HSTS over HTTPS unverified"
+  ],
+  "unresolvedIssues": [
+    {
+      "id": "R-02",
+      "issue": "PostgreSQL schema never executed against a real server",
+      "severity": "medium",
+      "status": "blocked",
+      "targetPhase": "before deployment"
+    },
+    {
+      "id": "R-03",
+      "issue": "Scan safety controls not implemented (blocker for Phase 3)",
+      "severity": "critical",
+      "status": "open",
+      "targetPhase": 2
+    },
+    {
+      "id": "R-05",
+      "issue": "CI workflow not executed on GitHub",
+      "severity": "low",
+      "status": "open",
+      "targetPhase": 1
+    },
+    {
+      "id": "R-06",
+      "issue": "Bootstrap administrator race across multiple instances",
+      "severity": "medium",
+      "status": "open",
+      "targetPhase": "before horizontal scaling"
+    },
+    {
+      "id": "R-07",
+      "issue": "Audit write failure does not fail the auth action; requires alerting",
+      "severity": "medium",
+      "status": "open",
+      "targetPhase": 13
+    },
+    {
+      "id": "R-08",
+      "issue": "Audit rows lack database-level immutability",
+      "severity": "medium",
+      "status": "open",
+      "targetPhase": 13
+    },
+    {
+      "id": "R-09",
+      "issue": "Workspace isolation not implemented",
+      "severity": "high",
+      "status": "open",
+      "targetPhase": 2
+    }
+  ],
+  "gates": {
+    "requirementsDefined": true,
+    "functionalityImplemented": true,
+    "unitTests": true,
+    "integrationTests": true,
+    "securityTests": true,
+    "executionEvidence": true,
+    "documentationUpdated": true,
+    "completionReport": true,
+    "unresolvedIssuesExplicit": true,
+    "verifiedCommit": true
+  },
+  "blockedVerifications": [
+    {
+      "verification": "Apply and query PostgreSQL migrations on a real server",
+      "reason": "PostgreSQL is not installed and Docker is unavailable on the audit machine",
+      "evidence": "docs/reports/evidence/phase-1-postgresql-schema.sql"
+    }
+  ],
+  "nextPhase": 2,
+  "nextPhaseName": "Workspace model and authorized-scope enforcement",
+  "nextPhaseStarted": false,
+  "approvalRequired": true
+}
