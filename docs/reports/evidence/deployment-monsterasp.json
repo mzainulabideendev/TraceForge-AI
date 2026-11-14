@@ -1,0 +1,45 @@
+{
+  "verification": "live-deployment-monsterasp",
+  "generatedAtUtc": "2026-11-14T14:40:00Z",
+  "target": {
+    "url": "http://traceforge-ai.runasp.net",
+    "iisSite": "site107722",
+    "server": "site107722.siteasp.net:8172",
+    "plan": "MonsterASP.NET Free",
+    "deploymentMethod": "Web Deploy (msdeploy) using the site's publishSettings profile"
+  },
+  "deployment": {
+    "result": "PASS",
+    "changes": 181,
+    "bytesCopied": 44963474,
+    "artifacts": "API publish output including wwwroot (Angular console)"
+  },
+  "interimConfiguration": {
+    "note": "Interim only. The documented production configuration uses PostgreSQL and secure cookies; see docs/deployment/supabase-monsterasp.md.",
+    "environment": "Production",
+    "databaseProvider": "Sqlite (App_Data/traceforge.db) because the Supabase endpoint is IPv6-only and this host is IPv4",
+    "applyMigrationsOnStartup": true,
+    "dataProtectionKeysPath": "../private/keys",
+    "requireSecureCookies": false,
+    "allowSelfRegistration": true,
+    "reasonForInsecureCookies": "HTTPS is not yet activated on the free plan; it is requested through support"
+  },
+  "checks": [
+    { "check": "health-live", "status": 200, "result": "PASS", "detail": "{\"status\":\"Healthy\"}" },
+    { "check": "health-ready", "status": 200, "result": "PASS", "detail": "log-directory healthy (D:\\Sites\\site107722\\wwwroot\\logs); database healthy (Microsoft.EntityFrameworkCore.Sqlite)" },
+    { "check": "spa-document", "status": 200, "result": "PASS", "detail": "app-root present, no inline script, SPA Content-Security-Policy" },
+    { "check": "spa-bundle", "status": 200, "result": "PASS", "detail": "text/javascript, 109439 bytes" },
+    { "check": "spa-deep-link", "status": 200, "result": "PASS", "detail": "/workspaces/{guid} returns the SPA document" },
+    { "check": "api-system-info", "status": 200, "result": "PASS", "detail": "application=TraceForge AI, environment=Production" },
+    { "check": "anonymous-api-rejected", "status": 401, "result": "PASS", "detail": "/api/workspaces without a session" },
+    { "check": "antiforgery-endpoint", "status": 200, "result": "PASS", "detail": "token issued (155 characters)" },
+    { "check": "postgresql-connectivity", "status": null, "result": "NOT RUN", "detail": "Supabase endpoint is IPv6-only; needs the session pooler connection string or the host's own PostgreSQL" },
+    { "check": "https", "status": null, "result": "NOT RUN", "detail": "HTTPS is not yet activated on the free plan (TLS connect fails today)" },
+    { "check": "remote-browser-rendering", "status": null, "result": "NOT RUN", "detail": "Chrome on this machine could not reach the public URL; the console was rendered and verified locally instead" }
+  ],
+  "pendingActions": [
+    "Request HTTPS activation from MonsterASP support, then set TraceForge__Auth__RequireSecureCookies=true and redeploy web.config",
+    "Replace SQLite with PostgreSQL (Supabase session pooler or the host's PostgreSQL) and set ApplyMigrationsOnStartup=true for one start",
+    "Register the first account on the site (it becomes the global Administrator), then set TraceForge__Auth__AllowSelfRegistration=false"
+  ]
+}

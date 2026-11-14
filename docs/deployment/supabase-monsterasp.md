@@ -28,10 +28,25 @@ Set these application environment variables in MonsterASP.NET:
 | `TraceForge__Database__Provider` | `PostgreSql` |
 | `TraceForge__Database__ConnectionString` | `Host=<host>;Port=<port>;Database=postgres;Username=<username>;Password=<new-password>;SSL Mode=Require` |
 | `TraceForge__Database__ApplyMigrationsOnStartup` | `true` for the first single-instance startup only |
+| `TraceForge__DataProtection__KeysPath` | `../private/keys` (required on shared IIS hosting) |
 
-Use the Npgsql key/value connection-string format shown above, not the `postgresql://` URI copied from
-the Supabase dashboard. Keep `TraceForge__Auth__RequireSecureCookies=true` and
-`TraceForge__Auth__AllowSelfRegistration=false` in production.
+Keep `TraceForge__Auth__RequireSecureCookies=true` and `TraceForge__Auth__AllowSelfRegistration=false` in
+production. Use the Npgsql key/value connection-string format shown above, not the `postgresql://` URI
+copied from the Supabase dashboard.
+
+### Persist the Data Protection keys
+
+The application pool on shared hosting has no Windows user profile, so ASP.NET Core cannot use its default
+key storage and falls back to keys held in memory. Each restart then invalidates every session cookie and
+antiforgery token: users are signed out, and forms fail with *"The antiforgery token could not be
+decrypted"*. Point the key ring at the website's private folder, which deployments do not overwrite:
+
+```text
+TraceForge__DataProtection__KeysPath=../private/keys
+```
+
+The path is resolved relative to the application's content root, so it lands next to `wwwroot` rather than
+inside it. Leave the setting empty only when the host has persistent, DPAPI-capable key storage.
 
 ## Apply the schema and bootstrap
 

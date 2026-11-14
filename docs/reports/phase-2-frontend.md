@@ -68,6 +68,7 @@ Both were caught by the browser-level check, not by the build.
 | Live HTTP end-to-end | `docs/reports/evidence/frontend-e2e.json` | **PASS** — 32 of 32 steps |
 | Real browser rendering | `docs/reports/evidence/frontend-ui-verification.json` | **PASS** — 0 page errors, 0 console errors |
 | Dev-server workflow (`npm start` + proxy) | `docs/reports/evidence/frontend-dev-proxy.json` | **PASS** — 5 of 5 checks, including cookies and the antiforgery header across the proxy |
+| Live deployment to MonsterASP.NET free plan | `docs/reports/evidence/deployment-monsterasp.json` | **PASS** for the deployed files: health probes, SPA document, bundle, deep link, API identity and 401 behaviour. HTTPS and PostgreSQL: **NOT RUN** (see below) |
 | PostgreSQL runtime | — | **NOT RUN** — no PostgreSQL server in this environment |
 | Deployment to any host | — | **NOT RUN** — no host was provisioned |
 
@@ -105,6 +106,34 @@ screen. Counts asserted: 1 workspace card, 3 scope rows, active tab "Authorized 
 a destination".
 
 ## Free hosting answer (summary)
+
+### Live deployment
+
+A first deployment is running at **`http://traceforge-ai.runasp.net`** (MonsterASP.NET free plan, IIS site
+`site107722`), uploaded with Web Deploy using the site's publish profile. The API and the console are served
+from one origin, as designed.
+
+| Check | Result |
+|---|---|
+| `/health/live`, `/health/ready` | **PASS** — database and log-directory checks healthy |
+| Console document, hashed bundle, client-route deep link | **PASS** |
+| `/api/system/info` reports `Production` | **PASS** |
+| Anonymous `/api/workspaces` returns 401; CSRF token issued | **PASS** |
+| HTTPS | **NOT RUN** — not yet activated on the free plan |
+| PostgreSQL | **NOT RUN** — deployed with an interim SQLite database |
+
+Interim deployment settings, all applied through `web.config` environment variables generated in the
+publish output (never committed): SQLite in `App_Data/`, Data Protection keys in `../private/keys`, and
+`RequireSecureCookies=false` because the site is still HTTP-only.
+
+**Three follow-ups are required before this is a real deployment:**
+
+1. Ask MonsterASP support to activate HTTPS, then set `RequireSecureCookies=true`.
+2. Replace SQLite with PostgreSQL. The Supabase endpoint (`db.<ref>.supabase.co`) is IPv6-only and the host
+   is IPv4, so either use the Supabase **session pooler** connection string or the PostgreSQL database
+   included with the hosting plan. Set `ApplyMigrationsOnStartup=true` for that first start.
+3. Register the first account on the site (it becomes the global Administrator), then set
+   `AllowSelfRegistration=false`.
 
 Full detail and caveats: [`docs/deployment/free-hosting.md`](../deployment/free-hosting.md).
 

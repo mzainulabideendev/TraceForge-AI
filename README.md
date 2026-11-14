@@ -171,6 +171,7 @@ Settings are validated at startup; an invalid value stops the process instead of
 | `TraceForge:Auth:SessionMinutes` | `480` | 5 – 10,080 |
 | `TraceForge:Auth:MaxFailedAttempts` | `5` | 3 – 20 |
 | `TraceForge:Auth:LockoutMinutes` | `15` | 1 – 1,440 |
+| `TraceForge:DataProtection:KeysPath` | empty | Empty uses the platform default. On IIS/shared hosting set `../private/keys` so session and antiforgery cookies survive restarts. |
 | `TraceForge:Database:Provider` | `PostgreSql` | `Sqlite` or `PostgreSql` |
 | `TraceForge:Database:ConnectionString` | empty | Required; supplied per environment |
 | `TraceForge:Database:ApplyMigrationsOnStartup` | `false` | `true` in the local development profile |

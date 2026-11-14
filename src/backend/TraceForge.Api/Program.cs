@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Options;
 using Serilog;
 using TraceForge.Api;
@@ -19,6 +20,20 @@ builder.Host.UseSerilog((context, services, loggerConfiguration) => loggerConfig
     .Enrich.WithProperty("Version", TraceForgeIdentity.InformationalVersion));
 
 builder.WebHost.ConfigureKestrel(options => options.AddServerHeader = false);
+
+// Shared IIS hosting runs the app pool without a Windows user profile, so the default Data Protection
+// key storage silently falls back to memory. Every restart would then invalidate session cookies and
+// antiforgery tokens (symptoms: everyone signed out, "antiforgery token could not be decrypted").
+// When a persistent path is configured the key ring is kept on disk instead; unset means the default.
+var dataProtectionKeysPath = builder.Configuration["TraceForge:DataProtection:KeysPath"];
+
+if (!string.IsNullOrWhiteSpace(dataProtectionKeysPath))
+{
+    builder.Services.AddDataProtection()
+        .SetApplicationName(TraceForgeIdentity.Name)
+        .PersistKeysToFileSystem(new DirectoryInfo(
+            Path.GetFullPath(Path.Combine(builder.Environment.ContentRootPath, dataProtectionKeysPath))));
+}
 
 builder.Services.AddTraceForgeCore(builder.Configuration);
 builder.Services.AddTraceForgeInfrastructure(builder.Configuration);

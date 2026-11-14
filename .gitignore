@@ -45,6 +45,9 @@ appsettings.Local.json
 *.pfx
 *.pem
 *.key
+*.publishSettings
+*.pubxml
+pubxml.user
 supabase_connection.env
 supabase/.temp/
 supabase/.branches/

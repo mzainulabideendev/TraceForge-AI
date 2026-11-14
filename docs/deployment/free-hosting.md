@@ -69,7 +69,12 @@ reachable over HTTPS so secure cookies stay enabled.
 
 **Limits to expect on the free plan:** 256 MB RAM is enough for this API under light load but not for a
 large audit log; the free plan is described by the provider as being for development, testing and
-learning, and commercial use is not allowed. Cold starts and shared CPU are normal.
+learning, and commercial use is not allowed. Cold starts and shared CPU are normal. The free plan has no
+*AlwaysRunning*, so the app pool unloads when idle — that is why
+`TraceForge__DataProtection__KeysPath=../private/keys` matters: without a persisted key ring, every
+restart invalidates all session cookies and antiforgery tokens. HTTPS on the free plan is activated by
+support on request, so raise that ticket before you test sign-in with
+`TraceForge__Auth__RequireSecureCookies=true`.
 
 ## Other free options
 
