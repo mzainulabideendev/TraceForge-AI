@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>TraceForge.Application</RootNamespace>
+    <AssemblyName>TraceForge.Application</AssemblyName>
+    <Description>TraceForge AI application layer: ports, use case contracts and DTOs.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TraceForge.Domain\TraceForge.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

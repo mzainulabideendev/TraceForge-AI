@@ -25,7 +25,7 @@ public sealed class HealthEndpointTests : IClassFixture<TraceForgeApiFactory>
     }
 
     [Fact]
-    public async Task Readiness_ReportsExecutedLogDirectoryCheck()
+    public async Task Readiness_ReportsExecutedDependencyChecks()
     {
         using var client = _factory.CreateClient();
 
@@ -36,8 +36,10 @@ public sealed class HealthEndpointTests : IClassFixture<TraceForgeApiFactory>
         Assert.Equal("Healthy", document.RootElement.GetProperty("status").GetString());
 
         var checks = document.RootElement.GetProperty("checks").EnumerateArray().ToArray();
-        Assert.Single(checks);
-        Assert.Equal("log-directory", checks[0].GetProperty("name").GetString());
-        Assert.Equal("Healthy", checks[0].GetProperty("status").GetString());
+        var names = checks.Select(c => c.GetProperty("name").GetString()).ToArray();
+
+        Assert.Contains("log-directory", names);
+        Assert.Contains("database", names);
+        Assert.All(checks, check => Assert.Equal("Healthy", check.GetProperty("status").GetString()));
     }
 }

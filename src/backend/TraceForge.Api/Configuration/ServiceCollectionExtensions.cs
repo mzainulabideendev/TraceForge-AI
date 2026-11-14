@@ -8,6 +8,9 @@ public static class RateLimitPolicies
 {
     /// <summary>Fixed-window limiter applied to the /api surface.</summary>
     public const string Api = "api";
+
+    /// <summary>Stricter limiter applied to credential endpoints (login, registration).</summary>
+    public const string Auth = "auth";
 }
 
 public static class ServiceCollectionExtensions
@@ -43,6 +46,12 @@ public static class ServiceCollectionExtensions
             .Validate(
                 options => options.RateLimiting.QueueLimit >= RateLimitingOptions.MinQueueLimit,
                 $"TraceForge:RateLimiting:QueueLimit must be {RateLimitingOptions.MinQueueLimit} or greater.")
+            .Validate(
+                options => options.RateLimiting.AuthPermitLimit is >= RateLimitingOptions.MinPermitLimit and <= RateLimitingOptions.MaxPermitLimit,
+                $"TraceForge:RateLimiting:AuthPermitLimit must be between {RateLimitingOptions.MinPermitLimit} and {RateLimitingOptions.MaxPermitLimit}.")
+            .Validate(
+                options => options.RateLimiting.AuthWindowSeconds is >= RateLimitingOptions.MinWindowSeconds and <= RateLimitingOptions.MaxWindowSeconds,
+                $"TraceForge:RateLimiting:AuthWindowSeconds must be between {RateLimitingOptions.MinWindowSeconds} and {RateLimitingOptions.MaxWindowSeconds}.")
             .ValidateOnStart();
 
         services.AddSingleton<ApplicationLifetimeInfo>();
@@ -86,6 +95,25 @@ public static class ServiceCollectionExtensions
                     });
             });
 
+            options.AddPolicy(RateLimitPolicies.Auth, static httpContext =>
+            {
+                var limits = httpContext.RequestServices
+                    .GetRequiredService<IOptions<TraceForgeOptions>>()
+                    .Value
+                    .RateLimiting;
+
+                return RateLimitPartition.GetFixedWindowLimiter(
+                    partitionKey: $"auth:{ResolvePartitionKey(httpContext)}",
+                    factory: _ => new FixedWindowRateLimiterOptions
+                    {
+                        PermitLimit = limits.AuthPermitLimit,
+                        Window = TimeSpan.FromSeconds(limits.AuthWindowSeconds),
+                        QueueLimit = 0,
+                        QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                        AutoReplenishment = true,
+                    });
+            });
+
             options.OnRejected = static async (context, cancellationToken) =>
             {
                 var problemDetailsService =
@@ -111,7 +139,8 @@ public static class ServiceCollectionExtensions
         });
 
         services.AddHealthChecks()
-            .AddCheck<LogDirectoryHealthCheck>("log-directory", tags: ["ready"]);
+            .AddCheck<LogDirectoryHealthCheck>("log-directory", tags: ["ready"])
+            .AddCheck<DatabaseHealthCheck>("database", tags: ["ready"]);
 
         return services;
     }

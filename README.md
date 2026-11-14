@@ -17,8 +17,8 @@ for what actually works today.
 | Phase | Scope | Status |
 |---|---|---|
 | 0 | Repository baseline: build, API host, structured logging, health probes, security headers, request correlation, rate limiting, configuration validation, automated tests, CI, documentation | **Implemented and verified** |
-| 1 | Backend foundation: authentication, PostgreSQL persistence, workspace model | Not started |
-| 2 | Workspace and authorized-scope enforcement | Not started |
+| 1 | Backend foundation: authentication, database persistence, audit logging, API | **Implemented and verified on SQLite; PostgreSQL runtime verification BLOCKED (server absent)** |
+| 2 | Workspace model and authorized-scope enforcement | Not started |
 | 3 | Asset discovery | Not started |
 | 4 | Deterministic detection engine | Not started |
 | 5 | Angular dashboard | Not started |
@@ -41,11 +41,12 @@ fabricates scan results, findings, or metrics.
 | .NET SDK | 10.0.x | 10.0.401 |
 | Node.js (future frontend) | 22 LTS or later | 24.20.0 |
 | Python (future analysis service) | 3.12+ | 3.12.10 |
-| PostgreSQL (Phase 1+) | 16+ | Not installed on the development machine |
+| PostgreSQL (Phase 1+) | 16+ | Not installed on the development machine; schema generated but server verification BLOCKED |
 | Docker (optional) | 24+ | Not installed on the development machine |
 
-The current Phase 0 baseline runs with the .NET SDK alone. PostgreSQL, Docker and Nmap are not yet
-required and are not yet used.
+The Phase 1 backend runs locally with the .NET SDK alone: the `Development` profile uses a SQLite
+file database that is migrated automatically on startup. A deployed instance requires PostgreSQL.
+Docker and Nmap are not required by any implemented feature.
 
 ## Quick start (Windows PowerShell)
 
@@ -53,10 +54,13 @@ required and are not yet used.
 dotnet restore TraceForge.slnx
 dotnet build TraceForge.slnx
 dotnet test TraceForge.slnx
+dotnet tool restore
 dotnet run --project src\backend\TraceForge.Api\TraceForge.Api.csproj
 ```
 
-The API listens on `http://localhost:5080` (see `Properties/launchSettings.json`).
+The API listens on `http://localhost:5080` (see `Properties/launchSettings.json`). On first run in
+`Development` the API creates `traceforge-dev.db`, applies migrations and seeds the `Administrator`
+and `Analyst` roles.
 
 ```powershell
 Invoke-RestMethod http://localhost:5080/health/live
@@ -66,22 +70,33 @@ Invoke-RestMethod http://localhost:5080/api/system/info
 
 OpenAPI document (Development environment only): `http://localhost:5080/openapi/v1.json`
 
-## API surface (Phase 0)
+## API surface (Phase 1)
 
-| Method | Path | Purpose |
-|---|---|---|
-| GET | `/health/live` | Liveness probe; succeeds while the process serves requests |
-| GET | `/health/ready` | Readiness probe; runs real dependency checks (log directory writability today) |
-| GET | `/api/system/info` | Version, environment, real uptime, instance name |
-| GET | `/openapi/v1.json` | OpenAPI document (Development only) |
+| Method | Path | Auth | Purpose |
+|---|---|---|---|
+| GET | `/health/live` | anonymous | Liveness probe; succeeds while the process serves requests |
+| GET | `/health/ready` | anonymous | Readiness probe; runs real checks for log-directory writability and database connectivity |
+| GET | `/api/system/info` | anonymous | Version, environment, real uptime, instance name |
+| GET | `/api/auth/csrf` | anonymous | Issues the antiforgery request token and cookie |
+| POST | `/api/auth/register` | anonymous + CSRF | Creates an account; the first account of a fresh installation becomes Administrator |
+| POST | `/api/auth/login` | anonymous + CSRF | Verifies credentials and starts the session cookie |
+| POST | `/api/auth/logout` | required + CSRF | Ends the current session |
+| GET | `/api/auth/me` | required | Returns the authenticated account and roles |
+| GET | `/api/admin/users` | Administrator | Paged account list |
+| GET | `/api/admin/audit` | Administrator | Paged security audit log, newest first |
+| GET | `/openapi/v1.json` | anonymous | OpenAPI document (Development only) |
 
-Rate limiting: fixed window per client IP on `/api/*`, default 120 requests per 60 seconds.
-Every response carries `X-Request-Id`; problem responses include it as `traceId`.
+Authentication uses an HttpOnly, SameSite=Strict session cookie (`traceforge.auth`). Every unsafe
+request must send the antiforgery token from `GET /api/auth/csrf` in the `X-XSRF-TOKEN` header.
+Problem responses use RFC 9457 `application/problem+json` and include `traceId`.
+
+Rate limiting: fixed window per client IP on `/api/*` (120 requests / 60 seconds by default) with a
+tighter budget on credential endpoints (10 requests / 300 seconds). Every response carries
+`X-Request-Id`; problem responses include it as `traceId`.
 
 ## Configuration
 
-Settings live under the `TraceForge` configuration section and are validated at startup; an invalid
-value stops the process instead of degrading silently.
+Settings are validated at startup; an invalid value stops the process instead of degrading silently.
 
 | Key | Default | Constraint |
 |---|---|---|
@@ -89,6 +104,16 @@ value stops the process instead of degrading silently.
 | `TraceForge:RateLimiting:PermitLimit` | `120` | 1 – 100,000 |
 | `TraceForge:RateLimiting:WindowSeconds` | `60` | 1 – 3,600 |
 | `TraceForge:RateLimiting:QueueLimit` | `0` | ≥ 0 |
+| `TraceForge:RateLimiting:AuthPermitLimit` | `10` | 1 – 100,000 |
+| `TraceForge:RateLimiting:AuthWindowSeconds` | `300` | 1 – 3,600 |
+| `TraceForge:Auth:AllowSelfRegistration` | `false` | `true` only for controlled onboarding |
+| `TraceForge:Auth:RequireSecureCookies` | `true` | Must stay `true` outside local HTTP development |
+| `TraceForge:Auth:SessionMinutes` | `480` | 5 – 10,080 |
+| `TraceForge:Auth:MaxFailedAttempts` | `5` | 3 – 20 |
+| `TraceForge:Auth:LockoutMinutes` | `15` | 1 – 1,440 |
+| `TraceForge:Database:Provider` | `PostgreSql` | `Sqlite` or `PostgreSql` |
+| `TraceForge:Database:ConnectionString` | empty | Required; supplied per environment |
+| `TraceForge:Database:ApplyMigrationsOnStartup` | `false` | `true` in the local development profile |
 
 Use environment variables with double underscores in deployment, for example
 `TraceForge__RateLimiting__PermitLimit=240`. See `.env.example`. Secrets are never stored in this
@@ -103,6 +128,7 @@ repository.
 - [Security policy](SECURITY.md)
 - [Initial repository audit](docs/reports/initial-audit.md)
 - [Phase 0 completion report](docs/reports/phase-0-baseline.md)
+- [Phase 1 completion report](docs/reports/phase-1-foundation.md)
 
 ## Contributing
 

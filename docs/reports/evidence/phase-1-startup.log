@@ -1,0 +1,31 @@
+Using launch settings from src\backend\TraceForge.Api\Properties\launchSettings.json...
+[15:07:47 INF] TraceForge AI  Database ready. Provider=Microsoft.EntityFrameworkCore.Sqlite PendingMigrationsApplied=1 RolesSeeded=Administrator,Analyst
+[15:07:47 INF] TraceForge AI  Schema migration complete: applied=1, rolesSeededCount=2
+[15:07:47 DBG] TraceForge AI  Hosting starting
+[15:07:47 INF] TraceForge AI  User profile is available. Using 'C:\Users\zu442\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[15:07:47 INF] TraceForge AI  Creating key {4fa43e56-8698-433d-8cf9-47ae7d4ffc20} with creation date 2026-11-14 10:07:47Z, activation date 2026-11-14 10:07:47Z, and expiration date 2027-02-12 10:07:47Z.
+[15:07:47 INF] TraceForge AI  Writing data to file 'C:\Users\zu442\AppData\Local\ASP.NET\DataProtection-Keys\key-4fa43e56-8698-433d-8cf9-47ae7d4ffc20.xml'.
+[15:07:48 INF] TraceForge AI  Now listening on: http://localhost:5080
+[15:07:48 INF] TraceForge AI  Application started. Press Ctrl+C to shut down.
+[15:07:48 INF] TraceForge AI  Hosting environment: Development
+[15:07:48 INF] TraceForge AI  Content root path: D:\project\Trace Forge\src\backend\TraceForge.Api
+[15:07:48 DBG] TraceForge AI  Hosting started
+[15:07:52 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost:5080/health/ready - null null
+[15:07:52 INF] TraceForge AI a812d8bf1ff14bcda59e48ce54ef8298 Executing endpoint 'Health checks'
+[15:07:52 DBG] TraceForge AI a812d8bf1ff14bcda59e48ce54ef8298 Running health checks
+[15:07:52 DBG] TraceForge AI a812d8bf1ff14bcda59e48ce54ef8298 Running health check log-directory
+[15:07:52 DBG] TraceForge AI a812d8bf1ff14bcda59e48ce54ef8298 Running health check database
+[15:07:52 DBG] TraceForge AI a812d8bf1ff14bcda59e48ce54ef8298 Health check log-directory with status Healthy completed after 2.9453ms with message 'Log directory is writable.'
+[15:07:52 DBG] TraceForge AI a812d8bf1ff14bcda59e48ce54ef8298 Health check data for log-directory:
+    path: D:\project\Trace Forge\src\backend\TraceForge.Api\logs
+    HealthCheckName: log-directory
+
+[15:07:52 DBG] TraceForge AI a812d8bf1ff14bcda59e48ce54ef8298 Health check database with status Healthy completed after 37.9996ms with message 'Database connection succeeded.'
+[15:07:52 DBG] TraceForge AI a812d8bf1ff14bcda59e48ce54ef8298 Health check data for database:
+    provider: Microsoft.EntityFrameworkCore.Sqlite
+    HealthCheckName: database
+
+[15:07:52 DBG] TraceForge AI a812d8bf1ff14bcda59e48ce54ef8298 Health check processing with combined status Healthy completed after 46.6578ms
+[15:07:52 INF] TraceForge AI a812d8bf1ff14bcda59e48ce54ef8298 Executed endpoint 'Health checks'
+[15:07:52 INF] TraceForge AI a812d8bf1ff14bcda59e48ce54ef8298 HTTP GET /health/ready responded 200 in 102.5546 ms
+[15:07:52 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost:5080/health/ready - 200 null application/json; charset=utf-8 178.2747ms

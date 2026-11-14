@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>TraceForge.Domain</RootNamespace>
+    <AssemblyName>TraceForge.Domain</AssemblyName>
+    <Description>TraceForge AI domain model: entities, roles, audit vocabulary.</Description>
+  </PropertyGroup>
+
+</Project>

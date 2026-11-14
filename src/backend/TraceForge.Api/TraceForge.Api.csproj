@@ -3,14 +3,22 @@
   <PropertyGroup>
     <RootNamespace>TraceForge.Api</RootNamespace>
     <AssemblyName>TraceForge.Api</AssemblyName>
-    <Version>0.1.0</Version>
-    <Description>TraceForge AI backend API (Phase 0 baseline).</Description>
+    <Version>0.2.0</Version>
+    <Description>TraceForge AI backend API (Phase 1: authentication and persistence).</Description>
     <UserSecretsId>traceforge-ai-api</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
     <PackageReference Include="Serilog.AspNetCore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TraceForge.Application\TraceForge.Application.csproj" />
+    <ProjectReference Include="..\TraceForge.Domain\TraceForge.Domain.csproj" />
+    <ProjectReference Include="..\TraceForge.Infrastructure\TraceForge.Infrastructure.csproj" />
+    <ProjectReference Include="..\TraceForge.Migrations.PostgreSql\TraceForge.Migrations.PostgreSql.csproj" />
+    <ProjectReference Include="..\TraceForge.Migrations.Sqlite\TraceForge.Migrations.Sqlite.csproj" />
   </ItemGroup>
 
   <ItemGroup>

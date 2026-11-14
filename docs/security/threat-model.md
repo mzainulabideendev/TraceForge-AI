@@ -1,6 +1,6 @@
 # Threat Model (Initial)
 
-Status: Phase 0. This model is revised at every phase; controls marked *planned* are not implemented.
+Status: Phase 1. This model is revised at every phase; controls marked *planned* are not implemented.
 
 ## 1. Assets
 
@@ -37,9 +37,9 @@ Everything crossing an arrow is untrusted input, including target responses and 
 | T-06 | Secret leakage to cloud AI | Credential theft | Evidence redaction before transmission; explicit per-investigation consent; no credentials in prompts | Planned (Phase 7) |
 | T-07 | Cross-workspace data access | Confidentiality breach | Workspace-scoped authorization on every query; global query filters; integration tests for isolation | Planned (Phase 2) |
 | T-08 | Fabricated findings / false assurance | Wrong remediation priority, loss of trust | Deterministic rules with evidence digests; AI cannot create findings; verification re-execution required to close | Accepted by design; enforced from Phase 4 |
-| T-09 | Unauthenticated access to API | Unauthorized scanning | Authentication on all API routes except health; role-based authorization | Planned (Phase 1) |
+| T-09 | Unauthenticated access to API | Unauthorized scanning | Authentication on all API routes except health/system/csrf; role-based authorization for administration; antiforgery on every unsafe request | Implemented (Phase 1) |
 | T-10 | Resource exhaustion from scanning | Outage of assessed target | Conservative concurrency, rate limits, timeouts, max response size; no DoS testing | Planned (Phase 3) |
-| T-11 | Audit tampering | Loss of accountability | Append-only audit records with actor, UTC timestamp, outcome; restricted write path | Planned (Phase 1) |
+| T-11 | Audit tampering | Loss of accountability | Append-only audit records with actor, UTC timestamp, outcome; restricted write path | Partially (Phase 1): append-only application path, no update/delete API; database-level immutability still planned |
 | T-12 | Dependency compromise | Supply-chain attack | Central package pinning, dependency scanning in CI, lock files | Partially: pinned versions + `CentralPackageTransitivePinningEnabled` |
 
 ## 4. Implemented controls (Phase 0)
@@ -55,15 +55,45 @@ Everything crossing an arrow is untrusted input, including target responses and 
 - Central package management with transitive pinning; no secrets in the repository.
 - RFC 9457 problem responses that never include stack traces or internal paths.
 
-## 5. Residual risks (Phase 0)
+## 5. Implemented controls (Phase 1)
 
-- No authentication yet: the API exposes only non-sensitive system metadata and health data. It must
-  not be exposed to untrusted networks until Phase 1 lands authentication.
-- Rate limiting is per-process and keyed on the immediate peer address; behind a proxy this needs
-  forwarded-header configuration with a trusted-proxy allow-list (planned, Phase 13).
-- No persistence yet, therefore no evidence-integrity guarantees to attack.
+- **Session authentication**: ASP.NET Core Identity with an HttpOnly, SameSite=Strict session cookie
+  (`traceforge.auth`), configurable `Secure` policy, sliding expiration with a configurable lifetime.
+- **Antiforgery**: double-submit token (`X-XSRF-TOKEN` header + `XSRF-TOKEN` cookie) enforced by an
+  endpoint filter on every unsafe `/api` method, including authenticated requests.
+- **Password policy**: minimum 12 characters with digit, upper- and lowercase requirements, unique
+  characters, and no forced punctuation. Lockout after 5 failed attempts for 15 minutes by default.
+- **Account-enumeration resistance**: unknown-account sign-ins perform a dummy password hash and
+  return the same 401 as a wrong password.
+- **Role-based authorization**: `Administrator` and `Analyst` roles; administration endpoints require
+  Administrator; the first account of a fresh installation becomes Administrator.
+- **Credential-endpoint throttling**: a separate, tighter rate-limit policy for register/login.
+- **Audit trail**: append-only records for registration, sign-in success/failure/lockout, logout and
+  administrative reads, with actor, outcome, UTC timestamp, IP address and user agent.
+- **UTC persistence**: `DateTimeOffset` values are stored as UTC; SQLite uses Unix milliseconds,
+  PostgreSQL uses `timestamptz`.
+- **Database provider separation**: distinct migration assemblies prevent SQLite and PostgreSQL
+  schema drift.
 
-## 6. Out of scope
+## 6. Residual risks (Phase 1)
+
+- **Bootstrap race across instances**: the "first account becomes Administrator" check is serialized
+  by a process-level lock. Two API instances starting simultaneously against one empty database can
+  both observe an empty user table. A database-level guard is required before horizontal scaling.
+- **Audit write failures do not block the action**: a failed audit write is logged and the
+  authentication action still completes. This favours availability; alerting on that log is required.
+- **No database-level immutability**: audit rows have no update/delete endpoint, but a database
+  operator can still modify them. Hash chaining or a restricted database role is planned.
+- **No MFA, password reset or email verification**: not implemented yet; accounts are created by an
+  administrator or controlled self-registration.
+- **No workspace isolation yet**: all authenticated Analysts can see system metadata; workspace
+  scoping arrives in Phase 2.
+- **Rate limiting remains per-process and keyed on the immediate peer address**; behind a proxy this
+  needs forwarded-header configuration with a trusted-proxy allow-list (Phase 13).
+- **PostgreSQL path unverified**: migrations were generated and scripted but never executed against a
+  real server on this machine.
+
+## 7. Out of scope
 
 - Physical access, host-level compromise of the operator's machine, and supply-chain attacks on the
   .NET SDK itself.

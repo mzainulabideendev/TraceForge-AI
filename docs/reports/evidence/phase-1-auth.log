@@ -1,0 +1,130 @@
+Using launch settings from src\backend\TraceForge.Api\Properties\launchSettings.json...
+[15:12:41 INF] TraceForge AI  Database ready. Provider=Microsoft.EntityFrameworkCore.Sqlite PendingMigrationsApplied=1 RolesSeeded=Administrator,Analyst
+[15:12:41 INF] TraceForge AI  Schema migration complete: applied=1, rolesSeededCount=2
+[15:12:41 DBG] TraceForge AI  Hosting starting
+[15:12:41 INF] TraceForge AI  User profile is available. Using 'C:\Users\zu442\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[15:12:41 INF] TraceForge AI  Now listening on: http://localhost:5080
+[15:12:41 INF] TraceForge AI  Application started. Press Ctrl+C to shut down.
+[15:12:41 INF] TraceForge AI  Hosting environment: Development
+[15:12:41 INF] TraceForge AI  Content root path: D:\project\Trace Forge\src\backend\TraceForge.Api
+[15:12:41 DBG] TraceForge AI  Hosting started
+[15:12:48 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost:5080/api/auth/csrf - null null
+[15:12:49 INF] TraceForge AI 6e883995984f455f9684b85ba7818a10 Executing endpoint 'HTTP: GET /api/auth/csrf'
+[15:12:49 WRN] TraceForge AI 6e883995984f455f9684b85ba7818a10 The 'Cache-Control' and 'Pragma' headers have been overridden and set to 'no-cache, no-store' and 'no-cache' respectively to prevent caching of this response. Any response that uses antiforgery should not be cached.
+[15:12:49 INF] TraceForge AI 6e883995984f455f9684b85ba7818a10 Setting HTTP status code 200.
+[15:12:49 INF] TraceForge AI 6e883995984f455f9684b85ba7818a10 Writing value of type 'CsrfTokenResponse' as Json.
+[15:12:49 INF] TraceForge AI 6e883995984f455f9684b85ba7818a10 Executed endpoint 'HTTP: GET /api/auth/csrf'
+[15:12:49 INF] TraceForge AI 6e883995984f455f9684b85ba7818a10 HTTP GET /api/auth/csrf responded 200 in 36.3109 ms
+[15:12:49 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost:5080/api/auth/csrf - 200 null application/json; charset=utf-8 103.44ms
+[15:12:49 INF] TraceForge AI  Request starting HTTP/1.1 POST http://localhost:5080/api/auth/register - application/json 83
+[15:12:49 INF] TraceForge AI 43839d7f830f4757bd15642f6ed387e4 Executing endpoint 'HTTP: POST /api/auth/register'
+[15:12:49 INF] TraceForge AI 43839d7f830f4757bd15642f6ed387e4 Setting HTTP status code 400.
+[15:12:49 INF] TraceForge AI 43839d7f830f4757bd15642f6ed387e4 Executed endpoint 'HTTP: POST /api/auth/register'
+[15:12:49 INF] TraceForge AI 43839d7f830f4757bd15642f6ed387e4 HTTP POST /api/auth/register responded 400 in 49.0342 ms
+[15:12:49 INF] TraceForge AI  Request finished HTTP/1.1 POST http://localhost:5080/api/auth/register - 400 null application/problem+json 53.9694ms
+[15:12:49 INF] TraceForge AI  Request starting HTTP/1.1 POST http://localhost:5080/api/auth/register - application/json 96
+[15:12:49 INF] TraceForge AI 341ec913b7c74df683e104d9bdde9b61 Executing endpoint 'HTTP: POST /api/auth/register'
+[15:12:49 INF] TraceForge AI 341ec913b7c74df683e104d9bdde9b61 AuthenticationScheme: Identity.Application signed in.
+[15:12:49 INF] TraceForge AI 341ec913b7c74df683e104d9bdde9b61 Setting HTTP status code 201.
+[15:12:49 INF] TraceForge AI 341ec913b7c74df683e104d9bdde9b61 Writing value of type 'UserAccount' as Json.
+[15:12:49 INF] TraceForge AI 341ec913b7c74df683e104d9bdde9b61 Executed endpoint 'HTTP: POST /api/auth/register'
+[15:12:49 INF] TraceForge AI 341ec913b7c74df683e104d9bdde9b61 HTTP POST /api/auth/register responded 201 in 522.5320 ms
+[15:12:49 INF] TraceForge AI  Request finished HTTP/1.1 POST http://localhost:5080/api/auth/register - 201 null application/json; charset=utf-8 526.277ms
+[15:12:49 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost:5080/api/auth/me - null null
+[15:12:49 INF] TraceForge AI 1101fbd2ab8141c2bf107577873975b0 Executing endpoint 'HTTP: GET /api/auth/me'
+[15:12:49 INF] TraceForge AI 1101fbd2ab8141c2bf107577873975b0 Setting HTTP status code 200.
+[15:12:49 INF] TraceForge AI 1101fbd2ab8141c2bf107577873975b0 Writing value of type 'UserAccount' as Json.
+[15:12:49 INF] TraceForge AI 1101fbd2ab8141c2bf107577873975b0 Executed endpoint 'HTTP: GET /api/auth/me'
+[15:12:49 INF] TraceForge AI 1101fbd2ab8141c2bf107577873975b0 HTTP GET /api/auth/me responded 200 in 124.4968 ms
+[15:12:49 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost:5080/api/auth/me - 200 null application/json; charset=utf-8 125.4679ms
+[15:12:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost:5080/api/admin/users - null null
+[15:12:50 INF] TraceForge AI 7e794d947d8844e39cbaa59071111798 Executing endpoint 'HTTP: GET /api/admin/users'
+[15:12:50 INF] TraceForge AI 7e794d947d8844e39cbaa59071111798 Setting HTTP status code 200.
+[15:12:50 INF] TraceForge AI 7e794d947d8844e39cbaa59071111798 Writing value of type 'PagedResult`1' as Json.
+[15:12:50 INF] TraceForge AI 7e794d947d8844e39cbaa59071111798 Executed endpoint 'HTTP: GET /api/admin/users'
+[15:12:50 INF] TraceForge AI 7e794d947d8844e39cbaa59071111798 HTTP GET /api/admin/users responded 200 in 50.5161 ms
+[15:12:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost:5080/api/admin/users - 200 null application/json; charset=utf-8 51.3276ms
+[15:12:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost:5080/api/admin/audit - null null
+[15:12:50 INF] TraceForge AI ed45753a6e0841fd837f0d4f723b7e5f Executing endpoint 'HTTP: GET /api/admin/audit'
+[15:12:50 INF] TraceForge AI ed45753a6e0841fd837f0d4f723b7e5f Setting HTTP status code 200.
+[15:12:50 INF] TraceForge AI ed45753a6e0841fd837f0d4f723b7e5f Writing value of type 'PagedResult`1' as Json.
+[15:12:50 INF] TraceForge AI ed45753a6e0841fd837f0d4f723b7e5f Executed endpoint 'HTTP: GET /api/admin/audit'
+[15:12:50 INF] TraceForge AI ed45753a6e0841fd837f0d4f723b7e5f HTTP GET /api/admin/audit responded 200 in 46.8505 ms
+[15:12:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost:5080/api/admin/audit - 200 null application/json; charset=utf-8 48.416ms
+[15:12:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost:5080/api/auth/csrf - null null
+[15:12:50 INF] TraceForge AI 167789e809df47579fd05461c9a291b3 Executing endpoint 'HTTP: GET /api/auth/csrf'
+[15:12:50 WRN] TraceForge AI 167789e809df47579fd05461c9a291b3 The 'Cache-Control' and 'Pragma' headers have been overridden and set to 'no-cache, no-store' and 'no-cache' respectively to prevent caching of this response. Any response that uses antiforgery should not be cached.
+[15:12:50 INF] TraceForge AI 167789e809df47579fd05461c9a291b3 Setting HTTP status code 200.
+[15:12:50 INF] TraceForge AI 167789e809df47579fd05461c9a291b3 Writing value of type 'CsrfTokenResponse' as Json.
+[15:12:50 INF] TraceForge AI 167789e809df47579fd05461c9a291b3 Executed endpoint 'HTTP: GET /api/auth/csrf'
+[15:12:50 INF] TraceForge AI 167789e809df47579fd05461c9a291b3 HTTP GET /api/auth/csrf responded 200 in 2.3378 ms
+[15:12:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost:5080/api/auth/csrf - 200 null application/json; charset=utf-8 3.1875ms
+[15:12:50 INF] TraceForge AI  Request starting HTTP/1.1 POST http://localhost:5080/api/auth/logout - null null
+[15:12:50 INF] TraceForge AI adf67c86bb1a445ea865f51566e59d06 Executing endpoint 'HTTP: POST /api/auth/logout'
+[15:12:50 INF] TraceForge AI adf67c86bb1a445ea865f51566e59d06 AuthenticationScheme: Identity.Application signed out.
+[15:12:50 INF] TraceForge AI adf67c86bb1a445ea865f51566e59d06 AuthenticationScheme: Identity.External signed out.
+[15:12:50 INF] TraceForge AI adf67c86bb1a445ea865f51566e59d06 AuthenticationScheme: Identity.TwoFactorUserId signed out.
+[15:12:50 INF] TraceForge AI adf67c86bb1a445ea865f51566e59d06 Setting HTTP status code 204.
+[15:12:50 INF] TraceForge AI adf67c86bb1a445ea865f51566e59d06 Executed endpoint 'HTTP: POST /api/auth/logout'
+[15:12:50 INF] TraceForge AI adf67c86bb1a445ea865f51566e59d06 HTTP POST /api/auth/logout responded 204 in 10.9398 ms
+[15:12:50 INF] TraceForge AI  Request finished HTTP/1.1 POST http://localhost:5080/api/auth/logout - 204 null null 11.7615ms
+[15:12:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost:5080/api/auth/me - null null
+[15:12:50 INF] TraceForge AI 3a3ac6aea89741e49aa7bfcaf2f67945 Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+[15:12:50 INF] TraceForge AI 3a3ac6aea89741e49aa7bfcaf2f67945 Setting HTTP status code 401.
+[15:12:50 INF] TraceForge AI 3a3ac6aea89741e49aa7bfcaf2f67945 AuthenticationScheme: Identity.Application was challenged.
+[15:12:50 INF] TraceForge AI 3a3ac6aea89741e49aa7bfcaf2f67945 HTTP GET /api/auth/me responded 401 in 4.1302 ms
+[15:12:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost:5080/api/auth/me - 401 null application/problem+json 4.9252ms
+[15:12:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost:5080/api/admin/users - null null
+[15:12:50 INF] TraceForge AI f5f96e66670f4a00a20c02101bfec529 Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Administrator)
+[15:12:50 INF] TraceForge AI f5f96e66670f4a00a20c02101bfec529 Setting HTTP status code 401.
+[15:12:50 INF] TraceForge AI f5f96e66670f4a00a20c02101bfec529 AuthenticationScheme: Identity.Application was challenged.
+[15:12:50 INF] TraceForge AI f5f96e66670f4a00a20c02101bfec529 HTTP GET /api/admin/users responded 401 in 1.2840 ms
+[15:12:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost:5080/api/admin/users - 401 null application/problem+json 1.8945ms
+[15:12:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost:5080/api/auth/csrf - null null
+[15:12:50 INF] TraceForge AI d4f049c69eed4d7f8f06d4d92459b86f Executing endpoint 'HTTP: GET /api/auth/csrf'
+[15:12:50 WRN] TraceForge AI d4f049c69eed4d7f8f06d4d92459b86f The 'Cache-Control' and 'Pragma' headers have been overridden and set to 'no-cache, no-store' and 'no-cache' respectively to prevent caching of this response. Any response that uses antiforgery should not be cached.
+[15:12:50 INF] TraceForge AI d4f049c69eed4d7f8f06d4d92459b86f Setting HTTP status code 200.
+[15:12:50 INF] TraceForge AI d4f049c69eed4d7f8f06d4d92459b86f Writing value of type 'CsrfTokenResponse' as Json.
+[15:12:50 INF] TraceForge AI d4f049c69eed4d7f8f06d4d92459b86f Executed endpoint 'HTTP: GET /api/auth/csrf'
+[15:12:50 INF] TraceForge AI d4f049c69eed4d7f8f06d4d92459b86f HTTP GET /api/auth/csrf responded 200 in 2.9885 ms
+[15:12:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost:5080/api/auth/csrf - 200 null application/json; charset=utf-8 4.1404ms
+[15:12:50 INF] TraceForge AI  Request starting HTTP/1.1 POST http://localhost:5080/api/auth/login - application/json 62
+[15:12:50 INF] TraceForge AI 203f70ed0b6249a0b6fe3da7388f5720 Executing endpoint 'HTTP: POST /api/auth/login'
+[15:12:50 INF] TraceForge AI 203f70ed0b6249a0b6fe3da7388f5720 AuthenticationScheme: Identity.Application signed in.
+[15:12:50 INF] TraceForge AI 203f70ed0b6249a0b6fe3da7388f5720 Setting HTTP status code 200.
+[15:12:50 INF] TraceForge AI 203f70ed0b6249a0b6fe3da7388f5720 Writing value of type 'UserAccount' as Json.
+[15:12:50 INF] TraceForge AI 203f70ed0b6249a0b6fe3da7388f5720 Executed endpoint 'HTTP: POST /api/auth/login'
+[15:12:50 INF] TraceForge AI 203f70ed0b6249a0b6fe3da7388f5720 HTTP POST /api/auth/login responded 200 in 99.7777 ms
+[15:12:50 INF] TraceForge AI  Request finished HTTP/1.1 POST http://localhost:5080/api/auth/login - 200 null application/json; charset=utf-8 100.5116ms
+[15:12:50 INF] TraceForge AI  Request starting HTTP/1.1 POST http://localhost:5080/api/auth/login - application/json 61
+[15:12:50 INF] TraceForge AI d1e18b3cdf62448988284436fd2ee090 Executing endpoint 'HTTP: POST /api/auth/login'
+[15:12:50 INF] TraceForge AI d1e18b3cdf62448988284436fd2ee090 Setting HTTP status code 400.
+[15:12:50 INF] TraceForge AI d1e18b3cdf62448988284436fd2ee090 Executed endpoint 'HTTP: POST /api/auth/login'
+[15:12:50 INF] TraceForge AI d1e18b3cdf62448988284436fd2ee090 HTTP POST /api/auth/login responded 400 in 3.9436 ms
+[15:12:50 INF] TraceForge AI  Request finished HTTP/1.1 POST http://localhost:5080/api/auth/login - 400 null application/problem+json 4.9138ms
+[15:12:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost:5080/api/auth/csrf - null null
+[15:12:50 INF] TraceForge AI 179f59bdbbdd4e1685b5191c63716531 Executing endpoint 'HTTP: GET /api/auth/csrf'
+[15:12:50 WRN] TraceForge AI 179f59bdbbdd4e1685b5191c63716531 The 'Cache-Control' and 'Pragma' headers have been overridden and set to 'no-cache, no-store' and 'no-cache' respectively to prevent caching of this response. Any response that uses antiforgery should not be cached.
+[15:12:50 INF] TraceForge AI 179f59bdbbdd4e1685b5191c63716531 Setting HTTP status code 200.
+[15:12:50 INF] TraceForge AI 179f59bdbbdd4e1685b5191c63716531 Writing value of type 'CsrfTokenResponse' as Json.
+[15:12:50 INF] TraceForge AI 179f59bdbbdd4e1685b5191c63716531 Executed endpoint 'HTTP: GET /api/auth/csrf'
+[15:12:50 INF] TraceForge AI 179f59bdbbdd4e1685b5191c63716531 HTTP GET /api/auth/csrf responded 200 in 3.9159 ms
+[15:12:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost:5080/api/auth/csrf - 200 null application/json; charset=utf-8 5.2686ms
+[15:12:50 INF] TraceForge AI  Request starting HTTP/1.1 POST http://localhost:5080/api/auth/register - application/json 92
+[15:12:50 INF] TraceForge AI fb8b575678c0483bb4d374c0712597c5 Executing endpoint 'HTTP: POST /api/auth/register'
+[15:12:50 INF] TraceForge AI fb8b575678c0483bb4d374c0712597c5 AuthenticationScheme: Identity.Application signed in.
+[15:12:50 INF] TraceForge AI fb8b575678c0483bb4d374c0712597c5 Setting HTTP status code 201.
+[15:12:50 INF] TraceForge AI fb8b575678c0483bb4d374c0712597c5 Writing value of type 'UserAccount' as Json.
+[15:12:50 INF] TraceForge AI fb8b575678c0483bb4d374c0712597c5 Executed endpoint 'HTTP: POST /api/auth/register'
+[15:12:50 INF] TraceForge AI fb8b575678c0483bb4d374c0712597c5 HTTP POST /api/auth/register responded 201 in 92.3072 ms
+[15:12:50 INF] TraceForge AI  Request finished HTTP/1.1 POST http://localhost:5080/api/auth/register - 201 null application/json; charset=utf-8 93.3188ms
+[15:12:50 INF] TraceForge AI  Request starting HTTP/1.1 GET http://localhost:5080/api/admin/users - null null
+[15:12:50 INF] TraceForge AI c134f4b1c0414c0e9be46ad4792d810d Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Administrator)
+[15:12:50 INF] TraceForge AI c134f4b1c0414c0e9be46ad4792d810d Setting HTTP status code 403.
+[15:12:50 INF] TraceForge AI c134f4b1c0414c0e9be46ad4792d810d AuthenticationScheme: Identity.Application was forbidden.
+[15:12:50 INF] TraceForge AI c134f4b1c0414c0e9be46ad4792d810d HTTP GET /api/admin/users responded 403 in 3.0279 ms
+[15:12:50 INF] TraceForge AI  Request finished HTTP/1.1 GET http://localhost:5080/api/admin/users - 403 null application/problem+json 3.8117ms

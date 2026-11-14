@@ -2,6 +2,11 @@
   <Folder Name="/src/" />
   <Folder Name="/src/backend/">
     <Project Path="src/backend/TraceForge.Api/TraceForge.Api.csproj" />
+    <Project Path="src/backend/TraceForge.Application/TraceForge.Application.csproj" />
+    <Project Path="src/backend/TraceForge.Domain/TraceForge.Domain.csproj" />
+    <Project Path="src/backend/TraceForge.Infrastructure/TraceForge.Infrastructure.csproj" />
+    <Project Path="src/backend/TraceForge.Migrations.PostgreSql/TraceForge.Migrations.PostgreSql.csproj" />
+    <Project Path="src/backend/TraceForge.Migrations.Sqlite/TraceForge.Migrations.Sqlite.csproj" />
   </Folder>
   <Folder Name="/tests/" />
   <Folder Name="/tests/unit/">

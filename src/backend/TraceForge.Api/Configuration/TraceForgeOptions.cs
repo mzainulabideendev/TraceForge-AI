@@ -29,4 +29,9 @@ public sealed class RateLimitingOptions
     public int WindowSeconds { get; init; } = 60;
 
     public int QueueLimit { get; init; }
+
+    /// <summary>Sensitive credential endpoints get a much tighter budget per client.</summary>
+    public int AuthPermitLimit { get; init; } = 10;
+
+    public int AuthWindowSeconds { get; init; } = 300;
 }

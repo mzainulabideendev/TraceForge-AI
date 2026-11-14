@@ -1,0 +1,67 @@
+﻿[
+    {
+        "Step":  "csrf",
+        "Status":  200,
+        "Detail":  "tokenIssued"
+    },
+    {
+        "Step":  "register-without-csrf",
+        "Status":  400,
+        "Detail":  "blocked by antiforgery"
+    },
+    {
+        "Step":  "register-first-account",
+        "Status":  201,
+        "Detail":  "roles=Administrator"
+    },
+    {
+        "Step":  "me",
+        "Status":  200,
+        "Detail":  "email=admin@example.test;role=Administrator"
+    },
+    {
+        "Step":  "admin-users-as-admin",
+        "Status":  200,
+        "Detail":  "total=1"
+    },
+    {
+        "Step":  "admin-audit-as-admin",
+        "Status":  200,
+        "Detail":  "total=2;newest=admin.users.listed"
+    },
+    {
+        "Step":  "logout",
+        "Status":  204,
+        "Detail":  "session ended"
+    },
+    {
+        "Step":  "me-after-logout",
+        "Status":  401,
+        "Detail":  "unauthenticated -\u003e 401"
+    },
+    {
+        "Step":  "admin-users-anonymous",
+        "Status":  401,
+        "Detail":  "rejected -\u003e 401"
+    },
+    {
+        "Step":  "login",
+        "Status":  200,
+        "Detail":  "authenticated"
+    },
+    {
+        "Step":  "login-wrong-password",
+        "Status":  400,
+        "Detail":  "rejected -\u003e 401"
+    },
+    {
+        "Step":  "register-second-account",
+        "Status":  201,
+        "Detail":  "role=Analyst"
+    },
+    {
+        "Step":  "admin-users-as-analyst",
+        "Status":  403,
+        "Detail":  "forbidden -\u003e 403"
+    }
+]
