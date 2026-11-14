@@ -1,0 +1,282 @@
+{
+  "report": "phase-2-workspaces",
+  "project": "TraceForge AI",
+  "phase": 2,
+  "phaseName": "Multi-workspace isolation, membership RBAC and authorized scopes",
+  "status": "complete-with-blocked-verification",
+  "statusDetail": "Workspace isolation, membership RBAC, authorized-scope lifecycle and deterministic scope validation are implemented and verified on SQLite through automated tests and a live Kestrel run. PostgreSQL migrations were generated but never executed because no server is available; that verification is BLOCKED. No Phase 3 scanning or connection code exists.",
+  "generatedAtUtc": "2026-11-14T10:55:00Z",
+  "git": {
+    "branch": "main",
+    "baselineCommit": "549d1b35b7792a78fe86ebe0b0c6450d9781f528",
+    "commit": "a0f4dd667b5641d1dec4b539dc5e48549d863ab5",
+    "commitSubject": "feat(phase-2): add workspace isolation, membership RBAC and authorized scopes",
+    "workingTreeCleanBeforeReport": true,
+    "reportCommit": "the commit that adds this report; see git log for docs/reports/phase-2-workspaces.md"
+  },
+  "environment": {
+    "os": "Microsoft Windows 11 Pro",
+    "dotnetSdk": "10.0.401",
+    "efCore": "10.0.15",
+    "databaseRuntimeVerified": "SQLite (Microsoft.EntityFrameworkCore.Sqlite 10.0.15)",
+    "postgresql": "not installed - runtime verification BLOCKED",
+    "docker": "not installed",
+    "nmap": "not installed"
+  },
+  "implemented": [
+    "Workspace, WorkspaceMembership and WorkspaceRole domain model with permission table",
+    "Explicit server-side access resolver on every workspace and scope operation",
+    "Owner/Administrator/Analyst least-privilege model with global-role independence",
+    "Non-member 404, insufficient-role 403, archived-mutation 409 mapping",
+    "Last-owner protection inside the mutation transaction",
+    "AuthorizedScope, ScopeApproval and ScopeAuditEvent persistence",
+    "Scope registration always Pending; explicit audited approval with required evidence",
+    "Revocation, expiration and restriction-edit lifecycle rules",
+    "Deterministic IPv4/IPv6/CIDR/Hostname/Origin normalization",
+    "Deterministic validation policy with DNS resolution, per-address approval and pinned addresses",
+    "Private/reserved network gating via deployment switch plus scope restriction",
+    "Redirect containment by scheme, host and port with independent re-evaluation",
+    "Workspace, membership and scope HTTP endpoints",
+    "EF Core migrations for SQLite and PostgreSQL",
+    "Global audit records plus append-only per-scope audit history"
+  ],
+  "notImplemented": [
+    "Asset discovery, scanning, Nmap integration and any network connection",
+    "Findings, attack graphs, AI adapters and reporting",
+    "Frontend",
+    "Database row-level security",
+    "Connection-time enforcement of pinned addresses (Phase 3)"
+  ],
+  "roleMatrix": {
+    "Owner": [
+      "read workspace, members and scopes",
+      "update workspace",
+      "archive workspace",
+      "add/remove members and change roles, including owners",
+      "register, approve, revoke, expire scopes and update restrictions"
+    ],
+    "Administrator": [
+      "read workspace, members and scopes",
+      "update workspace",
+      "add/remove non-owner members and change non-owner roles",
+      "register, approve, revoke, expire scopes and update restrictions"
+    ],
+    "Analyst": [
+      "read workspace, members and scopes",
+      "register scopes (always Pending)"
+    ]
+  },
+  "apiEndpoints": [
+    { "method": "POST", "path": "/api/workspaces", "auth": "authenticated + CSRF" },
+    { "method": "GET", "path": "/api/workspaces", "auth": "authenticated" },
+    { "method": "GET", "path": "/api/workspaces/{id}", "auth": "member" },
+    { "method": "PUT", "path": "/api/workspaces/{id}", "auth": "Owner/Administrator" },
+    { "method": "POST", "path": "/api/workspaces/{id}/archive", "auth": "Owner" },
+    { "method": "GET", "path": "/api/workspaces/{id}/members", "auth": "member" },
+    { "method": "POST", "path": "/api/workspaces/{id}/members", "auth": "Owner/Administrator" },
+    { "method": "PATCH", "path": "/api/workspaces/{id}/members/{userId}", "auth": "Owner/Administrator" },
+    { "method": "DELETE", "path": "/api/workspaces/{id}/members/{userId}", "auth": "Owner/Administrator" },
+    { "method": "POST", "path": "/api/workspaces/{id}/scopes", "auth": "member" },
+    { "method": "GET", "path": "/api/workspaces/{id}/scopes", "auth": "member" },
+    { "method": "GET", "path": "/api/workspaces/{id}/scopes/{scopeId}", "auth": "member" },
+    { "method": "POST", "path": "/api/workspaces/{id}/scopes/{scopeId}/approve", "auth": "Owner/Administrator" },
+    { "method": "POST", "path": "/api/workspaces/{id}/scopes/{scopeId}/revoke", "auth": "Owner/Administrator" },
+    { "method": "POST", "path": "/api/workspaces/{id}/scopes/{scopeId}/expire", "auth": "Owner/Administrator" },
+    { "method": "PATCH", "path": "/api/workspaces/{id}/scopes/{scopeId}/restrictions", "auth": "Owner/Administrator" },
+    { "method": "POST", "path": "/api/workspaces/{id}/scopes/evaluate", "auth": "member" }
+  ],
+  "migrations": {
+    "sqlite": "20261114110000_Phase2Workspaces",
+    "postgresql": "20261114110011_Phase2Workspaces",
+    "sqliteApplied": true,
+    "postgresqlApplied": false,
+    "postgresqlStatus": "BLOCKED - no PostgreSQL server or Docker available"
+  },
+  "gates": [
+    {
+      "gate": "Release build (no incremental)",
+      "command": "dotnet build TraceForge.slnx -c Release --no-incremental",
+      "status": "PASS",
+      "detail": "0 warnings, 0 errors"
+    },
+    {
+      "gate": "Formatting",
+      "command": "dotnet format TraceForge.slnx --verify-no-changes",
+      "status": "PASS",
+      "detail": "exit code 0, no files changed"
+    },
+    {
+      "gate": "Automated tests",
+      "command": "dotnet test TraceForge.slnx -c Release --no-build --logger \"trx;LogFileName=phase-2.trx\" --results-directory docs\\reports\\evidence",
+      "status": "PASS",
+      "detail": "142 passed, 0 failed, 0 skipped"
+    },
+    {
+      "gate": "SQLite migration application",
+      "command": "API startup with ApplyMigrationsOnStartup=true against a fresh database file",
+      "status": "PASS",
+      "detail": "InitialCreate and Phase2Workspaces applied; tables queryable"
+    },
+    {
+      "gate": "PostgreSQL migration application",
+      "command": "dotnet ef database update (not executed)",
+      "status": "BLOCKED",
+      "detail": "No PostgreSQL server exists on the audited machine; script generated only"
+    },
+    {
+      "gate": "CI workflow execution",
+      "command": "GitHub Actions",
+      "status": "NOT RUN",
+      "detail": "No git remote configured; workflow has never run on GitHub"
+    },
+    {
+      "gate": "Live HTTP verification",
+      "command": "verify-phase2.ps1 against Kestrel Release build",
+      "status": "PASS",
+      "detail": "18 of 18 steps produced the expected status"
+    }
+  ],
+  "tests": {
+    "total": 142,
+    "passed": 142,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 21,
+    "startedAt": "2026-11-14T16:21:21+05:00",
+    "finishedAt": "2026-11-14T16:21:42+05:00",
+    "trx": "docs/reports/evidence/phase-2.trx",
+    "byClass": {
+      "ScopeNormalizationTests": 50,
+      "ConfigurationValidationTests": 14,
+      "AuthFlowTests": 13,
+      "ScopeValidationServiceTests": 12,
+      "ScopeApiTests": 10,
+      "WorkspaceApiTests": 10,
+      "ScopeDomainTests": 7,
+      "AuthorizationTests": 6,
+      "DatabaseTests": 4,
+      "Phase2MigrationTests": 4,
+      "CorrelationIdTests": 3,
+      "SecurityHeaderTests": 3,
+      "RateLimitingTests": 2,
+      "HealthEndpointTests": 2,
+      "SystemInfoEndpointTests": 2
+    },
+    "environment": "WebApplicationFactory<Program> with a freshly migrated SQLite file per test; DNS stubbed only via IDnsResolver in policy tests"
+  },
+  "liveHttpVerification": {
+    "baseUrl": "http://127.0.0.1:5199",
+    "process": "Kestrel Release build against a fresh SQLite database",
+    "artifact": "docs/reports/evidence/phase-2-http-verification.json",
+    "expectedSteps": 18,
+    "passedSteps": 18,
+    "steps": [
+      { "step": "ready", "status": 200, "detail": "Kestrel started against a fresh SQLite database" },
+      { "step": "register-owner", "status": 201, "detail": "first account (global Administrator)" },
+      { "step": "create-workspace", "status": 201, "detail": "callerRole=1 (Owner)" },
+      { "step": "register-scope-ipv4", "status": 201, "detail": "status=Pending" },
+      { "step": "approve-scope", "status": 200, "detail": "status=Approved" },
+      { "step": "evaluate-approved-ip", "status": 200, "detail": "allowed=True; pinned=8.8.8.8" },
+      { "step": "evaluate-cidr-member", "status": 200, "detail": "allowed=True" },
+      { "step": "evaluate-outside-scope", "status": 200, "detail": "allowed=False; reason=NoApprovedScope" },
+      { "step": "evaluate-private-blocked", "status": 200, "detail": "allowed=False; reason=PrivateNetworkBlocked" },
+      { "step": "register-analyst", "status": 201, "detail": "second account" },
+      { "step": "add-analyst-member", "status": 201, "detail": "workspace role Analyst" },
+      { "step": "analyst-approve-denied", "status": 403, "detail": "role lacks ApproveScopes" },
+      { "step": "register-outsider", "status": 201, "detail": "third account, not a member" },
+      { "step": "outsider-get-workspace", "status": 404, "detail": "non-member receives 404" },
+      { "step": "last-owner-remove-denied", "status": 409, "detail": "last owner is protected" },
+      { "step": "archive-workspace", "status": 200, "detail": "status=Archived" },
+      { "step": "update-archived-denied", "status": 409, "detail": "archived workspace rejects mutations" },
+      { "step": "audit-query", "status": 200, "detail": "workspace.created, scope.approved and workspace.archived present" }
+    ]
+  },
+  "securityChecks": {
+    "passed": [
+      "Non-member cannot read, update, list members or list scopes of a workspace (404)",
+      "Member of another workspace cannot read a scope by id (404)",
+      "Analyst cannot update, archive, add members or approve scopes (403)",
+      "Administrator cannot archive, grant Owner, modify Owner or remove Owner (403)",
+      "Last Owner cannot be demoted or removed (409)",
+      "Archived workspace rejects update, member changes and scope registration (409)",
+      "Registration always leaves a scope Pending and unusable",
+      "Approval without evidence returns 400; Analyst approval returns 403",
+      "Revoked scope cannot be re-approved (409)",
+      "Approval past the stored deadline is denied even if the expire endpoint was not called",
+      "Restriction change resets approval to Pending and clears evidence",
+      "Hostname approval does not authorize a resolved address (ResolvedAddressNotApproved)",
+      "DNS rebinding to an unapproved address is denied with no pinned address",
+      "Private address is denied by default and denied without the scope restriction even when the switch is on",
+      "Redirect changing scheme, host or port is denied (RedirectOutsideScope)",
+      "Userinfo, path, query, fragment, /0 CIDR, IPv4-mapped IPv6, zone index and single-label hostnames are rejected",
+      "Workspace audit actions (created, member added, role changed, member removed, archived) are present and contain no password-like data"
+    ],
+    "notVerified": [
+      "Connection-time pinning (no Phase 3 connection code exists)",
+      "PostgreSQL constraints at runtime",
+      "CI execution on GitHub"
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "docs/reports/evidence/phase-2.trx",
+      "bytes": 626426,
+      "sha256": "626a4899f836346ee2a2d4c78807363df0513497497038540de845316b725621",
+      "meaning": "TRX of the executed 142-test run"
+    },
+    {
+      "path": "docs/reports/evidence/phase-2-sqlite-schema.sql",
+      "bytes": 9719,
+      "sha256": "4141c52ee986e87ab5bdc33e1bf74fda31de9f3dfd3492aa4370652cd5e4f87a",
+      "meaning": "SQL emitted from the SQLite migrations; applied on a fresh database"
+    },
+    {
+      "path": "docs/reports/evidence/phase-2-postgresql-schema.sql",
+      "bytes": 10549,
+      "sha256": "27400fe2e2bdb0eb74150a62e32d8551919d70823e863317e314696eee904085",
+      "meaning": "SQL emitted from the PostgreSQL migrations; never executed on a server"
+    },
+    {
+      "path": "docs/reports/evidence/phase-2-http-verification.json",
+      "bytes": 2299,
+      "sha256": "9d5b90ae207418050ca1d440097dd0e4587c0a3b346b85907a5604f014671ac3",
+      "meaning": "Live Kestrel HTTP verification, 18 steps"
+    }
+  ],
+  "artifactHashNote": "SHA-256 values are computed over the committed Git blobs (git cat-file blob HEAD:<path>) so they reproduce from a fresh checkout. Byte lengths are the committed lengths.",
+  "limitations": [
+    "PostgreSQL migrations are generated but never applied; runtime verification is BLOCKED",
+    "Pinned addresses are returned by policy only; Phase 3 scanners must enforce connection-time pinning",
+    "DNS is resolved once per evaluation; callers must honour the returned pins",
+    "Workspace isolation is application-level; no database row-level security",
+    "Audit immutability is application-level only",
+    "Failed audit writes are logged but do not roll back the action",
+    "No MFA, password reset or email verification",
+    "CI has never executed because no remote is configured",
+    "No workspace deletion or ownership-transfer endpoint",
+    "No frontend, assets, findings, graphs, AI or reporting"
+  ],
+  "deviations": [
+    {
+      "planned": "Global EF query filters for workspace isolation",
+      "actual": "Explicit access resolver in every service",
+      "reason": "Filters fail silently and hide a missing check; explicit resolution is testable and covered by negative tests"
+    },
+    {
+      "planned": "Approval and revocation endpoints only",
+      "actual": "Added POST /api/workspaces/{id}/scopes/evaluate",
+      "reason": "Needed to exercise the validation engine over real HTTP without implementing scanning"
+    },
+    {
+      "planned": "Repeated expire returns 409",
+      "actual": "Expire is idempotent after the deadline",
+      "reason": "Avoids a spurious conflict once the state is already correct; covered by a test"
+    }
+  ],
+  "approval": {
+    "requested": true,
+    "phaseComplete": true,
+    "nextPhaseStarted": false,
+    "statement": "Phase 2 is complete and verified on SQLite. Phase 3 (asset discovery and scanning) has not been started and no scan, asset or connection code exists in the tree. Approval is requested before any Phase 3 work begins."
+  }
+}
