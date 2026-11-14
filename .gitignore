@@ -26,6 +26,9 @@ dist/
 npm-debug.log*
 yarn-error.log*
 
+# Built Angular console copied into the API for same-origin hosting
+src/backend/TraceForge.Api/wwwroot/
+
 # Runtime artifacts
 logs/
 *.log
@@ -42,6 +45,15 @@ appsettings.Local.json
 *.pfx
 *.pem
 *.key
+supabase_connection.env
+supabase/.temp/
+supabase/.branches/
+
+# Local agent-skill and Supabase CLI scratch state
+.agents/
+.claude/
+skills-lock.json
+supabase/
 
 # IDE
 .vs/

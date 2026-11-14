@@ -1,0 +1,38 @@
+@if (!isAuthScreen()) {
+  <header class="topbar">
+    <a class="brand" routerLink="/workspaces" aria-label="TraceForge AI home">
+      <span class="brand-mark" aria-hidden="true">TF</span>
+      <span class="brand-text">
+        <span class="brand-name">TraceForge AI</span>
+        <span class="brand-sub">Workspace console</span>
+      </span>
+    </a>
+
+    <nav class="topnav" aria-label="Primary">
+      <a class="nav-link" routerLink="/workspaces" routerLinkActive="active">Workspaces</a>
+      @if (session.isGlobalAdministrator()) {
+        <a class="nav-link" routerLink="/admin" routerLinkActive="active">Administration</a>
+      }
+    </nav>
+
+    <div class="topbar-user">
+      @if (session.user(); as account) {
+        <div class="user-meta">
+          <span class="user-email" [title]="account.email">{{
+            account.displayName || account.email
+          }}</span>
+          <span class="user-roles">{{ account.roles.join(' · ') || 'No global role' }}</span>
+        </div>
+        <button type="button" class="btn btn-ghost btn-sm" (click)="signOut()">Sign out</button>
+      } @else {
+        <a class="btn btn-primary btn-sm" routerLink="/login">Sign in</a>
+      }
+    </div>
+  </header>
+}
+
+<main class="shell-main" [class.shell-main-flush]="isAuthScreen()">
+  <router-outlet />
+</main>
+
+<app-toast-host />

@@ -21,7 +21,7 @@ for what actually works today.
 | 2 | Workspace model, membership RBAC, authorized scopes and deterministic scope validation | **Implemented and verified on SQLite; PostgreSQL runtime verification BLOCKED (server absent)** |
 | 3 | Asset discovery | Not started |
 | 4 | Deterministic detection engine | Not started |
-| 5 | Angular dashboard | Not started |
+| 5 | Angular dashboard | **Console for the Phase 1–2 capabilities implemented and verified**; the remaining Phase 5 dashboard scope is not started |
 | 6 | Evidence-backed attack graph | Not started |
 | 7 | AI investigator (provider adapters) | Not started |
 | 8 | Security digital twin | Not started |
@@ -39,7 +39,8 @@ fabricates scan results, findings, or metrics.
 | Component | Version | Verified here |
 |---|---|---|
 | .NET SDK | 10.0.x | 10.0.401 |
-| Node.js (future frontend) | 22 LTS or later | 24.20.0 |
+| Node.js (web console) | 22 LTS or later | 24.20.0 |
+| Angular CLI | 22.x | 22.2.7 |
 | Python (future analysis service) | 3.12+ | 3.12.10 |
 | PostgreSQL (Phase 1+) | 16+ | Not installed on the development machine; schema generated but server verification BLOCKED |
 | Docker (optional) | 24+ | Not installed on the development machine |
@@ -69,6 +70,37 @@ Invoke-RestMethod http://localhost:5080/api/system/info
 ```
 
 OpenAPI document (Development environment only): `http://localhost:5080/openapi/v1.json`
+
+## Web console
+
+The Angular console in [`src/frontend`](src/frontend) covers every Phase 1–2 capability: sign-in and
+registration, workspace list and details, membership management, the authorized-scope lifecycle
+(register → approve → revoke/expire/restrict) and the scope evaluation console, plus the administration
+screens for global Administrators.
+
+```powershell
+# terminal 1
+dotnet run --project src\backend\TraceForge.Api\TraceForge.Api.csproj
+
+# terminal 2
+cd src\frontend
+npm install
+npm start
+```
+
+Open `http://localhost:4200`. The dev server proxies `/api` and `/health` to the API, so the session
+cookie stays first-party (`SameSite=Strict` cookies are not sent cross-site).
+
+For a single deployment, build the console into the API:
+
+```powershell
+cd src\frontend
+npm run build:api   # production build copied to src\backend\TraceForge.Api\wwwroot
+```
+
+The API then serves the console and `/api` from one origin, including the client-side route fallback.
+See the [web console guide](docs/development/frontend.md) and
+[free hosting options](docs/deployment/free-hosting.md).
 
 ## API surface (Phase 2)
 
@@ -154,7 +186,9 @@ repository.
 - [API reference](docs/api/endpoints.md)
 - [Database schema](docs/database/schema.md)
 - [Development setup](docs/development/setup.md)
+- [Web console guide](docs/development/frontend.md)
 - [Supabase PostgreSQL + MonsterASP.NET deployment](docs/deployment/supabase-monsterasp.md)
+- [Free hosting options for the API and console](docs/deployment/free-hosting.md)
 - [Testing guide](docs/development/testing.md)
 - [Threat model](docs/security/threat-model.md)
 - [Security policy](SECURITY.md)
@@ -162,6 +196,7 @@ repository.
 - [Phase 0 completion report](docs/reports/phase-0-baseline.md)
 - [Phase 1 completion report](docs/reports/phase-1-foundation.md)
 - [Phase 2 completion report](docs/reports/phase-2-workspaces.md)
+- [Phase 2 web console report](docs/reports/phase-2-frontend.md)
 
 ## Contributing
 

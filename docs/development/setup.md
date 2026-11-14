@@ -9,7 +9,7 @@ Audited on 2026-11-13 on the primary development machine:
 | OS | Windows 11 Pro | PowerShell 5.1 available |
 | RAM | 15.37 GB | Development profile keeps services minimal |
 | .NET SDK | 10.0.401 | Required |
-| Node.js / npm | v24.20.0 / 11.19.0 | Only needed from Phase 5 (Angular) |
+| Node.js / npm | v24.20.0 / 11.19.0 | Required for the Angular web console |
 | Python | 3.12.10 | Only needed when Python analysis modules land |
 | Git | 2.55.0 | |
 | Docker | **not installed** | Optional; PostgreSQL via Docker is documented but unverified here |
@@ -30,6 +30,21 @@ dotnet run --project src\backend\TraceForge.Api\TraceForge.Api.csproj
 ```
 
 Default URL: `http://localhost:5080`.
+
+## Web console
+
+```powershell
+cd src\frontend
+npm install
+npm start          # http://localhost:4200, proxies /api and /health to http://localhost:5080
+```
+
+Start the API first. The dev server's proxy keeps the console and the API on one browser origin, which
+the `SameSite=Strict` session cookie requires. For a single-origin deployment build the console into the
+API with `npm run build:api`; the API then serves it from `wwwroot`.
+
+Details, including the Content Security Policy constraint that disables critical-CSS inlining, are in the
+[web console guide](frontend.md).
 
 ## Verify a running instance
 

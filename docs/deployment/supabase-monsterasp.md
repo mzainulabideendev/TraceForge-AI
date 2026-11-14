@@ -61,5 +61,34 @@ deploy the published application, and check:
 - `/health/ready` reports the database check as healthy.
 - The host is serving the API over HTTPS; secure cookies are enabled in production.
 
+### Ship the console with the API (recommended)
+
+The session and antiforgery cookies are `SameSite=Strict`, so the console must be served from the same
+origin as `/api`. Build it into the API before publishing:
+
+```powershell
+cd src\frontend
+npm install
+npm run build:api
+```
+
+That writes the production bundle to `src\backend\TraceForge.Api\wwwroot`. On startup the API logs
+`Serving the built web console from ...` and serves the SPA, its hashed assets and the client-side route
+fallback, while `/api` and `/health` keep their own behaviour and JSON 404s. Nothing needs to be enabled
+in configuration: the presence of `wwwroot/index.html` is the switch.
+
+Then publish and upload:
+
+```powershell
+dotnet publish src\backend\TraceForge.Api\TraceForge.Api.csproj -c Release -o publish
+```
+
+Open `https://<your-site>/` and sign in. `TraceForge__Auth__AllowSelfRegistration=true` is needed only to
+create the first account, which becomes the global Administrator; set it back to `false` afterwards.
+
+Do not upload `node_modules` or `src/frontend/dist` to the host; only the API publish output is required.
+
+See [free hosting options](free-hosting.md) for the free tiers that fit this shape and their limits.
+
 This repository change documents the integration; it does not deploy the API or execute the
 migrations against the Supabase project.

@@ -1,0 +1,205 @@
+﻿{
+    "GeneratedAtUtc":  "2026-11-14T14:00:41.6001928Z",
+    "Application":  "TraceForge AI",
+    "Scope":  "Phase 2 console end-to-end verification",
+    "BaseUrl":  "http://127.0.0.1:5099",
+    "Summary":  {
+                    "Passed":  32,
+                    "Failed":  0,
+                    "Total":  32
+                },
+    "Steps":  [
+                  {
+                      "Step":  "spa-document",
+                      "Result":  "PASS",
+                      "Status":  200,
+                      "Detail":  "index.html with app root; bundle=main-X63YER24.js"
+                  },
+                  {
+                      "Step":  "spa-bundle-asset",
+                      "Result":  "PASS",
+                      "Status":  200,
+                      "Detail":  "Content-Type=text/javascript; bytes=109439"
+                  },
+                  {
+                      "Step":  "spa-deep-link-fallback",
+                      "Result":  "PASS",
+                      "Status":  200,
+                      "Detail":  "Client-side route returned the SPA document"
+                  },
+                  {
+                      "Step":  "api-csp-still-restrictive",
+                      "Result":  "PASS",
+                      "Status":  200,
+                      "Detail":  "JSON responses keep the locked-down policy"
+                  },
+                  {
+                      "Step":  "api-unknown-route-json-404",
+                      "Result":  "PASS",
+                      "Status":  404,
+                      "Detail":  "title=Resource not found"
+                  },
+                  {
+                      "Step":  "anonymous-workspaces-rejected",
+                      "Result":  "PASS",
+                      "Status":  401,
+                      "Detail":  "No session means 401, which the SPA handles by redirecting to /login"
+                  },
+                  {
+                      "Step":  "register-owner",
+                      "Result":  "PASS",
+                      "Status":  201,
+                      "Detail":  "email=owner-0f0547c2@example.test; roles=Administrator"
+                  },
+                  {
+                      "Step":  "session-me",
+                      "Result":  "PASS",
+                      "Status":  200,
+                      "Detail":  "email=owner-0f0547c2@example.test"
+                  },
+                  {
+                      "Step":  "create-workspace",
+                      "Result":  "PASS",
+                      "Status":  201,
+                      "Detail":  "id=1cbfa170-1a8c-4091-99d6-b2e1f02e41db; callerRole=1; status=Active"
+                  },
+                  {
+                      "Step":  "list-workspaces",
+                      "Result":  "PASS",
+                      "Status":  200,
+                      "Detail":  "count=1"
+                  },
+                  {
+                      "Step":  "get-workspace-detail",
+                      "Result":  "PASS",
+                      "Status":  200,
+                      "Detail":  "memberCount=1; scopeCount=0"
+                  },
+                  {
+                      "Step":  "update-workspace",
+                      "Result":  "PASS",
+                      "Status":  200,
+                      "Detail":  "name=E2E assessment renamed"
+                  },
+                  {
+                      "Step":  "register-ipv4-scope",
+                      "Result":  "PASS",
+                      "Status":  201,
+                      "Detail":  "target=8.8.8.8; status=Pending; usable=False"
+                  },
+                  {
+                      "Step":  "register-hostname-scope",
+                      "Result":  "PASS",
+                      "Status":  201,
+                      "Detail":  "target=example.com; status=Pending"
+                  },
+                  {
+                      "Step":  "register-malformed-scope-rejected",
+                      "Result":  "PASS",
+                      "Status":  400,
+                      "Detail":  "title=Invalid input"
+                  },
+                  {
+                      "Step":  "evaluate-before-approval-denied",
+                      "Result":  "PASS",
+                      "Status":  200,
+                      "Detail":  "allowed=False; reason=ScopePending"
+                  },
+                  {
+                      "Step":  "approve-scope",
+                      "Result":  "PASS",
+                      "Status":  200,
+                      "Detail":  "status=Approved; usable=True"
+                  },
+                  {
+                      "Step":  "evaluate-approved-ip-allowed",
+                      "Result":  "PASS",
+                      "Status":  200,
+                      "Detail":  "allowed=True; reason=None; pinned=8.8.8.8"
+                  },
+                  {
+                      "Step":  "evaluate-outside-scope-denied",
+                      "Result":  "PASS",
+                      "Status":  200,
+                      "Detail":  "allowed=False; reason=NoApprovedScope"
+                  },
+                  {
+                      "Step":  "evaluate-unregistered-private-denied",
+                      "Result":  "PASS",
+                      "Status":  200,
+                      "Detail":  "allowed=False; reason=NoApprovedScope"
+                  },
+                  {
+                      "Step":  "evaluate-approved-private-blocked",
+                      "Result":  "PASS",
+                      "Status":  200,
+                      "Detail":  "approvedScope=200; allowed=False; reason=PrivateNetworkBlocked"
+                  },
+                  {
+                      "Step":  "register-analyst",
+                      "Result":  "PASS",
+                      "Status":  201,
+                      "Detail":  "email=analyst-505fa884@example.test"
+                  },
+                  {
+                      "Step":  "add-analyst-member",
+                      "Result":  "PASS",
+                      "Status":  201,
+                      "Detail":  "role=3"
+                  },
+                  {
+                      "Step":  "list-members",
+                      "Result":  "PASS",
+                      "Status":  200,
+                      "Detail":  "count=2"
+                  },
+                  {
+                      "Step":  "analyst-approve-denied",
+                      "Result":  "PASS",
+                      "Status":  403,
+                      "Detail":  "title=Forbidden"
+                  },
+                  {
+                      "Step":  "analyst-can-read-scopes",
+                      "Result":  "PASS",
+                      "Status":  200,
+                      "Detail":  "count=3"
+                  },
+                  {
+                      "Step":  "register-outsider",
+                      "Result":  "PASS",
+                      "Status":  201,
+                      "Detail":  "email=outsider-e2459b6d@example.test"
+                  },
+                  {
+                      "Step":  "outsider-gets-404",
+                      "Result":  "PASS",
+                      "Status":  404,
+                      "Detail":  "Knowing the workspace id grants nothing"
+                  },
+                  {
+                      "Step":  "outsider-scopes-404",
+                      "Result":  "PASS",
+                      "Status":  404,
+                      "Detail":  "Cross-workspace reads are refused"
+                  },
+                  {
+                      "Step":  "audit-log-records-approval",
+                      "Result":  "PASS",
+                      "Status":  200,
+                      "Detail":  "events=14; scopeApprovalAudited=True"
+                  },
+                  {
+                      "Step":  "archive-workspace",
+                      "Result":  "PASS",
+                      "Status":  200,
+                      "Detail":  "status=Archived"
+                  },
+                  {
+                      "Step":  "archived-mutation-refused",
+                      "Result":  "PASS",
+                      "Status":  409,
+                      "Detail":  "title=Workspace archived"
+                  }
+              ]
+}
