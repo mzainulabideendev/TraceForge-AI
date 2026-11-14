@@ -1,0 +1,39 @@
+{
+  "verification": "angular-dev-server-proxy",
+  "generatedAtUtc": "2026-11-14T14:12:00Z",
+  "scope": "Confirms the documented development workflow: `npm start` proxies /api to the API on port 5080, and cookies plus the antiforgery header survive the proxy.",
+  "configuration": {
+    "console": "http://localhost:4200",
+    "api": "http://localhost:5080",
+    "proxyConfig": "src/frontend/proxy.conf.json",
+    "database": "SQLite scratch file (artifacts/verify/devproxy.db)"
+  },
+  "steps": [
+    {
+      "step": "proxied-api-call",
+      "result": "PASS",
+      "detail": "GET http://localhost:4200/api/system/info returned the API system information (application=TraceForge AI, environment=Development)"
+    },
+    {
+      "step": "dev-index",
+      "result": "PASS",
+      "detail": "GET http://localhost:4200/ served the application shell with <app-root> and no inline script"
+    },
+    {
+      "step": "register-through-proxy",
+      "result": "PASS",
+      "detail": "POST /api/auth/register via the dev server returned 201"
+    },
+    {
+      "step": "session-cookie-through-proxy",
+      "result": "PASS",
+      "detail": "GET /api/auth/me via the dev server returned 200 with the registered account, so the SameSite=Strict session cookie is first-party"
+    },
+    {
+      "step": "antiforgery-through-proxy",
+      "result": "PASS",
+      "detail": "POST /api/workspaces via the dev server returned 201 using the X-XSRF-TOKEN header from /api/auth/csrf"
+    }
+  ],
+  "summary": { "passed": 5, "failed": 0 }
+}

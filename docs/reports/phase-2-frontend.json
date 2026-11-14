@@ -3,6 +3,7 @@
   "application": "TraceForge AI",
   "generatedAtUtc": "2026-11-14T14:05:00Z",
   "featureCommit": "5e88921",
+  "reportCommit": "ffa5c93",
   "scope": "Angular web console for the Phase 1-2 capabilities, same-origin SPA hosting by the API, and free hosting guidance. No Phase 3 capability was added.",
   "status": {
     "implementation": "PASS",
@@ -67,6 +68,7 @@
     { "check": "frontend-unit-tests", "command": "npx ng test --watch=false", "result": "PASS", "detail": "11 passed, 0 failed" },
     { "check": "live-http-end-to-end", "command": "artifacts/verify/e2e.ps1", "result": "PASS", "detail": "32 of 32 steps against a live SQLite instance" },
     { "check": "browser-rendering", "command": "artifacts/verify/verify-ui.mjs", "result": "PASS", "detail": "headless Chrome, 0 page errors, 0 console errors" },
+    { "check": "dev-server-proxy", "command": "npm start + requests to http://localhost:4200", "result": "PASS", "detail": "5 of 5 checks; cookies and antiforgery header survive the proxy" },
     { "check": "postgresql-runtime", "command": "not available", "result": "NOT RUN", "detail": "no PostgreSQL server in this environment" },
     { "check": "hosted-deployment", "command": "not attempted", "result": "NOT RUN", "detail": "no free host was provisioned" }
   ],
@@ -136,6 +138,7 @@
     "docs/deployment/free-hosting.md",
     "docs/reports/evidence/frontend-e2e.json",
     "docs/reports/evidence/frontend-ui-verification.json",
+    "docs/reports/evidence/frontend-dev-proxy.json",
     "docs/reports/evidence/frontend-unit-tests.log",
     "docs/reports/evidence/phase-2-frontend.trx",
     "docs/reports/evidence/frontend-login.png",

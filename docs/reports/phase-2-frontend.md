@@ -2,6 +2,7 @@
 
 **Status: implemented and verified locally. Deployment to a hosting provider: NOT RUN.**
 **Feature commit: `5e88921`** (`feat(web): add Angular workspace console and same-origin SPA hosting`).
+**Report commit: `ffa5c93`.**
 
 ## Objective
 
@@ -66,6 +67,7 @@ Both were caught by the browser-level check, not by the build.
 | Frontend unit tests | `npx ng test --watch=false` | **PASS** — 11 passed, 0 failed |
 | Live HTTP end-to-end | `docs/reports/evidence/frontend-e2e.json` | **PASS** — 32 of 32 steps |
 | Real browser rendering | `docs/reports/evidence/frontend-ui-verification.json` | **PASS** — 0 page errors, 0 console errors |
+| Dev-server workflow (`npm start` + proxy) | `docs/reports/evidence/frontend-dev-proxy.json` | **PASS** — 5 of 5 checks, including cookies and the antiforgery header across the proxy |
 | PostgreSQL runtime | — | **NOT RUN** — no PostgreSQL server in this environment |
 | Deployment to any host | — | **NOT RUN** — no host was provisioned |
 
@@ -91,6 +93,7 @@ archive refused with 409.
 |---|---|
 | `docs/reports/evidence/frontend-e2e.json` | 32-step live HTTP verification with statuses and details |
 | `docs/reports/evidence/frontend-ui-verification.json` | Headless-Chrome report: headings rendered, counts, zero errors |
+| `docs/reports/evidence/frontend-dev-proxy.json` | Development workflow check through the Angular dev-server proxy |
 | `docs/reports/evidence/frontend-unit-tests.log` | Vitest run |
 | `docs/reports/evidence/phase-2-frontend.trx` | Backend test results (142 passed) |
 | `docs/reports/evidence/frontend-login.png`, `frontend-register.png` | Public screens |
@@ -160,5 +163,5 @@ Modified: `README.md`, `docs/development/setup.md`, `docs/deployment/supabase-mo
 | Item | Value |
 |---|---|
 | Feature commit | `5e88921` |
-| Report commit | recorded in the commit that adds this file |
-| Working tree | clean after the report commit (see `git status`) |
+| Report commit | `ffa5c93` |
+| Working tree | clean after the follow-up evidence/hash commit (see `git status`) |
