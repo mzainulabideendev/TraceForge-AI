@@ -154,6 +154,7 @@ repository.
 - [API reference](docs/api/endpoints.md)
 - [Database schema](docs/database/schema.md)
 - [Development setup](docs/development/setup.md)
+- [Supabase PostgreSQL + MonsterASP.NET deployment](docs/deployment/supabase-monsterasp.md)
 - [Testing guide](docs/development/testing.md)
 - [Threat model](docs/security/threat-model.md)
 - [Security policy](SECURITY.md)

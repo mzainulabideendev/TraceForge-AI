@@ -126,6 +126,9 @@ schema script was produced on the audited machine, but **no PostgreSQL server ex
 script has never been executed**. Readiness fails until the schema is applied. The Phase 1 and Phase 2
 reports record this explicit limitation.
 
+For Supabase PostgreSQL with the .NET API hosted separately on MonsterASP.NET, see the
+[deployment guide](../deployment/supabase-monsterasp.md).
+
 ## Logs
 
 Serilog writes to the console and to `src/backend/TraceForge.Api/logs/traceforge-YYYYMMDD.log`
