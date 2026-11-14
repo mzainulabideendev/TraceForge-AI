@@ -20,6 +20,9 @@ vulnerability"). Include:
 You may not test against systems you do not own or lack written authorization to assess. Reports
 produced by scanning third-party infrastructure will be closed without review.
 
+Phase 2 does not yet open network connections: the `POST /api/workspaces/{id}/scopes/evaluate`
+endpoint only evaluates stored policy and returns pinned addresses. Do not describe it as a scan.
+
 ## Non-negotiable product security rules
 
 These rules apply to every contribution:
@@ -37,6 +40,26 @@ These rules apply to every contribution:
    into findings, logs, or cloud AI requests.
 7. **Every sensitive action is audited.** Authentication, scope changes, scan launches and report
    exports are recorded with actor, timestamp (UTC) and outcome.
+
+### Phase 2 rules for workspace and scope work
+
+8. **Membership is the only source of workspace authority.** A global Identity role grants no access to
+   a workspace. Never derive workspace identity or role from a request body, query string, header or
+   client state.
+9. **Default deny, least privilege.** Non-members receive `404`; members lacking a role receive `403`;
+   archived workspaces reject mutations with `409`. Do not weaken one of these to simplify a client.
+10. **No auto-approval.** Registering, importing or discovering a target must leave the scope `Pending`.
+    Only an explicit, audited approval by an Owner or Administrator with a non-empty evidence reference
+    makes a target usable.
+11. **A hostname approval never approves addresses.** Every resolved address must match an approved
+    IP/CIDR scope. Callers consume the pinned addresses returned by the policy and must not re-resolve.
+12. **Private networks stay closed by default.** `TraceForge:Scopes:AllowPrivateNetworks` must remain
+    `false` outside an isolated lab, and a matching scope must also carry the `private-network`
+    restriction.
+13. **No frontend-only or AI authorization.** Guards, prompts and model output are UI convenience or
+    data, never an authorization decision. Enforcement lives in the server-side access resolver.
+14. **Preserve the last Owner.** The last Owner of a workspace must not be removed or demoted, and an
+    Administrator must never be able to grant, modify or remove an Owner.
 
 ## Disclosure
 

@@ -18,7 +18,7 @@ for what actually works today.
 |---|---|---|
 | 0 | Repository baseline: build, API host, structured logging, health probes, security headers, request correlation, rate limiting, configuration validation, automated tests, CI, documentation | **Implemented and verified** |
 | 1 | Backend foundation: authentication, database persistence, audit logging, API | **Implemented and verified on SQLite; PostgreSQL runtime verification BLOCKED (server absent)** |
-| 2 | Workspace model and authorized-scope enforcement | Not started |
+| 2 | Workspace model, membership RBAC, authorized scopes and deterministic scope validation | **Implemented and verified on SQLite; PostgreSQL runtime verification BLOCKED (server absent)** |
 | 3 | Asset discovery | Not started |
 | 4 | Deterministic detection engine | Not started |
 | 5 | Angular dashboard | Not started |
@@ -44,7 +44,7 @@ fabricates scan results, findings, or metrics.
 | PostgreSQL (Phase 1+) | 16+ | Not installed on the development machine; schema generated but server verification BLOCKED |
 | Docker (optional) | 24+ | Not installed on the development machine |
 
-The Phase 1 backend runs locally with the .NET SDK alone: the `Development` profile uses a SQLite
+The Phase 2 backend runs locally with the .NET SDK alone: the `Development` profile uses a SQLite
 file database that is migrated automatically on startup. A deployed instance requires PostgreSQL.
 Docker and Nmap are not required by any implemented feature.
 
@@ -70,7 +70,7 @@ Invoke-RestMethod http://localhost:5080/api/system/info
 
 OpenAPI document (Development environment only): `http://localhost:5080/openapi/v1.json`
 
-## API surface (Phase 1)
+## API surface (Phase 2)
 
 | Method | Path | Auth | Purpose |
 |---|---|---|---|
@@ -84,7 +84,35 @@ OpenAPI document (Development environment only): `http://localhost:5080/openapi/
 | GET | `/api/auth/me` | required | Returns the authenticated account and roles |
 | GET | `/api/admin/users` | Administrator | Paged account list |
 | GET | `/api/admin/audit` | Administrator | Paged security audit log, newest first |
+| POST | `/api/workspaces` | required + CSRF | Creates a workspace; caller becomes Owner |
+| GET | `/api/workspaces` | required | Lists only workspaces the caller belongs to |
+| GET | `/api/workspaces/{id}` | member | Workspace details; non-members receive 404 |
+| PUT | `/api/workspaces/{id}` | Owner/Administrator + CSRF | Updates workspace details |
+| POST | `/api/workspaces/{id}/archive` | Owner + CSRF | Archives a workspace |
+| GET | `/api/workspaces/{id}/members` | member | Lists members |
+| POST | `/api/workspaces/{id}/members` | Owner/Administrator + CSRF | Adds a member |
+| PATCH | `/api/workspaces/{id}/members/{userId}` | Owner/Administrator + CSRF | Changes a member role |
+| DELETE | `/api/workspaces/{id}/members/{userId}` | Owner/Administrator + CSRF | Removes a member |
+| POST | `/api/workspaces/{id}/scopes` | member + CSRF | Registers a scope (always Pending) |
+| GET | `/api/workspaces/{id}/scopes` | member | Lists scopes |
+| GET | `/api/workspaces/{id}/scopes/{scopeId}` | member | Returns one scope |
+| POST | `/api/workspaces/{id}/scopes/{scopeId}/approve` | Owner/Administrator + CSRF | Explicit approval with evidence |
+| POST | `/api/workspaces/{id}/scopes/{scopeId}/revoke` | Owner/Administrator + CSRF | Revokes a scope |
+| POST | `/api/workspaces/{id}/scopes/{scopeId}/expire` | Owner/Administrator + CSRF | Marks a scope expired after its deadline |
+| PATCH | `/api/workspaces/{id}/scopes/{scopeId}/restrictions` | Owner/Administrator + CSRF | Updates restrictions; resets approval to Pending |
+| POST | `/api/workspaces/{id}/scopes/evaluate` | member + CSRF | Evaluates a destination without connecting |
 | GET | `/openapi/v1.json` | anonymous | OpenAPI document (Development only) |
+
+Workspace roles are independent of the global Identity role: **Owner** manages everything including
+archiving and ownership; **Administrator** updates the workspace and manages non-owner members and
+scopes; **Analyst** reads and may register scopes that stay Pending. A global Administrator who is not
+a workspace member receives `404` for that workspace.
+
+Scope registration never approves a target. Approval requires an Owner or Administrator and a
+non-empty evidence reference. Hostname approval does not approve the addresses it resolves to; every
+resolved address must match an approved IP/CIDR scope. Private, loopback, link-local and reserved
+destinations are denied unless `TraceForge:Scopes:AllowPrivateNetworks=true` **and** the matching scope
+carries the `private-network` restriction.
 
 Authentication uses an HttpOnly, SameSite=Strict session cookie (`traceforge.auth`). Every unsafe
 request must send the antiforgery token from `GET /api/auth/csrf` in the `X-XSRF-TOKEN` header.
@@ -114,6 +142,7 @@ Settings are validated at startup; an invalid value stops the process instead of
 | `TraceForge:Database:Provider` | `PostgreSql` | `Sqlite` or `PostgreSql` |
 | `TraceForge:Database:ConnectionString` | empty | Required; supplied per environment |
 | `TraceForge:Database:ApplyMigrationsOnStartup` | `false` | `true` in the local development profile |
+| `TraceForge:Scopes:AllowPrivateNetworks` | `false` | Must stay `false` outside an isolated lab; a matching scope must also carry `private-network` |
 
 Use environment variables with double underscores in deployment, for example
 `TraceForge__RateLimiting__PermitLimit=240`. See `.env.example`. Secrets are never stored in this
@@ -122,6 +151,8 @@ repository.
 ## Documentation
 
 - [Architecture overview](docs/architecture/overview.md)
+- [API reference](docs/api/endpoints.md)
+- [Database schema](docs/database/schema.md)
 - [Development setup](docs/development/setup.md)
 - [Testing guide](docs/development/testing.md)
 - [Threat model](docs/security/threat-model.md)
@@ -129,6 +160,7 @@ repository.
 - [Initial repository audit](docs/reports/initial-audit.md)
 - [Phase 0 completion report](docs/reports/phase-0-baseline.md)
 - [Phase 1 completion report](docs/reports/phase-1-foundation.md)
+- [Phase 2 completion report](docs/reports/phase-2-workspaces.md)
 
 ## Contributing
 

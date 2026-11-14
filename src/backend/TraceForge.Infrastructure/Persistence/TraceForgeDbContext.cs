@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TraceForge.Domain.Audit;
+using TraceForge.Domain.Scopes;
+using TraceForge.Domain.Workspaces;
 
 namespace TraceForge.Infrastructure.Persistence;
 
@@ -10,7 +12,7 @@ namespace TraceForge.Infrastructure.Persistence;
 /// Single EF Core context for the modular monolith. Identity tables and product tables share one
 /// transaction boundary so an account and its audit record can be written atomically where needed.
 /// </summary>
-public sealed class TraceForgeDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
+public sealed partial class TraceForgeDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
 {
     public TraceForgeDbContext(DbContextOptions<TraceForgeDbContext> options)
         : base(options)
@@ -18,6 +20,16 @@ public sealed class TraceForgeDbContext : IdentityDbContext<ApplicationUser, Ide
     }
 
     public DbSet<AuditLogEntry> AuditLogs => Set<AuditLogEntry>();
+
+    public DbSet<Workspace> Workspaces => Set<Workspace>();
+
+    public DbSet<WorkspaceMembership> WorkspaceMemberships => Set<WorkspaceMembership>();
+
+    public DbSet<AuthorizedScope> AuthorizedScopes => Set<AuthorizedScope>();
+
+    public DbSet<ScopeApproval> ScopeApprovals => Set<ScopeApproval>();
+
+    public DbSet<ScopeAuditEvent> ScopeAuditEvents => Set<ScopeAuditEvent>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -56,6 +68,9 @@ public sealed class TraceForgeDbContext : IdentityDbContext<ApplicationUser, Ide
             audit.HasIndex(a => a.Action);
             audit.HasIndex(a => a.ActorUserId);
         });
+
+        ConfigureWorkspaces(builder);
+        ConfigureScopes(builder);
 
         // SQLite cannot ORDER BY DateTimeOffset columns. Persist them as Unix milliseconds for the
         // SQLite provider so ordering and range queries stay in SQL and remain timezone-safe.

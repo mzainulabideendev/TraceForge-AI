@@ -52,7 +52,35 @@ internal sealed class ApiTestClient : IDisposable
 
     public async Task<HttpResponseMessage> PostJsonAsync(string path, object payload, bool includeCsrfToken = true)
     {
-        using var request = new HttpRequestMessage(HttpMethod.Post, new Uri(path, UriKind.Relative))
+        return await SendJsonAsync(HttpMethod.Post, path, payload, includeCsrfToken);
+    }
+
+    public Task<HttpResponseMessage> PutJsonAsync(string path, object payload, bool includeCsrfToken = true) =>
+        SendJsonAsync(HttpMethod.Put, path, payload, includeCsrfToken);
+
+    public Task<HttpResponseMessage> PatchJsonAsync(string path, object payload, bool includeCsrfToken = true) =>
+        SendJsonAsync(HttpMethod.Patch, path, payload, includeCsrfToken);
+
+    public async Task<HttpResponseMessage> DeleteAsync(string path, bool includeCsrfToken = true)
+    {
+        using var request = new HttpRequestMessage(HttpMethod.Delete, new Uri(path, UriKind.Relative));
+
+        if (includeCsrfToken)
+        {
+            _csrfToken ??= await FetchCsrfTokenAsync();
+            request.Headers.Add("X-XSRF-TOKEN", _csrfToken);
+        }
+
+        return await _client.SendAsync(request);
+    }
+
+    private async Task<HttpResponseMessage> SendJsonAsync(
+        HttpMethod method,
+        string path,
+        object payload,
+        bool includeCsrfToken)
+    {
+        using var request = new HttpRequestMessage(method, new Uri(path, UriKind.Relative))
         {
             Content = JsonContent.Create(payload),
         };

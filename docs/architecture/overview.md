@@ -1,7 +1,7 @@
 # Architecture Overview
 
-Status: **Phase 1 foundation**. Sections marked *planned* describe the target design and are not yet
-implemented.
+Status: **Phase 2 workspace isolation and authorized scopes**. Sections marked *planned* describe the
+target design and are not yet implemented.
 
 ## 1. Design principles
 
@@ -15,7 +15,7 @@ implemented.
    measured load justifies them.
 5. **No simulated results in production paths.** Test doubles exist only inside tests.
 
-## 2. Current state (Phase 1)
+## 2. Current state (Phase 2)
 
 ```text
 +-------------------------------------------------------------+
@@ -35,8 +35,9 @@ implemented.
         +----------------------+----------------------+
         |                      |                      |
   TraceForge.Domain     TraceForge.Application  TraceForge.Infrastructure
-  identities, audit     account + audit ports   EF Core, Identity stores,
-  invariants            and DTOs                audit storage, options
+  identities, audit,    account, workspace     EF Core, Identity stores,
+  workspaces, scopes    and scope ports        services, DNS resolver,
+  invariants                                   audit storage, options
                                |
         +----------------------+----------------------+
         |                                             |
@@ -46,11 +47,19 @@ implemented.
 
 Implemented in Phase 1 and inserted at runtime: Identity accounts and roles, session cookies,
 antiforgery enforcement on every unsafe `/api` request, audit records, a SQLite development profile
-and a PostgreSQL deployment profile. Nothing is mocked: tests boot this exact pipeline through
-`WebApplicationFactory<Program>` and use a real migrated database file.
+and a PostgreSQL deployment profile.
 
-Not implemented yet: workspaces and authorized scopes (Phase 2), assets (Phase 3), findings,
-graphs, AI adapters, reporting.
+Implemented in Phase 2: `Workspace`, `WorkspaceMembership`, workspace roles and permissions,
+`AuthorizedScope`, `ScopeApproval`, `ScopeAuditEvent`, workspace and membership APIs, authorized-scope
+management, deterministic scope validation with pinned addresses, and centralized server-side
+workspace authorization. Workspace roles are separate from global Identity roles; every workspace
+operation resolves the caller's stored membership before acting.
+
+Nothing is mocked: tests boot this exact pipeline through `WebApplicationFactory<Program>` and use a
+real migrated database file per test. DNS is replaced only in service-level policy tests through the
+`IDnsResolver` port.
+
+Not implemented yet: assets (Phase 3), findings, graphs, AI adapters, reporting.
 
 ## 3. Target architecture (planned)
 
@@ -92,6 +101,11 @@ by executed tests; `Security`, `Graph`, `AI` and `Reporting` are still absent.
 | ADR-006 | Severity and confidence are separate persisted fields | A high-severity, low-confidence hypothesis must not be presented as fact | Accepted |
 | ADR-007 | Stable finding fingerprint (rule id + asset + canonical evidence key) | Prevents duplicate findings across re-scans while preserving history | Accepted |
 | ADR-008 | AI responses are untrusted and schema-validated; no tool execution | Prompt injection is expected, not exceptional | Accepted |
+| ADR-009 | Workspace membership is an explicit row; a global role grants no workspace access | Prevents implicit privilege escalation and makes isolation testable | Implemented |
+| ADR-010 | Non-members receive 404, members lacking a role receive 403 | Avoids disclosing whether a workspace id exists | Implemented |
+| ADR-011 | Scope registration is always Pending; approval is a separate audited action | No target becomes usable through registration alone | Implemented |
+| ADR-012 | Hostname approval never approves resolved addresses; the policy returns pinned IPs | Defeats DNS rebinding and forces callers to connect to validated addresses | Implemented policy; connection pinning is enforced by Phase 3 scanners |
+| ADR-013 | Private, loopback, link-local and reserved ranges require both a deployment switch and a `private-network` scope restriction | Makes lab access explicit and impossible to enable by scope alone | Implemented |
 
 ## 5. Data model (implemented portion)
 
@@ -104,15 +118,30 @@ Implemented in Phase 1 (EF Core `InitialCreate`, both providers):
 | `AuditLogs` | Append-only security audit records: action, outcome, actor, target, UTC timestamp, IP, user agent |
 | `__EFMigrationsHistory` | Applied migration ledger |
 
+Implemented in Phase 2 (`Phase2Workspaces`, both providers):
+
+| Table | Purpose | Key constraints |
+|---|---|---|
+| `Workspaces` | Tenant boundary: name, description, status, archive time, creator, UTC timestamps | FK creator → `AspNetUsers` (RESTRICT); indexes on status and creation time |
+| `WorkspaceMemberships` | One explicit role per user per workspace | Unique `(WorkspaceId, UserId)`; FK workspace CASCADE; FK user RESTRICT |
+| `AuthorizedScopes` | Normalized target, type, approval lifecycle, evidence, timestamps, restrictions | Unique `(WorkspaceId, Type, NormalizedTarget)`; indexes on `(WorkspaceId, Status)` and expiry; FK workspace CASCADE |
+| `ScopeApprovals` | Immutable approval history for each explicit approval decision | FK scope and workspace CASCADE; approver RESTRICT |
+| `ScopeAuditEvents` | Append-only per-scope lifecycle history | FK scope and workspace CASCADE; actor RESTRICT |
+
 SQLite stores `DateTimeOffset` values as Unix milliseconds (integer) because the provider cannot
 order by `DateTimeOffset`; PostgreSQL uses native `timestamptz`. Values are always written in UTC.
 
-Planned (not yet created): `Workspaces`, `AuthorizedScopes`, `Assets`, `ScanJobs`, `ScanEvents`,
-`Findings`, `Evidence`, `DetectionRules`, `AttackGraphNodes`, `AttackGraphEdges`, `AiInvestigations`,
-`AiProviderUsage`, `RemediationTasks`, `VerificationRuns`, `Incidents`, `IncidentEvents`.
+Application-level authorization is explicit in the workspace and scope services. Global query filters
+are deliberately **not** used yet: they would silently change query semantics and make a missing
+membership check invisible. Every workspace method instead calls one access resolver, and tests cover
+cross-workspace reads and writes. A database-enforced row-level policy remains a hardening option.
 
-Rules: UTC timestamps, workspace-scoped queries enforced by global query filters, evidence digests,
-no secrets in findings, retention policy per workspace.
+Planned (not yet created): `Assets`, `ScanJobs`, `ScanEvents`, `Findings`, `Evidence`,
+`DetectionRules`, `AttackGraphNodes`, `AttackGraphEdges`, `AiInvestigations`, `AiProviderUsage`,
+`RemediationTasks`, `VerificationRuns`, `Incidents`, `IncidentEvents`.
+
+Rules: UTC timestamps, workspace-scoped queries enforced server-side, evidence digests, no secrets in
+findings, retention policy per workspace.
 
 ## 6. Request lifecycle (implemented)
 
@@ -126,13 +155,18 @@ no secrets in findings, retention policy per workspace.
    endpoint runs; the token is issued by `GET /api/auth/csrf`.
 6. Cookie authentication resolves the session (`traceforge.auth`, HttpOnly, SameSite=Strict);
    unauthenticated requests receive RFC 9457 `401`, unauthorized roles receive `403`.
-7. Endpoint executes; errors become `application/problem+json` with `traceId` and `instance`.
-8. Authentication-relevant actions (registration, sign-in success/failure, lockout, logout, admin
-   reads) append audit records with actor, outcome, UTC timestamp, IP and user agent.
+7. Endpoint executes. Workspace endpoints resolve the caller's stored membership and role first;
+   non-members get `404`, insufficient roles get `403`, archived workspaces get `409` for mutations.
+8. Errors become `application/problem+json` with `traceId` and `instance`.
+9. Authentication, workspace, membership and scope actions append audit records with actor, outcome,
+   UTC timestamp, IP and user agent. Scope actions also append a per-scope `ScopeAuditEvent`.
 
 ## 7. Open architectural questions
 
 - Analysis workers: in-process .NET for HTTP/TLS checks versus a Python service for deeper parsing.
   Decision deferred to Phase 4, based on measured needs.
 - Evidence blob storage: database vs. filesystem content-addressed store. Deferred to Phase 3.
-- Multi-tenancy isolation strategy (row-level filters vs. schema per workspace). Deferred to Phase 2.
+- Multi-tenancy isolation strategy: explicit server-side membership resolution (implemented) versus
+  database row-level security. Database-enforced isolation remains a Phase 13 hardening option.
+- DNS resolution port: the policy validates resolved addresses and returns pins; Phase 3 scanners must
+  connect to those pins and must not re-resolve. Enforcement at connection time is not implemented yet.

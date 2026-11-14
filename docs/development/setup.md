@@ -54,6 +54,23 @@ dotnet user-secrets set "TraceForge:InstanceName" "Local Lab" --project src\back
 
 Environment variables use double underscores: `TraceForge__RateLimiting__PermitLimit=240`.
 
+### Phase 2 scope settings
+
+| Setting | Default | Purpose |
+|---|---|---|
+| `TraceForge:Scopes:AllowPrivateNetworks` | `false` | Allows private/loopback/link-local/reserved destinations to be considered at all |
+
+`AllowPrivateNetworks` is only one of two required conditions: the matching approved scope must also
+carry the `private-network` restriction. Keep the switch `false` outside an isolated lab.
+
+```powershell
+# Isolated lab only
+dotnet user-secrets set "TraceForge:Scopes:AllowPrivateNetworks" "true" --project src\backend\TraceForge.Api
+```
+
+`POST /api/workspaces/{id}/scopes/evaluate` performs no network I/O; it evaluates stored scopes and
+returns pinned addresses. Phase 2 contains no scanning or connection code.
+
 ## Database
 
 Two provider-specific migration assemblies exist so each provider gets correct column types:
@@ -87,7 +104,7 @@ dotnet ef migrations add <Name> --project src\backend\TraceForge.Migrations.Post
 
 # Generate a deployment SQL script
 dotnet ef migrations script --project src\backend\TraceForge.Migrations.PostgreSql `
-  --output docs\reports\evidence\postgresql-schema.sql
+  --output docs\reports\evidence\phase-2-postgresql-schema.sql
 
 # Apply to a real PostgreSQL server (not available on the audited machine)
 dotnet ef database update --project src\backend\TraceForge.Migrations.PostgreSql `
@@ -106,8 +123,8 @@ TraceForge__Database__ApplyMigrationsOnStartup=false
 
 Apply migrations out of band with `dotnet ef database update` or the generated SQL script. The
 schema script was produced on the audited machine, but **no PostgreSQL server exists there, so the
-script has never been executed**. Readiness fails until the schema is applied. See the Phase 1 report
-for this explicit limitation.
+script has never been executed**. Readiness fails until the schema is applied. The Phase 1 and Phase 2
+reports record this explicit limitation.
 
 ## Logs
 

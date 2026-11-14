@@ -49,6 +49,8 @@ var api = app.MapGroup("/api").AddEndpointFilter<AntiforgeryEndpointFilter>();
 
 api.MapAuthEndpoints();
 api.MapAdminEndpoints();
+api.MapWorkspaceEndpoints();
+api.MapScopeEndpoints();
 
 app.MapFallback(static (HttpContext context) => Results.Problem(
     statusCode: StatusCodes.Status404NotFound,

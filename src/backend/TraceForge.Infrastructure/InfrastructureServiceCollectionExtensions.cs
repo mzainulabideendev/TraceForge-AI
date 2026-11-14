@@ -6,11 +6,15 @@ using Microsoft.Extensions.Options;
 using TraceForge.Application.Accounts;
 using TraceForge.Application.Audit;
 using TraceForge.Application.Common;
+using TraceForge.Application.Scopes;
+using TraceForge.Application.Workspaces;
 using TraceForge.Infrastructure.Audit;
 using TraceForge.Infrastructure.Configuration;
 using TraceForge.Infrastructure.Http;
 using TraceForge.Infrastructure.Identity;
 using TraceForge.Infrastructure.Persistence;
+using TraceForge.Infrastructure.Scopes;
+using TraceForge.Infrastructure.Workspaces;
 
 namespace TraceForge.Infrastructure;
 
@@ -52,6 +56,7 @@ public static class InfrastructureServiceCollectionExtensions
 
         services.AddHttpContextAccessor();
         services.AddScoped<IRequestContext, HttpRequestContext>();
+        services.AddScoped<ICurrentUser, HttpCurrentUser>();
 
         services.AddDbContext<TraceForgeDbContext>((provider, options) =>
         {
@@ -73,9 +78,17 @@ public static class InfrastructureServiceCollectionExtensions
 
         AddIdentity(services);
 
+        services.AddOptions<ScopeValidationOptions>()
+            .Bind(configuration.GetSection(ScopeValidationOptions.SectionName))
+            .ValidateOnStart();
+
         services.AddScoped<IAuditLogWriter, AuditLogWriter>();
         services.AddScoped<IAuditLogReader, AuditLogReader>();
         services.AddScoped<IAccountService, AccountService>();
+        services.AddScoped<IWorkspaceService, WorkspaceService>();
+        services.AddScoped<IScopeService, ScopeService>();
+        services.AddScoped<IDnsResolver, SystemDnsResolver>();
+        services.AddScoped<IScopeValidationService, ScopeValidationService>();
 
         return services;
     }

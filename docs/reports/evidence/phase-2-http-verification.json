@@ -1,0 +1,92 @@
+﻿[
+    {
+        "Step":  "ready",
+        "Status":  200,
+        "Detail":  "Kestrel started against a fresh SQLite database"
+    },
+    {
+        "Step":  "register-owner",
+        "Status":  201,
+        "Detail":  "first account (global Administrator)"
+    },
+    {
+        "Step":  "create-workspace",
+        "Status":  201,
+        "Detail":  "id=ce70a7b7-15f9-4728-a16e-200f90722627;callerRole=1"
+    },
+    {
+        "Step":  "register-scope-ipv4",
+        "Status":  201,
+        "Detail":  "status=Pending"
+    },
+    {
+        "Step":  "approve-scope",
+        "Status":  200,
+        "Detail":  "status=Approved"
+    },
+    {
+        "Step":  "evaluate-approved-ip",
+        "Status":  200,
+        "Detail":  "allowed=True;pinned=8.8.8.8"
+    },
+    {
+        "Step":  "evaluate-cidr-member",
+        "Status":  200,
+        "Detail":  "allowed=True"
+    },
+    {
+        "Step":  "evaluate-outside-scope",
+        "Status":  200,
+        "Detail":  "allowed=False;reason=NoApprovedScope"
+    },
+    {
+        "Step":  "evaluate-private-blocked",
+        "Status":  200,
+        "Detail":  "allowed=False;reason=PrivateNetworkBlocked"
+    },
+    {
+        "Step":  "register-analyst",
+        "Status":  201,
+        "Detail":  "second account"
+    },
+    {
+        "Step":  "add-analyst-member",
+        "Status":  201,
+        "Detail":  "workspace role Analyst"
+    },
+    {
+        "Step":  "analyst-approve-denied",
+        "Status":  403,
+        "Detail":  "role lacks ApproveScopes"
+    },
+    {
+        "Step":  "register-outsider",
+        "Status":  201,
+        "Detail":  "third account, not a member"
+    },
+    {
+        "Step":  "outsider-get-workspace",
+        "Status":  404,
+        "Detail":  "non-member receives 404"
+    },
+    {
+        "Step":  "last-owner-remove-denied",
+        "Status":  409,
+        "Detail":  "last owner is protected"
+    },
+    {
+        "Step":  "archive-workspace",
+        "Status":  200,
+        "Detail":  "status=Archived"
+    },
+    {
+        "Step":  "update-archived-denied",
+        "Status":  409,
+        "Detail":  "archived workspace rejects mutations"
+    },
+    {
+        "Step":  "audit-query",
+        "Status":  200,
+        "Detail":  "workspace.created=True;scope.approved=True;workspace.archived=True"
+    }
+]
