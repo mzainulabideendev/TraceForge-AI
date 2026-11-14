@@ -1,0 +1,147 @@
+{
+  "report": "phase-2-frontend",
+  "application": "TraceForge AI",
+  "generatedAtUtc": "2026-11-14T14:05:00Z",
+  "featureCommit": "5e88921",
+  "scope": "Angular web console for the Phase 1-2 capabilities, same-origin SPA hosting by the API, and free hosting guidance. No Phase 3 capability was added.",
+  "status": {
+    "implementation": "PASS",
+    "localVerification": "PASS",
+    "deployment": "NOT RUN",
+    "postgresqlRuntime": "NOT RUN"
+  },
+  "delivered": {
+    "frontend": {
+      "framework": "Angular 22.2.7",
+      "mode": "standalone components, zoneless change detection, signals",
+      "screens": [
+        "sign-in",
+        "registration",
+        "workspace list with create",
+        "workspace overview with edit and archive",
+        "workspace members with role management",
+        "authorized scopes with register/approve/revoke/expire/restrictions",
+        "scope evaluation console",
+        "administration: accounts and audit log",
+        "not found"
+      ],
+      "coreBehaviour": [
+        "antiforgery double-submit contract with one-shot refresh and retry",
+        "antiforgery token reset after each authentication transition",
+        "typed wire models with numeric enum mapping",
+        "RFC 9457 problem rendering on every screen",
+        "route guards for authenticated, guest and administrator routes",
+        "401 handling that clears the client session view"
+      ]
+    },
+    "backend": {
+      "changes": [
+        "optional static hosting of wwwroot with SPA route fallback",
+        "path-aware Content-Security-Policy for console documents",
+        "gitignore entries for generated hosting output, Supabase CLI scratch state and credentials"
+      ],
+      "endpointsChanged": 0,
+      "migrationsAdded": 0
+    }
+  },
+  "defectsFoundAndFixed": [
+    {
+      "id": "csrf-identity-binding",
+      "symptom": "First mutating request after register/login returned 400 Antiforgery validation failed.",
+      "cause": "ASP.NET Core antiforgery tokens are bound to the identity that requested them; the client cached the anonymous token.",
+      "fix": "AuthService resets the cached token after login, registration and logout; the interceptor keeps a refresh-and-retry safety net."
+    },
+    {
+      "id": "critical-css-inline-script-csp",
+      "symptom": "Console rendered unstyled in a real browser while the build reported success.",
+      "cause": "Angular critical-CSS inlining injects an inline script that flips a deferred stylesheet; the strict CSP correctly blocked it.",
+      "fix": "optimization.styles.inlineCritical disabled in the production build; the CSP keeps inline scripts banned."
+    }
+  ],
+  "verification": [
+    { "check": "backend-release-build", "command": "dotnet build TraceForge.slnx -c Release --no-incremental", "result": "PASS", "detail": "0 warnings, 0 errors" },
+    { "check": "backend-formatting", "command": "dotnet format TraceForge.slnx --verify-no-changes", "result": "PASS", "detail": "exit 0" },
+    { "check": "backend-tests", "command": "dotnet test TraceForge.slnx -c Release", "result": "PASS", "detail": "142 passed, 0 failed, 0 skipped" },
+    { "check": "frontend-build", "command": "npm run build", "result": "PASS", "detail": "production bundle generated with lazy route chunks" },
+    { "check": "frontend-formatting", "command": "npm run format:check", "result": "PASS", "detail": "all files use Prettier style" },
+    { "check": "frontend-unit-tests", "command": "npx ng test --watch=false", "result": "PASS", "detail": "11 passed, 0 failed" },
+    { "check": "live-http-end-to-end", "command": "artifacts/verify/e2e.ps1", "result": "PASS", "detail": "32 of 32 steps against a live SQLite instance" },
+    { "check": "browser-rendering", "command": "artifacts/verify/verify-ui.mjs", "result": "PASS", "detail": "headless Chrome, 0 page errors, 0 console errors" },
+    { "check": "postgresql-runtime", "command": "not available", "result": "NOT RUN", "detail": "no PostgreSQL server in this environment" },
+    { "check": "hosted-deployment", "command": "not attempted", "result": "NOT RUN", "detail": "no free host was provisioned" }
+  ],
+  "endToEnd": {
+    "total": 32,
+    "passed": 32,
+    "failed": 0,
+    "evidence": "docs/reports/evidence/frontend-e2e.json",
+    "coverage": [
+      "SPA document, hashed asset and client-route fallback served by the API",
+      "restrictive CSP preserved for JSON responses",
+      "anonymous access returns 401, unknown API route returns JSON 404",
+      "registration, session, workspace create/list/detail/update",
+      "scope registration stays Pending; malformed target rejected",
+      "evaluation denied before approval, allowed after approval with pinned address",
+      "outside-scope and private-network destinations denied",
+      "approved private target still denied by policy",
+      "analyst can read scopes but approval returns 403",
+      "outsider receives 404 for workspace and scopes",
+      "scope approval recorded in the audit log",
+      "archive succeeds and later mutation returns 409"
+    ]
+  },
+  "browserVerification": {
+    "evidence": "docs/reports/evidence/frontend-ui-verification.json",
+    "headings": {
+      "workspaceList": "Your workspaces",
+      "scopesTab": "Authorized scopes",
+      "evaluate": "Evaluate a destination"
+    },
+    "counts": { "workspaceCards": 1, "scopeRows": 3 },
+    "pageErrors": 0,
+    "consoleErrors": 0
+  },
+  "freeHostingSummary": {
+    "recommended": "MonsterASP.NET free plan serving the API and the built console from one origin",
+    "constraint": "Session and antiforgery cookies are SameSite=Strict, so the console must be same-origin with the API",
+    "alternatives": [
+      "Azure App Service F1 (60 CPU-min/day, no AlwaysOn)",
+      "Azure Container Apps free monthly grant",
+      "Render free web service (idle after ~15 min)",
+      "Oracle Cloud Always Free VM (self-managed)"
+    ],
+    "notRecommended": "Static-only hosts with a separately hosted API, because cross-site cookies are blocked",
+    "guide": "docs/deployment/free-hosting.md"
+  },
+  "knownLimitations": [
+    "Deployment to a hosting provider was documented but not executed.",
+    "PostgreSQL runtime remains unverified in this environment.",
+    "Browser verification is a one-shot DevTools script, not a committed component or e2e suite.",
+    "Members and scopes are not paginated in the console.",
+    "Destructive actions use the browser confirm dialog.",
+    "Free-tier provider limits are time-sensitive and must be re-checked."
+  ],
+  "security": {
+    "secretsCommitted": false,
+    "notes": [
+      "The Supabase connection file, Supabase CLI scratch workspace and agent-skill scaffolding are gitignored.",
+      "No .env, credential or node_modules path was present in the staged commit.",
+      "Console documents permit no inline script, no eval and no third-party origin.",
+      "The API remains the only authorization boundary; the console hides controls but never decides access."
+    ]
+  },
+  "artifacts": [
+    "src/frontend",
+    "docs/development/frontend.md",
+    "docs/deployment/free-hosting.md",
+    "docs/reports/evidence/frontend-e2e.json",
+    "docs/reports/evidence/frontend-ui-verification.json",
+    "docs/reports/evidence/frontend-unit-tests.log",
+    "docs/reports/evidence/phase-2-frontend.trx",
+    "docs/reports/evidence/frontend-login.png",
+    "docs/reports/evidence/frontend-register.png",
+    "docs/reports/evidence/frontend-workspaces.png",
+    "docs/reports/evidence/frontend-scopes.png",
+    "docs/reports/evidence/frontend-evaluate.png"
+  ]
+}
